@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
@@ -19,6 +20,12 @@ public class GameLoopThread extends Thread {
 	// used to control rate at which game loop runs
 	private long sleepTime;
 	private long delay = 32;
+	
+	// used by updateFPS() to approximate rate of frames per second, every 10 frames
+	private long FPS_intervalStartTime;
+	private int FPS_framesCounted = 0; // number of frames since was this tracking interval started
+	private final int FPS_framesPerInterval = 10; // number of frames in each FPS tracking interval
+	private int FPS = -1; //frames per second
 	
 	// use to control how often touch events are processed
 	private long lastTouchSample;
@@ -51,13 +58,14 @@ public class GameLoopThread extends Thread {
 			long beforeTime = System.nanoTime();
 
 			/** DRAW **/
+			updateFPS();
 			Canvas c = null;
 			try {
 				// lock canvas so nothing else can use it
 				c = mSurfaceHolder.lockCanvas(null);
 				synchronized (mSurfaceHolder) {
 					// draw the next frame game engine.
-					gEngine.Draw(c);
+					gEngine.Draw(c, FPS);
 				}
 			} finally {
 				// done in finally so that if an exception is thrown
@@ -92,5 +100,17 @@ public class GameLoopThread extends Thread {
 			gEngine.SampleTouchInput(e);
 		}
 		return true;
+	}
+	
+	private void updateFPS()
+	{
+		FPS_framesCounted++;
+		if(FPS_framesCounted>=FPS_framesPerInterval)
+		{
+			FPS = (int)((FPS_framesCounted*1000000000L)/(System.nanoTime()-FPS_intervalStartTime));
+			FPS_framesCounted = 0;
+			FPS_intervalStartTime = System.nanoTime();
+		}
+		Log.i("FPS",""+FPS); 
 	}
 }
