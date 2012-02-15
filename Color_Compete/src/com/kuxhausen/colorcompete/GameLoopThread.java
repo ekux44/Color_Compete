@@ -57,6 +57,9 @@ public class GameLoopThread extends Thread {
 			// time before update
 			long beforeTime = System.nanoTime();
 
+			/** UPDATE **/
+			gEngine.update();
+			
 			/** DRAW **/
 			updateFPS();
 			Canvas c = null;
