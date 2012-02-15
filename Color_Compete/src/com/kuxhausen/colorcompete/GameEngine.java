@@ -1,5 +1,7 @@
 package com.kuxhausen.colorcompete;
 
+import java.util.ArrayList;
+
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -13,9 +15,13 @@ public class GameEngine {
 	private Paint backgroundP;
 	private Paint textP;
 	private Paint userInterfaceP;
+	int width=800;	//TODO, replace hard coded value
+	int height=480;	//TODO, replace hard coded value
 	
 	/*Gamestate*/
 	ResourceSpawner[] spawns;
+	EnemySpawner enemyBase;
+	ArrayList<Tower> towers;
 	
 	//TODO update game, update physics, etc
 	
@@ -48,6 +54,8 @@ public class GameEngine {
 		temp4.setColor(Color.YELLOW);
 		spawns[3] = new ResourceSpawner(temp4,10,0);
 		
+		enemyBase = new EnemySpawner(1000);
+		towers = new ArrayList<Tower>();
 		
 	}
 	
@@ -61,7 +69,20 @@ public class GameEngine {
 		for(ResourceSpawner rs: spawns){
 			rs.update();
 			rs.fill%=rs.maxFill;//temp for testing 
-		}	
+		}
+		enemyBase.update();
+		if(enemyBase.spawnsRemaining<100) //temp for testing 
+			enemyBase.spawnsRemaining+=100; //temp for testing 
+		if(Math.random()<.3)	//temp for testing
+			towers.add(new RedTower(((float)Math.random()*.88f+.12f)*width, (float)Math.random()*height));	//temp for testing
+		for(int i=0; i<towers.size();i++){
+			towers.get(i).update();
+			towers.get(i).health--;		//temp for testing
+			if(towers.get(i).health<=0){
+				towers.remove(i);
+				i--;
+			}
+		}
 	}
 	
 	public void Draw(Canvas c, int FPS) {
@@ -70,14 +91,20 @@ public class GameEngine {
 		
 		// clear the screen with the background painter.
 		c.drawRect(0, 0, maxX, maxY, backgroundP);
-
-		//draw FPS counter
-		c.drawText("FPS:"+FPS, c.getWidth()-80, 40, textP);
 		
 		//user interface & resource spawns
 		c.drawRect(0, 0, maxX*.12f, maxY, userInterfaceP);
 		for(int i = 0; i<spawns.length; i++)
 			spawns[i].draw(c,backgroundP,10, i*maxY/spawns.length + (5 +(i==0?5:0)), maxX*.12f-10, (1+i)*maxY/spawns.length - (5+(i==(spawns.length-1)?5:0)));
 		
+		//GameBoard
+		enemyBase.draw(c);
+		for(Tower t: towers)
+			t.draw(c);
+		
+		
+		
+		//draw FPS counter
+		c.drawText("FPS:"+FPS, c.getWidth()-180, 40, textP);
 	}
 }
