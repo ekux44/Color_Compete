@@ -42,19 +42,22 @@ public class GameEngine {
 		userInterfaceP = new Paint();
 		userInterfaceP.setColor(userInterfaceColor);
 		
-		spawns = new ResourceSpawner[4];
+		spawns = new ResourceSpawner[2];
 		Paint temp1 = new Paint();
 		temp1.setColor(Color.BLUE);
-		spawns[0] = new ResourceSpawner(temp1,5,20);
+		spawns[0] = new ResourceSpawner(temp1,5,20){
+			public Tower spawnResource(float x, float y){
+				return new BlueTower(x,y);
+			}
+		};
 		Paint temp2 = new Paint();
-		temp2.setColor(Color.GREEN);
-		spawns[1] = new ResourceSpawner(temp2,1,0);
-		Paint temp3 = new Paint();
-		temp3.setColor(Color.RED);
-		spawns[2] = new ResourceSpawner(temp3,4,0);
-		Paint temp4 = new Paint();
-		temp4.setColor(Color.YELLOW);
-		spawns[3] = new ResourceSpawner(temp4,10,0);
+		temp2.setColor(Color.RED);
+		spawns[1] = new ResourceSpawner(temp2,1,0){
+			public Tower spawnResource(float x, float y){
+				return new RedTower(x,y);
+			}
+		};
+
 		
 		enemyBase = new EnemySpawner(1000);
 		towers = new ArrayList<Tower>();
@@ -75,8 +78,10 @@ public class GameEngine {
 		enemyBase.update();
 		if(enemyBase.spawnsRemaining<100) //temp for testing 
 			enemyBase.spawnsRemaining+=100; //temp for testing 
-		if(Math.random()<.3)	//temp for testing
-			towers.add(new RedTower(((float)Math.random()*.88f+.12f)*width, (float)Math.random()*height));	//temp for testing
+		if(Math.random()<.02)	//temp for testing
+			towers.add(spawns[0].spawnResource(((float)Math.random()*.88f+.12f)*width, (float)Math.random()*height));	//temp for testing
+		if(Math.random()<.1)	//temp for testing
+			towers.add(spawns[1].spawnResource(((float)Math.random()*.88f+.12f)*width, (float)Math.random()*height));	//temp for testing
 		for(int i=0; i<towers.size();i++){
 			towers.get(i).update();
 			towers.get(i).health--;		//temp for testing

@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.Log;
 
-public class ResourceSpawner {
+public abstract class ResourceSpawner {
 	
 	Paint p;
 	int respawnRate;
@@ -34,4 +34,8 @@ public class ResourceSpawner {
 		if(fill%maxFill!=0)
 			c.drawRect(startX, startY+incrementY*(9-fill/100), startX+incrementX*((fill%100)/respawnRate), startY+incrementY*(10-fill/100), p);
 	}
+	//Must OverRide
+	public abstract Tower spawnResource(float x, float y);//{
+	//	return null;
+	//}
 }
