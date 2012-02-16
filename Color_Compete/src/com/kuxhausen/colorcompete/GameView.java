@@ -29,6 +29,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		// initialize game loop thread, start will be called later
 		gThread = new GameLoopThread(holder, context, new Handler(), gEngine);
 		setFocusable(true);
+		
+		
 	}
 
 	/** constructor **/

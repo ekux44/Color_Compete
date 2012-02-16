@@ -15,8 +15,7 @@ public class GameEngine {
 	private Paint backgroundP;
 	private Paint textP;
 	private Paint userInterfaceP;
-	int width=800;	//TODO, replace hard coded value
-	int height=480;	//TODO, replace hard coded value
+	int width, height; //TODO create scaling factor
 	
 	/*Gamestate*/
 	ResourceSpawner[] spawns;
@@ -25,7 +24,10 @@ public class GameEngine {
 	
 	//TODO update game, update physics, etc
 	
-	public void Init(Resources resources) {
+	public void Init(Resources resource) {
+		
+		height=resource.getDisplayMetrics().heightPixels;
+		width=resource.getDisplayMetrics().widthPixels;
 		
 		// black painter below to clear the screen before the game is rendered
 		backgroundP = new Paint();
