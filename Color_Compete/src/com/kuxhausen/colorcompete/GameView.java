@@ -9,9 +9,9 @@ import android.view.SurfaceView;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
-	/**handler to the display surface**/
+	/** handler to the display surface **/
 	private SurfaceHolder surfaceHolder;
-	
+
 	private GameEngine gEngine;
 	private Context context;
 	private GameLoopThread gThread;
@@ -29,8 +29,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		// initialize game loop thread, start will be called later
 		gThread = new GameLoopThread(holder, context, new Handler(), gEngine);
 		setFocusable(true);
-		
-		
+
 	}
 
 	/** constructor **/
@@ -39,13 +38,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		context = cont;
 		InitView();
 	}
-	
+
 	/** constructor **/
 	public GameView(Context cont, AttributeSet attrs) {
 		super(cont, attrs);
 		context = cont;
 		InitView();
 	}
+
 	/** constructor **/
 	public GameView(Context cont, AttributeSet attrs, int defStyle) {
 		super(cont, attrs, defStyle);
@@ -55,8 +55,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-    	return gThread.doTouchEvent(event);
-    }
+		return gThread.doTouchEvent(event);
+	}
 
 	@Override
 	public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {

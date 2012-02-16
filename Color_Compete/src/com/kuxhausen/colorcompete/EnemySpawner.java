@@ -10,18 +10,22 @@ public class EnemySpawner {
 	int spawnRate = 2;
 	int spawnsRemaining;
 	final int totalSpawns;
-	
-	public EnemySpawner(int enemiesToSpawn){
+
+	public EnemySpawner(int enemiesToSpawn) {
 		p = new Paint();
 		p.setShadowLayer(20, 0, 0, Color.GRAY);
 		totalSpawns = enemiesToSpawn;
-		spawnsRemaining=totalSpawns;
+		spawnsRemaining = totalSpawns;
 	}
-	public void update(){
-		spawnsRemaining-=spawnRate;
+
+	public void update() {
+		spawnsRemaining -= spawnRate;
 	}
-	public void draw(Canvas c){
-		
-		c.drawRect(c.getWidth()*(1f-.08f*spawnsRemaining/(float)totalSpawns) , 0, c.getWidth(), c.getHeight(), p);
+
+	public void draw(Canvas c) {
+
+		c.drawRect(c.getWidth()
+				* (1f - .08f * spawnsRemaining / (float) totalSpawns), 0,
+				c.getWidth(), c.getHeight(), p);
 	}
 }

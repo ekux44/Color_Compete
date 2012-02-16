@@ -11,7 +11,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
 public class GameLoopThread extends Thread {
-	
+
 	private SurfaceHolder mSurfaceHolder;
 	private Handler mHandler;
 	private Context mContext;
@@ -20,18 +20,20 @@ public class GameLoopThread extends Thread {
 	// used to control rate at which game loop runs
 	private long sleepTime;
 	private long delay = 32;
-	
-	// used by updateFPS() to approximate rate of frames per second, every 10 frames
+
+	// used by updateFPS() to approximate rate of frames per second, every 10
+	// frames
 	private long FPS_intervalStartTime;
-	private int FPS_framesCounted = 0; // number of frames since was this tracking interval started
-	private final int FPS_framesPerInterval = 10; // number of frames in each FPS tracking interval
-	private int FPS = -1; //frames per second
-	
+	private int FPS_framesCounted = 0; // number of frames since was this
+										// tracking interval started
+	private final int FPS_framesPerInterval = 10; // number of frames in each
+													// FPS tracking interval
+	private int FPS = -1; // frames per second
+
 	// use to control how often touch events are processed
 	private long lastTouchSample;
 	private long touchSamplingInterval = 20;
-	
-	
+
 	// state of game
 	int state = 1;
 	public final static int RUNNING = 1;
@@ -47,8 +49,10 @@ public class GameLoopThread extends Thread {
 		gEngine = gEngineS;
 	}
 
-	/** invoked when the call to start() is made from the SurfaceView class. 
-	 * It loops continuously until the game is finished or the application is suspended.
+	/**
+	 * invoked when the call to start() is made from the SurfaceView class. It
+	 * loops continuously until the game is finished or the application is
+	 * suspended.
 	 */
 	@Override
 	public void run() {
@@ -59,7 +63,7 @@ public class GameLoopThread extends Thread {
 
 			/** UPDATE **/
 			gEngine.update();
-			
+
 			/** DRAW **/
 			updateFPS();
 			Canvas c = null;
@@ -79,12 +83,12 @@ public class GameLoopThread extends Thread {
 			}
 
 			/** SLEEP **/
-			// recalculate sleep delay 
+			// recalculate sleep delay
 			this.sleepTime = delay
 					- ((System.nanoTime() - beforeTime) / 1000000L);
 
 			try {
-				//sleep
+				// sleep
 				if (sleepTime > 0) {
 					this.sleep(sleepTime);
 				}
@@ -95,25 +99,25 @@ public class GameLoopThread extends Thread {
 		}
 	}
 
-	//TODO revaluate approach to touch handling
-	/** passes touch events to game engine, rate limited by touchSamplingInterval **/
+	// TODO revaluate approach to touch handling
+	/**
+	 * passes touch events to game engine, rate limited by touchSamplingInterval
+	 **/
 	public boolean doTouchEvent(MotionEvent e) {
-		if((System.nanoTime() - lastTouchSample)/1000000L > touchSamplingInterval){
+		if ((System.nanoTime() - lastTouchSample) / 1000000L > touchSamplingInterval) {
 			lastTouchSample = System.nanoTime();
 			gEngine.SampleTouchInput(e);
 		}
 		return true;
 	}
-	
-	private void updateFPS()
-	{
+
+	private void updateFPS() {
 		FPS_framesCounted++;
-		if(FPS_framesCounted>=FPS_framesPerInterval)
-		{
-			FPS = (int)((FPS_framesCounted*1000000000L)/(System.nanoTime()-FPS_intervalStartTime));
+		if (FPS_framesCounted >= FPS_framesPerInterval) {
+			FPS = (int) ((FPS_framesCounted * 1000000000L) / (System.nanoTime() - FPS_intervalStartTime));
 			FPS_framesCounted = 0;
 			FPS_intervalStartTime = System.nanoTime();
 		}
-		Log.i("FPS",""+FPS); 
+		Log.i("FPS", "" + FPS);
 	}
 }
