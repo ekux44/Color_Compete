@@ -29,7 +29,8 @@ public class GameEngine {
 	ResourceSpawner[] spawns;
 	private int selectedSpawner = 0;
 	EnemySpawner enemyBase;
-	ArrayList<Tower> towers;
+	ArrayList<GamePiece> towers;
+	//GameGrid towerGrid, enemyGrid;
 
 	// TODO update game, update physics, etc
 
@@ -57,7 +58,7 @@ public class GameEngine {
 		Paint temp1 = new Paint();
 		temp1.setColor(Color.BLUE);
 		spawns[0] = new ResourceSpawner(temp1, 4, 400, 20) {
-			public Tower spawnResource(float x, float y) {
+			public GamePiece spawnResource(float x, float y) {
 				fill-=respawnCost;
 				return new BlueTower(x, y);
 			}
@@ -65,15 +66,16 @@ public class GameEngine {
 		Paint temp2 = new Paint();
 		temp2.setColor(Color.RED);
 		spawns[1] = new ResourceSpawner(temp2, 1, 30, 0) {
-			public Tower spawnResource(float x, float y) {
+			public GamePiece spawnResource(float x, float y) {
 				fill-=respawnCost;
 				return new RedTower(x, y);
 			}
 		};
 
 		enemyBase = new EnemySpawner(1000);
-		towers = new ArrayList<Tower>();
-
+		towers = new ArrayList<GamePiece>();
+		//towerGrid = new GameGrid(width*spawningRightEdgeFactor, width, height);
+		//enemyGrid = new GameGrid(width*spawningRightEdgeFactor, width, height);
 	}
 
 	public void processInput() {
@@ -126,7 +128,7 @@ public class GameEngine {
 
 		// GameBoard
 		enemyBase.draw(c);
-		for (Tower t : towers)
+		for (GamePiece t : towers)
 			t.draw(c);
 
 		// draw FPS counter

@@ -7,7 +7,7 @@ import android.graphics.Paint;
 /**(c) 2012 Eric Kuxhausen
  * @author Eric Kuxhausen
  */
-public class BlueTower extends Tower {
+public class BlueTower extends GamePiece {
 
 	static Paint p;
 

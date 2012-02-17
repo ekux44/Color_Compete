@@ -4,7 +4,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-public class BasicEnemy extends Enemy {
+/**(c) 2012 Eric Kuxhausen
+ * @author Eric Kuxhausen
+ */
+public class BasicEnemy extends GamePiece {
 
 	static Paint p;
 	float speed;

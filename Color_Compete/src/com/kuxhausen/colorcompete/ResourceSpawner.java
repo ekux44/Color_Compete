@@ -51,6 +51,6 @@ public abstract class ResourceSpawner {
 	}
 	
 	/*any implimentation should decrement fill by respawnCost*/
-	public abstract Tower spawnResource(float xCenter, float yCenter);
+	public abstract GamePiece spawnResource(float xCenter, float yCenter);
 
 }
