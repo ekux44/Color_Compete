@@ -10,6 +10,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
+/**(c) 2012 Eric Kuxhausen
+ * @author Eric Kuxhausen
+ */
 public class GameLoopThread extends Thread {
 
 	private SurfaceHolder mSurfaceHolder;

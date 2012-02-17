@@ -6,6 +6,9 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
+/**(c) 2012 Eric Kuxhausen
+ * @author Eric Kuxhausen
+ */
 public class GameActivity extends Activity {
 
 	private GameView mGameView;

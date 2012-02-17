@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+/**(c) 2012 Eric Kuxhausen
+ * @author Eric Kuxhausen
+ */
 public class LaunchScreen extends Activity implements OnClickListener {
 	/** Called when the activity is first created. */
 	@Override

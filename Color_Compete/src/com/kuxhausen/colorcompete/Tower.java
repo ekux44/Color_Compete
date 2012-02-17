@@ -2,6 +2,9 @@ package com.kuxhausen.colorcompete;
 
 import android.graphics.Canvas;
 
+/**(c) 2012 Eric Kuxhausen
+ * @author Eric Kuxhausen
+ */
 public abstract class Tower {
 
 	float xc;

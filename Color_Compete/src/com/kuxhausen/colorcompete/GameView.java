@@ -9,6 +9,9 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+/**(c) 2012 Eric Kuxhausen
+ * @author Eric Kuxhausen
+ */
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
 	/** handler to the display surface **/

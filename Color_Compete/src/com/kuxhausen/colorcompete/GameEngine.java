@@ -9,6 +9,9 @@ import android.graphics.Paint;
 import android.util.Log;
 import android.view.MotionEvent;
 
+/**(c) 2012 Eric Kuxhausen
+ * @author Eric Kuxhausen
+ */
 public class GameEngine {
 
 	/* Input */
