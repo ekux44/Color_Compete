@@ -23,7 +23,8 @@ public class GameEngine {
 	private Paint textP;
 	private Paint userInterfaceP;
 	int width, height; // TODO create scaling factor
-
+	final static float spawningRightEdgeFactor = .12f;
+	
 	/* Gamestate */
 	ResourceSpawner[] spawns;
 	private int selectedSpawner = 0;
@@ -55,15 +56,17 @@ public class GameEngine {
 		spawns = new ResourceSpawner[2];
 		Paint temp1 = new Paint();
 		temp1.setColor(Color.BLUE);
-		spawns[0] = new ResourceSpawner(temp1, 5, 20) {
+		spawns[0] = new ResourceSpawner(temp1, 4, 400, 20) {
 			public Tower spawnResource(float x, float y) {
+				fill-=respawnCost;
 				return new BlueTower(x, y);
 			}
 		};
 		Paint temp2 = new Paint();
 		temp2.setColor(Color.RED);
-		spawns[1] = new ResourceSpawner(temp2, 1, 0) {
+		spawns[1] = new ResourceSpawner(temp2, 1, 30, 0) {
 			public Tower spawnResource(float x, float y) {
+				fill-=respawnCost;
 				return new RedTower(x, y);
 			}
 		};
@@ -76,7 +79,11 @@ public class GameEngine {
 	public void processInput() {
 		gView.getInputs(touches);
 		for (MotionEvent e : touches) {
-			if (e.getAction() == MotionEvent.ACTION_UP)
+			if(e.getHistorySize()>0 && e.getHistoricalX(0)<(width*spawningRightEdgeFactor))
+				selectedSpawner= (int)(spawns.length*e.getHistoricalY(0)/height); 
+			else if(e.getAction()==MotionEvent.ACTION_DOWN && e.getX()<(width*spawningRightEdgeFactor))
+				selectedSpawner= (int)(spawns.length*e.getY()/height);
+			if (e.getAction() == MotionEvent.ACTION_UP && e.getX()>(width*spawningRightEdgeFactor) && spawns[selectedSpawner].canSpawn())
 				towers.add(spawns[selectedSpawner].spawnResource(e.getX(),
 						e.getY()));
 		}
@@ -93,10 +100,6 @@ public class GameEngine {
 		enemyBase.update();
 		if (enemyBase.spawnsRemaining < 100) // temp for testing
 			enemyBase.spawnsRemaining += 100; // temp for testing
-		if (Math.random() < .1) // temp for testing
-			towers.add(spawns[1].spawnResource(
-					((float) Math.random() * .88f + .12f) * width,
-					(float) Math.random() * height)); // temp for testing
 		for (int i = 0; i < towers.size(); i++) {
 			towers.get(i).update();
 			towers.get(i).health--; // temp for testing
@@ -108,17 +111,17 @@ public class GameEngine {
 	}
 
 	public void Draw(Canvas c, int FPS) {
-		float maxX = c.getWidth() - 1;
-		float maxY = c.getHeight() - 1;
+		float maxX = c.getWidth();
+		float maxY = c.getHeight();
 
 		// clear the screen with the background painter.
 		c.drawRect(0, 0, maxX, maxY, backgroundP);
 
 		// user interface & resource spawns
-		c.drawRect(0, 0, maxX * .12f, maxY, userInterfaceP);
+		c.drawRect(0, 0, maxX * spawningRightEdgeFactor, maxY, userInterfaceP);
 		for (int i = 0; i < spawns.length; i++)
 			spawns[i].draw(c, backgroundP, 10, i * maxY / spawns.length
-					+ (5 + (i == 0 ? 5 : 0)), maxX * .12f - 10, (1 + i) * maxY
+					+ (5 + (i == 0 ? 5 : 0)), maxX * spawningRightEdgeFactor - 10, (1 + i) * maxY
 					/ spawns.length - (5 + (i == (spawns.length - 1) ? 5 : 0)));
 
 		// GameBoard

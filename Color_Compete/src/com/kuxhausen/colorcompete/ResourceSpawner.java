@@ -10,18 +10,18 @@ import android.util.Log;
 public abstract class ResourceSpawner {
 
 	Paint p;
-	int respawnRate;
 	final int maxFill = 1000;// can't be changed without rewriting draw
-	int fill = 0;
+	int fill,respawnRate,respawnCost;
 	int xIncrements;
 	float xIncrementCoefficient;// the inverse of the number of steps the
 								// horizontal progress bar should be divided
 								// into
 	final float yIncrementCoefficient = .1f;
 
-	public ResourceSpawner(Paint paint, int spawnRate, int startingFill) {
+	public ResourceSpawner(Paint paint, int spawnRate, int spawnCost, int startingFill) {
 		p = paint;
 		respawnRate = spawnRate;
+		respawnCost= spawnCost;
 		fill = startingFill;
 		xIncrementCoefficient = respawnRate / (yIncrementCoefficient * maxFill);
 
@@ -46,6 +46,11 @@ public abstract class ResourceSpawner {
 					+ incrementY * (10 - fill / 100), p);
 	}
 
+	public boolean canSpawn(){
+		return fill>=respawnCost;
+	}
+	
+	/*any implimentation should decrement fill by respawnCost*/
 	public abstract Tower spawnResource(float xCenter, float yCenter);
 
 }

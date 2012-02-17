@@ -60,7 +60,7 @@ public class GameLoopThread extends Thread {
 	@Override
 	public void run() {
 		while (state == RUNNING) {
-			Log.i("_starting run", "" + System.nanoTime()); // temp for testing
+			//Log.i("_starting run", "" + System.nanoTime()); // temp for testing
 			// time before update
 			long beforeTime = System.nanoTime();
 
@@ -88,8 +88,7 @@ public class GameLoopThread extends Thread {
 				}
 			}
 
-			Log.i("_ending run", "" + System.nanoTime() + "    sleeptime:"
-					+ sleepTime); // temp for testing
+			//Log.i("_ending run", "" + System.nanoTime() + "    sleeptime:"+ sleepTime); // temp for testing
 
 			/** SLEEP **/
 			// recalculate sleep delay
