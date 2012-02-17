@@ -23,14 +23,15 @@ public class GameEngine {
 	private Paint textP;
 	private Paint userInterfaceP;
 	int width, height; // TODO create scaling factor
-	final static float spawningRightEdgeFactor = .12f;
+	final static float spawningRightEdgeFactor = .12f; //leftmost bounds of the play field
+	final static float enemyLeftEdgeFactor = .92f;	//rightmost bounds of the play field
 	
 	/* Gamestate */
 	ResourceSpawner[] spawns;
 	private int selectedSpawner = 0;
 	EnemySpawner enemyBase;
 	ArrayList<GamePiece> towers;
-	//GameGrid towerGrid, enemyGrid;
+	GameBoard towerGrid, enemyGrid;
 
 	// TODO update game, update physics, etc
 
@@ -74,8 +75,8 @@ public class GameEngine {
 
 		enemyBase = new EnemySpawner(1000);
 		towers = new ArrayList<GamePiece>();
-		//towerGrid = new GameGrid(width*spawningRightEdgeFactor, width, height);
-		//enemyGrid = new GameGrid(width*spawningRightEdgeFactor, width, height);
+		towerGrid = new GameBoard(width*spawningRightEdgeFactor, width*enemyLeftEdgeFactor, height);
+		enemyGrid = new GameBoard(width*spawningRightEdgeFactor, width*enemyLeftEdgeFactor, height);
 	}
 
 	public void processInput() {
@@ -85,9 +86,9 @@ public class GameEngine {
 				selectedSpawner= (int)(spawns.length*e.getHistoricalY(0)/height); 
 			else if(e.getAction()==MotionEvent.ACTION_DOWN && e.getX()<(width*spawningRightEdgeFactor))
 				selectedSpawner= (int)(spawns.length*e.getY()/height);
-			if (e.getAction() == MotionEvent.ACTION_UP && e.getX()>(width*spawningRightEdgeFactor) && spawns[selectedSpawner].canSpawn())
-				towers.add(spawns[selectedSpawner].spawnResource(e.getX(),
-						e.getY()));
+			if (e.getAction() == MotionEvent.ACTION_UP && (width*spawningRightEdgeFactor < e.getX() && e.getX()< width*enemyLeftEdgeFactor) && spawns[selectedSpawner].canSpawn())
+				towers.add(towerGrid.register(spawns[selectedSpawner].spawnResource(e.getX(),e.getY())));
+			
 		}
 
 		/** IMPORTANT **/
