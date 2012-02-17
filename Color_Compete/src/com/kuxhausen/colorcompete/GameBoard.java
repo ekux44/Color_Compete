@@ -9,7 +9,9 @@ import android.util.Log;
  */
 public class GameBoard {
 	
+	//may switch datat structures in the future, need to minimize cost of combining neighboring cells
 	ArrayList<GamePiece>[][] grid;
+	ArrayList<GamePiece> neighbors;
 	float xOffset, xSpan, ySpan;
 	final static int xTiles=4,yTiles=4;
 	
@@ -17,6 +19,7 @@ public class GameBoard {
 		xOffset = xMin;
 		xSpan = xMax-xMin;
 		ySpan = y;
+		neighbors = new ArrayList<GamePiece>();
 		grid = new ArrayList[xTiles][yTiles];
 		for(int r = 0; r<xTiles; r++)
 			for(int c= 0; c<yTiles; c++)
@@ -27,15 +30,17 @@ public class GameBoard {
 		grid[(int)(grid.length*(o.xc-xOffset)/xSpan)][(int)(grid[0].length*(o.yc)/ySpan)].add(o);
 		return o;
 	}
-	public void update(GamePiece o, float xOld, float yOld){
+	public void updateLocation(GamePiece o, float xOld, float yOld){
 		unregister(o,xOld,yOld);
 		register(o);
 	}
 	public void unregister(GamePiece o, float xOld, float yOld){
-		//TODO
+		grid[(int)(grid.length*(yOld-xOffset)/xSpan)][(int)(grid[0].length*(yOld)/ySpan)].remove(o);
 	}
 	public ArrayList<GamePiece> getNeighbors(float x, float y){
-		//TODO
-		return null;
+		neighbors.clear();
+		neighbors.addAll(grid[(int)(grid.length*(y-xOffset)/xSpan)][(int)(grid[0].length*(y)/ySpan)]);
+		//TODO check next level neighboring
+		return neighbors;
 	}
 }
