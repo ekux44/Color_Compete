@@ -11,6 +11,10 @@ import android.view.MotionEvent;
 
 public class GameEngine {
 
+	/* Input */
+	GameView gView;
+	ArrayList<MotionEvent> touches = new ArrayList<MotionEvent>();
+
 	/* Graphics */
 	private Paint backgroundP;
 	private Paint textP;
@@ -19,12 +23,15 @@ public class GameEngine {
 
 	/* Gamestate */
 	ResourceSpawner[] spawns;
+	private int selectedSpawner = 0;
 	EnemySpawner enemyBase;
 	ArrayList<Tower> towers;
 
 	// TODO update game, update physics, etc
 
-	public void Init(Resources resource) {
+	public void Init(GameView g, Resources resource) {
+
+		gView = g;
 
 		height = resource.getDisplayMetrics().heightPixels;
 		width = resource.getDisplayMetrics().widthPixels;
@@ -63,8 +70,16 @@ public class GameEngine {
 
 	}
 
-	public void SampleTouchInput(MotionEvent event) {
-		// TODO Auto-generated method stub
+	public void processInput() {
+		gView.getInputs(touches);
+		for (MotionEvent e : touches) {
+			if (e.getAction() == MotionEvent.ACTION_UP)
+				towers.add(spawns[selectedSpawner].spawnResource(e.getX(),
+						e.getY()));
+		}
+
+		/** IMPORTANT **/
+		touches.clear();
 	}
 
 	public void update() {
@@ -75,10 +90,6 @@ public class GameEngine {
 		enemyBase.update();
 		if (enemyBase.spawnsRemaining < 100) // temp for testing
 			enemyBase.spawnsRemaining += 100; // temp for testing
-		if (Math.random() < .02) // temp for testing
-			towers.add(spawns[0].spawnResource(
-					((float) Math.random() * .88f + .12f) * width,
-					(float) Math.random() * height)); // temp for testing
 		if (Math.random() < .1) // temp for testing
 			towers.add(spawns[1].spawnResource(
 					((float) Math.random() * .88f + .12f) * width,

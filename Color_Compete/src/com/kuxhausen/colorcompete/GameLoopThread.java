@@ -19,7 +19,7 @@ public class GameLoopThread extends Thread {
 
 	// used to control rate at which game loop runs
 	private long sleepTime;
-	private long delay = 32;
+	private long delay = 16;
 
 	// used by updateFPS() to approximate rate of frames per second, every 10
 	// frames
@@ -56,10 +56,13 @@ public class GameLoopThread extends Thread {
 	 */
 	@Override
 	public void run() {
-
 		while (state == RUNNING) {
+			Log.i("_starting run", "" + System.nanoTime()); // temp for testing
 			// time before update
 			long beforeTime = System.nanoTime();
+
+			/** SAMPLE INPUT **/
+			gEngine.processInput();
 
 			/** UPDATE **/
 			gEngine.update();
@@ -82,6 +85,9 @@ public class GameLoopThread extends Thread {
 				}
 			}
 
+			Log.i("_ending run", "" + System.nanoTime() + "    sleeptime:"
+					+ sleepTime); // temp for testing
+
 			/** SLEEP **/
 			// recalculate sleep delay
 			this.sleepTime = delay
@@ -97,18 +103,6 @@ public class GameLoopThread extends Thread {
 						Level.SEVERE, null, ex);
 			}
 		}
-	}
-
-	// TODO revaluate approach to touch handling
-	/**
-	 * passes touch events to game engine, rate limited by touchSamplingInterval
-	 **/
-	public boolean doTouchEvent(MotionEvent e) {
-		if ((System.nanoTime() - lastTouchSample) / 1000000L > touchSamplingInterval) {
-			lastTouchSample = System.nanoTime();
-			gEngine.SampleTouchInput(e);
-		}
-		return true;
 	}
 
 	private void updateFPS() {

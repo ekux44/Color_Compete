@@ -1,5 +1,7 @@
 package com.kuxhausen.colorcompete;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
@@ -15,6 +17,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	private GameEngine gEngine;
 	private Context context;
 	private GameLoopThread gThread;
+	private ArrayList<MotionEvent> touches = new ArrayList<MotionEvent>();
 
 	/** initialization code **/
 	void InitView() {
@@ -24,7 +27,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
 		// initialize game engine
 		gEngine = new GameEngine();
-		gEngine.Init(context.getResources());
+		gEngine.Init(this, context.getResources());
 
 		// initialize game loop thread, start will be called later
 		gThread = new GameLoopThread(holder, context, new Handler(), gEngine);
@@ -55,7 +58,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		return gThread.doTouchEvent(event);
+		touches.add(event);
+		return true;
+	}
+
+	protected void getInputs(ArrayList<MotionEvent> copy) {
+		copy.addAll(touches);
+		touches.clear();
 	}
 
 	@Override
