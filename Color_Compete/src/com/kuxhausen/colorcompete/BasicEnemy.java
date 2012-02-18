@@ -48,7 +48,7 @@ public class BasicEnemy extends GamePiece {
 	@Override
 	public void die() {
 		gb.unregister(this);
-		gEng.enemies.add(this);
+		gEng.enemies.remove(this);
 	}
 	
 	@Override
