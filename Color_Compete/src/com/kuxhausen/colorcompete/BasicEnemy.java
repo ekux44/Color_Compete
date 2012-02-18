@@ -35,7 +35,7 @@ public class BasicEnemy extends GamePiece {
 	/** returns false if the piece dies */
 	public boolean update() {
 		if((xc - speed )< (gEng.width*gEng.spawningRightEdgeFactor)){
-			gEng.spawns[gEng.whichResourceSpawner(yc)].health-=health;
+//			gEng.spawns[gEng.whichResourceSpawner(yc)].takeDamage((int)health);
 			die();
 			return false;
 		}

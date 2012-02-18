@@ -21,7 +21,8 @@ public class GameEngine {
 	ArrayList<MotionEvent> touches = new ArrayList<MotionEvent>();
 
 	/* Graphics */
-	private Paint backgroundP;
+	Paint backgroundP;
+	Paint blackP;
 	private Paint textP;
 	private Paint userInterfaceP;
 	int width, height; // TODO create scaling factor
@@ -49,6 +50,9 @@ public class GameEngine {
 		backgroundP = new Paint();
 		backgroundP.setARGB(255, 255, 255, 255);
 
+		blackP = new Paint();
+		blackP.setColor(Color.BLACK);
+		
 		int userInterfaceColor = Color.parseColor("#FF603311");
 
 		textP = new Paint();
@@ -133,7 +137,7 @@ public class GameEngine {
 		// user interface & resource spawns
 		c.drawRect(0, 0, maxX * spawningRightEdgeFactor, maxY, userInterfaceP);
 		for (int i = 0; i < spawns.length; i++)
-			spawns[i].draw(c, backgroundP, 10, i * maxY / spawns.length + (5 + (i == 0 ? 5 : 0)), maxX
+			spawns[i].draw(c, backgroundP, blackP, 10, i * maxY / spawns.length + (5 + (i == 0 ? 5 : 0)), maxX
 					* spawningRightEdgeFactor - 10, (1 + i) * maxY / spawns.length
 					- (5 + (i == (spawns.length - 1) ? 5 : 0)));
 
