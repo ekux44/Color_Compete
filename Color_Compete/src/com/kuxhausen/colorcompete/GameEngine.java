@@ -118,11 +118,11 @@ public class GameEngine {
 			enemyBase.spawnsRemaining += 10; // temp for testing
 		for (int i = 0; i < towers.size(); i++) {
 			
-			if(towers.get(i).update())
+			if(!towers.get(i).update())
 				i--;
 		}
 		for (int i = 0; i < enemies.size(); i++) {
-			if(enemies.get(i).update())
+			if(!enemies.get(i).update())
 				i--;
 		}
 	}
