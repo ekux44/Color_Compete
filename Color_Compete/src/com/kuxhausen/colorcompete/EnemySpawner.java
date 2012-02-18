@@ -30,7 +30,8 @@ public class EnemySpawner {
 	public void update() {
 		pendingSpawnUnits+=spawnRate;
 		spawnsRemaining-=spawnRate;
-		//TODO end game here if no more spawns remaining;
+		if(spawnsRemaining<=0)
+			gEng.endGame(true);
 		int maybeSpawn = r.nextInt(pendingSpawnUnits);
 		
 		if(maybeSpawn>BasicEnemy.cost){

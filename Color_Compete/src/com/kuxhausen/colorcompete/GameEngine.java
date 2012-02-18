@@ -75,7 +75,7 @@ public class GameEngine {
 		/* Resource Spawners*/
 		Paint temp1 = new Paint();
 		temp1.setColor(Color.BLUE);
-		spawns[0] = new ResourceSpawner(temp1, 4, 200, 20) {
+		spawns[0] = new ResourceSpawner(gEngine,temp1, 4, 200, 20) {
 			public GamePiece spawnResource(float x, float y) {
 				fill -= respawnCost;
 				return new BlueTower(x, y, gEngine);
@@ -83,7 +83,7 @@ public class GameEngine {
 		};
 		Paint temp2 = new Paint();
 		temp2.setColor(Color.RED);
-		spawns[1] = new ResourceSpawner(temp2, 2, 300, 0) {
+		spawns[1] = new ResourceSpawner(gEngine, temp2, 2, 300, 0) {
 			public GamePiece spawnResource(float x, float y) {
 				fill -= respawnCost;
 				return new RedTower(x, y, gEngine);
@@ -156,6 +156,19 @@ public class GameEngine {
 	/** Returns the index of the resource spawner that covers inputed y coordinate */
 	protected int whichResourceSpawner(float y) {
 		return (int) (spawns.length * y / height);
+	}
+
+	/* if all of the ResouceSpawners are dead, player lost**/
+	public void checkPlayerAlive() {
+		boolean dead = true;
+		for (ResourceSpawner rs : spawns) 
+			dead = dead && rs.dead;
+		if(dead)
+			endGame(false);
+	}
+
+	public void endGame(boolean playerWon) {
+		// TODO Auto-generated method stub
 	}
 
 }

@@ -18,19 +18,21 @@ public abstract class ResourceSpawner {
 	float xIncrementCoefficient;// the inverse of the number of steps the horizontal progress bar should be divided into
 	final static float yIncrementCoefficient = .1f;
 	private int damage;
+	boolean dead;
+	GameEngine gEng;
 	
-	public ResourceSpawner(Paint paint, int spawnRate, int spawnCost, int startingFill) {
+	public ResourceSpawner(GameEngine gEngine, Paint paint, int spawnRate, int spawnCost, int startingFill) {
+		gEng = gEngine;
 		p = paint;
 		respawnRate = spawnRate;
 		respawnCost = spawnCost;
 		fill = startingFill;
 		xIncrementCoefficient = respawnRate / (yIncrementCoefficient * maxFill);
-
 	}
 
 	public void update() {
 		fill += respawnRate;
-		fill = Math.min(fill, maxFill);//-damage);
+		fill = Math.min(fill, maxFill-damage);
 	}
 
 	public void draw(Canvas c, Paint backgroundP, Paint blackP, float startX, float startY, float stopX, float stopY) {
@@ -42,7 +44,8 @@ public abstract class ResourceSpawner {
 		if (fill % maxFill != 0)
 			c.drawRect(startX, startY + incrementY * (9 - fill / 100), startX + incrementX
 					* ((fill % 100) / respawnRate), startY + incrementY * (10 - fill / 100), p);
-		//c.drawRect(startX, stopY , stopX, stopY + incrementY * (damage / 100), blackP);
+		c.drawRect(startX, startY , stopX, startY + incrementY * (damage / 100), blackP);
+		c.drawRect(startX, startY , stopX, startY + incrementY * (damage / 100), blackP);
 	}
 
 	public boolean canSpawn() {
@@ -50,8 +53,13 @@ public abstract class ResourceSpawner {
 	}
 	
 	public void takeDamage(int dam){
-		damage-=dam;
-		damage=Math.min(damage, maxFill);
+		damage+=dam;
+		if(damage>=maxFill){
+			damage = maxFill;
+			dead= true;
+			gEng.checkPlayerAlive();
+		}
+		Log.i("damage","damage "+damage+"  to spawner colored"+p.getColor());
 	}
 
 	/* any implimentation should decrement fill by respawnCost */
