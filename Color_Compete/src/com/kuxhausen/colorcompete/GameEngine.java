@@ -34,8 +34,8 @@ public class GameEngine {
 	ResourceSpawner[] spawns;
 	private int selectedSpawner = 0;
 	EnemySpawner enemyBase;
-	ArrayList<GamePiece> towers, enemies;
-	GameBoard towerMap, enemyMap;
+	ArrayList<GamePiece> towers, enemies, projectiles;
+	GameBoard towerMap, enemyMap, projectileMap;
 	GameEngine gEngine = this;
 
 	public void Init(GameView g, Resources resource) {
@@ -66,14 +66,16 @@ public class GameEngine {
 		enemyBase = new EnemySpawner(gEngine, 1000, 1);
 		towers = new ArrayList<GamePiece>();
 		enemies = new ArrayList<GamePiece>();
+		projectiles = new ArrayList<GamePiece>();
 		towerMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
 		enemyMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
+		projectileMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
 		spawns = new ResourceSpawner[2];
 
 		/* Resource Spawners */
 		Paint temp1 = new Paint();
 		temp1.setColor(Color.BLUE);
-		spawns[0] = new ResourceSpawner(gEngine, temp1, 4, 200, 20) {
+		spawns[0] = new ResourceSpawner(gEngine, temp1, 3, 200, 500) {
 			public GamePiece spawnResource(float x, float y) {
 				fill -= respawnCost;
 				return new BlueTower(x, y, gEngine);
@@ -81,7 +83,7 @@ public class GameEngine {
 		};
 		Paint temp2 = new Paint();
 		temp2.setColor(Color.RED);
-		spawns[1] = new ResourceSpawner(gEngine, temp2, 2, 300, 0) {
+		spawns[1] = new ResourceSpawner(gEngine, temp2, 1, 300, 600) {
 			public GamePiece spawnResource(float x, float y) {
 				fill -= respawnCost;
 				return new RedTower(x, y, gEngine);
@@ -123,6 +125,10 @@ public class GameEngine {
 			if (!enemies.get(i).update())
 				i--;
 		}
+		for (int i = 0; i < projectiles.size(); i++) {
+			if (!projectiles.get(i).update())
+				i--;
+		}
 	}
 
 	public void Draw(Canvas c, int FPS) {
@@ -141,10 +147,12 @@ public class GameEngine {
 
 		// GameBoard
 		enemyBase.draw(c);
-		for (GamePiece t : towers)
-			t.draw(c);
-		for (GamePiece e : enemies)
-			e.draw(c);
+		for (GamePiece twr : towers)
+			twr.draw(c);
+		for (GamePiece enm : enemies)
+			enm.draw(c);
+		for (GamePiece prj : projectiles)
+			prj.draw(c);
 
 		// draw FPS counter
 		c.drawText("FPS:" + FPS, c.getWidth() - 180, 40, textP);

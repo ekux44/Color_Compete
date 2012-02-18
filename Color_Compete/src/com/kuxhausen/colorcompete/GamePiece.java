@@ -15,14 +15,15 @@ public abstract class GamePiece {
 	GameEngine gEng;
 	float radius;
 
-	/** returns false if the piece dies */
+	/** @return true if still alive */
 	public abstract boolean update();
 
 	public abstract void die();
 
 	public abstract void draw(Canvas c);
 
-	public abstract void reduceHealth(float damage);
+	/** @return true if still alive */
+	public abstract boolean reduceHealth(float damage);
 
 	public abstract float getHealth();
 
