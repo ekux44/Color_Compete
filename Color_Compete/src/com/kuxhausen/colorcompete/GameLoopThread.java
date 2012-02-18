@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
-/**(c) 2012 Eric Kuxhausen
+/**
+ * (c) 2012 Eric Kuxhausen
+ * 
  * @author Eric Kuxhausen
  */
 public class GameLoopThread extends Thread {
@@ -42,8 +44,7 @@ public class GameLoopThread extends Thread {
 	public final static int RUNNING = 1;
 	public final static int PAUSED = 2;
 
-	public GameLoopThread(SurfaceHolder surfaceHolder, Context context,
-			Handler handler, GameEngine gEngineS) {
+	public GameLoopThread(SurfaceHolder surfaceHolder, Context context, Handler handler, GameEngine gEngineS) {
 
 		// data about the screen
 		mSurfaceHolder = surfaceHolder;
@@ -60,7 +61,8 @@ public class GameLoopThread extends Thread {
 	@Override
 	public void run() {
 		while (state == RUNNING) {
-			//Log.i("_starting run", "" + System.nanoTime()); // temp for testing
+			// Log.i("_starting run", "" + System.nanoTime()); // temp for
+			// testing
 			// time before update
 			long beforeTime = System.nanoTime();
 
@@ -88,12 +90,12 @@ public class GameLoopThread extends Thread {
 				}
 			}
 
-			//Log.i("_ending run", "" + System.nanoTime() + "    sleeptime:"+ sleepTime); // temp for testing
+			// Log.i("_ending run", "" + System.nanoTime() + "    sleeptime:"+
+			// sleepTime); // temp for testing
 
 			/** SLEEP **/
 			// recalculate sleep delay
-			this.sleepTime = delay
-					- ((System.nanoTime() - beforeTime) / 1000000L);
+			this.sleepTime = delay - ((System.nanoTime() - beforeTime) / 1000000L);
 
 			try {
 				// sleep
@@ -101,8 +103,7 @@ public class GameLoopThread extends Thread {
 					this.sleep(sleepTime);
 				}
 			} catch (InterruptedException ex) {
-				Logger.getLogger(GameLoopThread.class.getName()).log(
-						Level.SEVERE, null, ex);
+				Logger.getLogger(GameLoopThread.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		}
 	}

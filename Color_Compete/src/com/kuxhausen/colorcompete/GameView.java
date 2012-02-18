@@ -9,7 +9,9 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-/**(c) 2012 Eric Kuxhausen
+/**
+ * (c) 2012 Eric Kuxhausen
+ * 
  * @author Eric Kuxhausen
  */
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
@@ -93,8 +95,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	public void surfaceCreated(SurfaceHolder arg0) {
 		if (gThread.state == GameLoopThread.PAUSED) {
 			// When game is opened again in the Android OS
-			gThread = new GameLoopThread(getHolder(), context, new Handler(),
-					gEngine);
+			gThread = new GameLoopThread(getHolder(), context, new Handler(), gEngine);
 			gThread.start();
 		} else {
 			// create game loop thread for the first time

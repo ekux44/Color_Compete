@@ -5,7 +5,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 
-/**(c) 2012 Eric Kuxhausen
+/**
+ * (c) 2012 Eric Kuxhausen
+ * 
  * @author Eric Kuxhausen
  */
 public class EnemySpawner {
@@ -27,8 +29,7 @@ public class EnemySpawner {
 
 	public void draw(Canvas c) {
 
-		c.drawRect(c.getWidth()
-				* (1f - .08f * spawnsRemaining / (float) totalSpawns), 0,
-				c.getWidth(), c.getHeight(), p);
+		c.drawRect(c.getWidth() * (1f - .08f * spawnsRemaining / (float) totalSpawns), 0, c.getWidth(), c.getHeight(),
+				p);
 	}
 }

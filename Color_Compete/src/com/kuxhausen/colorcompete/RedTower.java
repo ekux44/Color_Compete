@@ -4,7 +4,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-/**(c) 2012 Eric Kuxhausen
+/**
+ * (c) 2012 Eric Kuxhausen
+ * 
  * @author Eric Kuxhausen
  */
 public class RedTower extends GamePiece {

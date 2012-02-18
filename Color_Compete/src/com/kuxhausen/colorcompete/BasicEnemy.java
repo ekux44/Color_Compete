@@ -4,7 +4,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-/**(c) 2012 Eric Kuxhausen
+/**
+ * (c) 2012 Eric Kuxhausen
+ * 
  * @author Eric Kuxhausen
  */
 public class BasicEnemy extends GamePiece {
@@ -26,7 +28,7 @@ public class BasicEnemy extends GamePiece {
 
 	@Override
 	public void update() {
-		yc-=speed;
+		yc -= speed;
 	}
 
 	@Override
