@@ -13,7 +13,7 @@ public class BasicEnemy extends GamePiece {
 
 	static Paint p;
 	float speed;
-	public static final int cost = 200;
+	public static final int cost = 180;
 	private float health;
 
 	public BasicEnemy(float xCenter, float yCenter, GameEngine gEngine) {

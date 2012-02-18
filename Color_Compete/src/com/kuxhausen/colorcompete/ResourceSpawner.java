@@ -41,11 +41,13 @@ public abstract class ResourceSpawner {
 
 		c.drawRect(startX, startY, stopX, stopY, backgroundP);
 		c.drawRect(startX, startY + incrementY * (10 - fill / 100), stopX, stopY, p);
-		if (fill % maxFill != 0)
+		if (fill != 0)
 			c.drawRect(startX, startY + incrementY * (9 - fill / 100), startX + incrementX
 					* ((fill % 100) / respawnRate), startY + incrementY * (10 - fill / 100), p);
 		c.drawRect(startX, startY , stopX, startY + incrementY * (damage / 100), blackP);
-		c.drawRect(startX, startY , stopX, startY + incrementY * (damage / 100), blackP);
+		if (damage != 0)
+			c.drawRect(stopX, startY + incrementY * (1 + damage / 100), stopX - incrementX
+					* ((damage % 100) / respawnRate), startY + incrementY * (damage / 100), blackP);
 	}
 
 	public boolean canSpawn() {
