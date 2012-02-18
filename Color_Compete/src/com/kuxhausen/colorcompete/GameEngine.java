@@ -107,7 +107,7 @@ public class GameEngine {
 			towers.get(i).update();
 			towers.get(i).health--; // temp for testing
 			if (towers.get(i).health <= 0) {
-				towerGrid.unregister(towers.get(i), towers.get(i).xc, towers.get(i).yc);
+				towerGrid.unregister(towers.get(i));
 				towers.remove(i);
 				i--;
 			}

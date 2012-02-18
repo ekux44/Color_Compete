@@ -30,12 +30,8 @@ public class GameBoard {
 		grid[(int)(grid.length*(o.xc-xOffset)/xSpan)][(int)(grid[0].length*(o.yc)/ySpan)].add(o);
 		return o;
 	}
-	public void updateLocation(GamePiece o, float xOld, float yOld){
-		unregister(o,xOld,yOld);
-		register(o);
-	}
-	public void unregister(GamePiece o, float xOld, float yOld){
-		grid[(int)(grid.length*(yOld-xOffset)/xSpan)][(int)(grid[0].length*(yOld)/ySpan)].remove(o);
+	public void unregister(GamePiece o){
+		grid[(int)(grid.length*(o.xc-xOffset)/xSpan)][(int)(grid[0].length*(o.yc)/ySpan)].remove(o);
 	}
 	public ArrayList<GamePiece> getNeighbors(float x, float y){
 		neighbors.clear();
