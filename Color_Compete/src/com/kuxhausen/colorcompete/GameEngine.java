@@ -33,20 +33,19 @@ public class GameEngine {
 	ResourceSpawner[] spawns;
 	private int selectedSpawner = 0;
 	EnemySpawner enemyBase;
-	ArrayList<GamePiece> towers;
+	ArrayList<GamePiece> towers, enemies;
 	GameBoard towerMap, enemyMap;
 	GameEngine gEngine = this;
 
-	// TODO update game, update physics, etc
 
 	public void Init(GameView g, Resources resource) {
-
-		gView = g;
 
 		height = resource.getDisplayMetrics().heightPixels;
 		width = resource.getDisplayMetrics().widthPixels;
 
-		// black painter below to clear the screen before the game is rendered
+		/*Graphics*/
+		
+		// painter to clear the screen before the game is rendered
 		backgroundP = new Paint();
 		backgroundP.setARGB(255, 255, 255, 255);
 
@@ -59,10 +58,20 @@ public class GameEngine {
 		userInterfaceP = new Paint();
 		userInterfaceP.setColor(userInterfaceColor);
 
+		
+		/* GameState */
+		gView = g;
+		enemyBase = new EnemySpawner(gEngine, 1000, 1);
+		towers = new ArrayList<GamePiece>();
+		enemies = new ArrayList<GamePiece>();
+		towerMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
+		enemyMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
 		spawns = new ResourceSpawner[2];
+		
+		/* Resource Spawners*/
 		Paint temp1 = new Paint();
 		temp1.setColor(Color.BLUE);
-		spawns[0] = new ResourceSpawner(temp1, 4, 400, 20) {
+		spawns[0] = new ResourceSpawner(temp1, 4, 200, 20) {
 			public GamePiece spawnResource(float x, float y) {
 				fill -= respawnCost;
 				return new BlueTower(x, y, gEngine);
@@ -70,17 +79,12 @@ public class GameEngine {
 		};
 		Paint temp2 = new Paint();
 		temp2.setColor(Color.RED);
-		spawns[1] = new ResourceSpawner(temp2, 1, 30, 0) {
+		spawns[1] = new ResourceSpawner(temp2, 2, 300, 0) {
 			public GamePiece spawnResource(float x, float y) {
 				fill -= respawnCost;
 				return new RedTower(x, y, gEngine);
 			}
 		};
-
-		enemyBase = new EnemySpawner(1000);
-		towers = new ArrayList<GamePiece>();
-		towerMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
-		enemyMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
 	}
 
 	public void processInput() {
@@ -104,17 +108,23 @@ public class GameEngine {
 	public void update() {
 		for (ResourceSpawner rs : spawns) {
 			rs.update();
-			rs.fill %= rs.maxFill;// temp for testing
 		}
 		enemyBase.update();
-		if (enemyBase.spawnsRemaining < 100) // temp for testing
-			enemyBase.spawnsRemaining += 100; // temp for testing
+		if (enemyBase.spawnsRemaining < 10) // temp for testing
+			enemyBase.spawnsRemaining += 10; // temp for testing
 		for (int i = 0; i < towers.size(); i++) {
 			towers.get(i).update();
 			towers.get(i).health--; // temp for testing
 			if (towers.get(i).health <= 0) {
-				towerMap.unregister(towers.get(i));
-				towers.remove(i);
+				towers.get(i).die();
+				i--;
+			}
+		}
+		for (int i = 0; i < enemies.size(); i++) {
+			enemies.get(i).update();
+			enemies.get(i).health--; // temp for testing
+			if (enemies.get(i).health <= 0) {
+				enemies.get(i).die();
 				i--;
 			}
 		}
@@ -138,7 +148,10 @@ public class GameEngine {
 		enemyBase.draw(c);
 		for (GamePiece t : towers)
 			t.draw(c);
-
+		for (GamePiece e : enemies)
+			e.draw(c);
+		
+		
 		// draw FPS counter
 		c.drawText("FPS:" + FPS, c.getWidth() - 180, 40, textP);
 	}

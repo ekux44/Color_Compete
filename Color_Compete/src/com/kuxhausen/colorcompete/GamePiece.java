@@ -16,6 +16,8 @@ public abstract class GamePiece {
 	GameEngine gEng;
 
 	public abstract void update();
+	
+	public abstract void die();
 
 	public abstract void draw(Canvas c);
 

@@ -12,29 +12,34 @@ import android.graphics.Paint;
 public class BlueTower extends GamePiece {
 
 	static Paint p;
+	private static final int cost = 200;
 
 	public BlueTower(float xCenter, float yCenter, GameEngine gEngine) {
 		if (p == null) {
 			p = new Paint();
 			p.setColor(Color.BLUE);
-			p.setShadowLayer(health / 2f, 0, 0, Color.RED);
 		}
 		xc = xCenter;
 		yc = yCenter;
 		gEng = gEngine;
 		gb = gEng.towerMap;
 		gb.register(this);
-		health = 300;
+		health = 3*cost/2;
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
+	}
+	
+	@Override
+	public void die() {
+		gb.unregister(this);
+		gEng.towers.remove(this);		
 	}
 
 	@Override
 	public void draw(Canvas c) {
-		c.drawCircle(xc, yc, health / 12f, p);
+		c.drawCircle(xc, yc, health / 9f, p);
 	}
 
 }

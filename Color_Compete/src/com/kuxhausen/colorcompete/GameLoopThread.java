@@ -56,8 +56,6 @@ public class GameLoopThread extends Thread {
 	@Override
 	public void run() {
 		while (state == RUNNING) {
-			// Log.i("_starting run", "" + System.nanoTime()); // temp for
-			// testing
 			// time before update
 			long beforeTime = System.nanoTime();
 
@@ -85,9 +83,6 @@ public class GameLoopThread extends Thread {
 				}
 			}
 
-			// Log.i("_ending run", "" + System.nanoTime() + "    sleeptime:"+
-			// sleepTime); // temp for testing
-
 			/** SLEEP **/
 			// recalculate sleep delay
 			this.sleepTime = delay - ((System.nanoTime() - beforeTime) / 1000000L);
@@ -110,6 +105,6 @@ public class GameLoopThread extends Thread {
 			FPS_framesCounted = 0;
 			FPS_intervalStartTime = System.nanoTime();
 		}
-		Log.i("FPS", "" + FPS);
+		//Log.i("FPS", "" + FPS);
 	}
 }

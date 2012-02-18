@@ -12,26 +12,31 @@ import android.graphics.Paint;
 public class RedTower extends GamePiece {
 
 	static Paint p;
+	private static final int cost = 300;
 
 	public RedTower(float xCenter, float yCenter, GameEngine gEngine) {
 		if (p == null) {
 			p = new Paint();
 			p.setColor(Color.RED);
-			p.setShadowLayer(health / 2f, 0, 0, Color.RED);
 		}
 		xc = xCenter;
 		yc = yCenter;
 		gEng = gEngine;
 		gb = gEng.towerMap;
 		gb.register(this);
-		health = 100;
+		health = cost/2;
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 	}
 
+	@Override
+	public void die() {
+		gb.unregister(this);
+		gEng.towers.remove(this);		
+	}
+	
 	@Override
 	public void draw(Canvas c) {
 		c.drawCircle(xc, yc, health / 3f, p);
