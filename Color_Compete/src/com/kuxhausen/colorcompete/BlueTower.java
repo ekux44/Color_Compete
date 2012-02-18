@@ -10,10 +10,11 @@ import android.graphics.Paint;
  * @author Eric Kuxhausen
  */
 public class BlueTower extends GamePiece {
-	private float health;
 
 	static Paint p;
 	private static final int cost = 200;
+	private float health;
+	private static final float sizeingFactor = 2;
 
 	public BlueTower(float xCenter, float yCenter, GameEngine gEngine) {
 		if (p == null) {
@@ -25,7 +26,8 @@ public class BlueTower extends GamePiece {
 		gEng = gEngine;
 		gb = gEng.towerMap;
 		gb.register(this);
-		health = 3*cost/2;
+		health = 3 * cost / 2;
+		radius = sizeingFactor * (float) Math.sqrt(health);
 	}
 
 	@Override
@@ -33,22 +35,24 @@ public class BlueTower extends GamePiece {
 	public boolean update() {
 		return true;
 	}
-	
+
 	@Override
 	public void die() {
 		gb.unregister(this);
-		gEng.towers.remove(this);		
+		gEng.towers.remove(this);
 	}
 
 	@Override
 	public void draw(Canvas c) {
-		c.drawCircle(xc, yc, health / 9f, p);
+		c.drawCircle(xc, yc, radius, p);
 	}
+
 	@Override
 	public void reduceHealth(float damage) {
-		health-=damage;
-		if(health<0)
+		health -= damage;
+		if (health < 0)
 			die();
+		radius = sizeingFactor * (float) Math.sqrt(health);
 	}
 
 	@Override

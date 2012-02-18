@@ -15,30 +15,45 @@ public class BasicEnemy extends GamePiece {
 	float speed;
 	public static final int cost = 180;
 	private float health;
+	private static final float sizeingFactor = 2;
 
 	public BasicEnemy(float xCenter, float yCenter, GameEngine gEngine) {
-		 if(p==null){
-		p = new Paint();
-		p.setColor(Color.BLACK);
-		p.setShadowLayer(health / 2f, 0, 0, Color.BLACK);
+		if (p == null) {
+			p = new Paint();
+			p.setColor(Color.BLACK);
+			p.setShadowLayer(health / 2f, 0, 0, Color.BLACK);
 		}
 		xc = xCenter;
 		yc = yCenter;
 		gEng = gEngine;
 		gb = gEng.enemyMap;
 		gb.register(this);
-		health = cost/2;
+		health = cost / 2;
 		speed = 2f;
+		radius = sizeingFactor * (float) Math.sqrt(health);
 	}
 
 	@Override
 	/** returns false if the piece dies */
 	public boolean update() {
-		if((xc - speed )< (gEng.width*gEng.spawningRightEdgeFactor)){
-			gEng.spawns[gEng.whichResourceSpawner(yc)].takeDamage((int)health);
+		// check to see if reach resource spawner
+		if ((xc - speed) < (gEng.width * gEng.spawningRightEdgeFactor)) {
+			gEng.spawns[gEng.whichResourceSpawner(yc)].takeDamage((int) health);
 			die();
 			return false;
 		}
+
+		// check for collisions
+		GamePiece maybeCollision = gEng.towerMap.getNearestNeighbor(xc, yc);
+		if (maybeCollision != null
+				&& (maybeCollision.radius + this.radius) > GameBoard.distanceBetween(xc, yc, maybeCollision.xc,
+						maybeCollision.yc)) {
+			float damage = Math.min(health, maybeCollision.getHealth());
+			maybeCollision.reduceHealth(damage);
+			this.reduceHealth(damage);
+		}
+		
+		// update location
 		if (gb.willMoveZones(xc, yc, xc - speed, yc)) {
 			gb.unregister(this);
 			xc -= speed;
@@ -48,23 +63,24 @@ public class BasicEnemy extends GamePiece {
 		
 		return true;
 	}
-	
+
 	@Override
 	public void die() {
 		gb.unregister(this);
 		gEng.enemies.remove(this);
 	}
-	
+
 	@Override
 	public void draw(Canvas c) {
-		c.drawCircle(xc, yc, health / 3f, p);
+		c.drawCircle(xc, yc, radius, p);
 	}
 
 	@Override
 	public void reduceHealth(float damage) {
-		health-=damage;
-		if(health<0)
+		health -= damage;
+		if (health < 0)
 			die();
+		radius = sizeingFactor * (float) Math.sqrt(health);
 	}
 
 	@Override

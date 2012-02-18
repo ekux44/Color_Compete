@@ -14,6 +14,7 @@ public class RedTower extends GamePiece {
 	static Paint p;
 	private static final int cost = 300;
 	private float health;
+	private static final float sizeingFactor = 2;
 
 	public RedTower(float xCenter, float yCenter, GameEngine gEngine) {
 		if (p == null) {
@@ -25,7 +26,8 @@ public class RedTower extends GamePiece {
 		gEng = gEngine;
 		gb = gEng.towerMap;
 		gb.register(this);
-		health = cost/2;
+		health = cost / 2;
+		radius = sizeingFactor * (float) Math.sqrt(health);
 	}
 
 	@Override
@@ -37,19 +39,20 @@ public class RedTower extends GamePiece {
 	@Override
 	public void die() {
 		gb.unregister(this);
-		gEng.towers.remove(this);		
+		gEng.towers.remove(this);
 	}
-	
+
 	@Override
 	public void draw(Canvas c) {
-		c.drawCircle(xc, yc, health / 3f, p);
+		c.drawCircle(xc, yc, radius, p);
 	}
 
 	@Override
 	public void reduceHealth(float damage) {
-		health-=damage;
-		if(health<0)
+		health -= damage;
+		if (health < 0)
 			die();
+		radius = sizeingFactor * (float) Math.sqrt(health);
 	}
 
 	@Override

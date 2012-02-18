@@ -105,6 +105,6 @@ public class GameLoopThread extends Thread {
 			FPS_framesCounted = 0;
 			FPS_intervalStartTime = System.nanoTime();
 		}
-		//Log.i("FPS", "" + FPS);
+		// Log.i("FPS", "" + FPS);
 	}
 }

@@ -38,21 +38,20 @@ public class GameEngine {
 	GameBoard towerMap, enemyMap;
 	GameEngine gEngine = this;
 
-
 	public void Init(GameView g, Resources resource) {
 
 		height = resource.getDisplayMetrics().heightPixels;
 		width = resource.getDisplayMetrics().widthPixels;
 
-		/*Graphics*/
-		
+		/* Graphics */
+
 		// painter to clear the screen before the game is rendered
 		backgroundP = new Paint();
 		backgroundP.setARGB(255, 255, 255, 255);
 
 		blackP = new Paint();
 		blackP.setColor(Color.BLACK);
-		
+
 		int userInterfaceColor = Color.parseColor("#FF603311");
 
 		textP = new Paint();
@@ -62,7 +61,6 @@ public class GameEngine {
 		userInterfaceP = new Paint();
 		userInterfaceP.setColor(userInterfaceColor);
 
-		
 		/* GameState */
 		gView = g;
 		enemyBase = new EnemySpawner(gEngine, 1000, 1);
@@ -71,11 +69,11 @@ public class GameEngine {
 		towerMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
 		enemyMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
 		spawns = new ResourceSpawner[2];
-		
-		/* Resource Spawners*/
+
+		/* Resource Spawners */
 		Paint temp1 = new Paint();
 		temp1.setColor(Color.BLUE);
-		spawns[0] = new ResourceSpawner(gEngine,temp1, 4, 200, 20) {
+		spawns[0] = new ResourceSpawner(gEngine, temp1, 4, 200, 20) {
 			public GamePiece spawnResource(float x, float y) {
 				fill -= respawnCost;
 				return new BlueTower(x, y, gEngine);
@@ -117,12 +115,12 @@ public class GameEngine {
 		if (enemyBase.spawnsRemaining < 10) // temp for testing
 			enemyBase.spawnsRemaining += 10; // temp for testing
 		for (int i = 0; i < towers.size(); i++) {
-			
-			if(!towers.get(i).update())
+
+			if (!towers.get(i).update())
 				i--;
 		}
 		for (int i = 0; i < enemies.size(); i++) {
-			if(!enemies.get(i).update())
+			if (!enemies.get(i).update())
 				i--;
 		}
 	}
@@ -147,8 +145,7 @@ public class GameEngine {
 			t.draw(c);
 		for (GamePiece e : enemies)
 			e.draw(c);
-		
-		
+
 		// draw FPS counter
 		c.drawText("FPS:" + FPS, c.getWidth() - 180, 40, textP);
 	}
@@ -158,12 +155,12 @@ public class GameEngine {
 		return (int) (spawns.length * y / height);
 	}
 
-	/* if all of the ResouceSpawners are dead, player lost**/
+	/* if all of the ResouceSpawners are dead, player lost* */
 	public void checkPlayerAlive() {
 		boolean dead = true;
-		for (ResourceSpawner rs : spawns) 
+		for (ResourceSpawner rs : spawns)
 			dead = dead && rs.dead;
-		if(dead)
+		if (dead)
 			endGame(false);
 	}
 

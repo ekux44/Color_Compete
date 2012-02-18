@@ -20,7 +20,7 @@ public abstract class ResourceSpawner {
 	private int damage;
 	boolean dead;
 	GameEngine gEng;
-	
+
 	public ResourceSpawner(GameEngine gEngine, Paint paint, int spawnRate, int spawnCost, int startingFill) {
 		gEng = gEngine;
 		p = paint;
@@ -32,7 +32,7 @@ public abstract class ResourceSpawner {
 
 	public void update() {
 		fill += respawnRate;
-		fill = Math.min(fill, maxFill-damage);
+		fill = Math.min(fill, maxFill - damage);
 	}
 
 	public void draw(Canvas c, Paint backgroundP, Paint blackP, float startX, float startY, float stopX, float stopY) {
@@ -44,7 +44,7 @@ public abstract class ResourceSpawner {
 		if (fill != 0)
 			c.drawRect(startX, startY + incrementY * (9 - fill / 100), startX + incrementX
 					* ((fill % 100) / respawnRate), startY + incrementY * (10 - fill / 100), p);
-		c.drawRect(startX, startY , stopX, startY + incrementY * (damage / 100), blackP);
+		c.drawRect(startX, startY, stopX, startY + incrementY * (damage / 100), blackP);
 		if (damage != 0)
 			c.drawRect(stopX, startY + incrementY * (1 + damage / 100), stopX - incrementX
 					* ((damage % 100) / respawnRate), startY + incrementY * (damage / 100), blackP);
@@ -53,15 +53,15 @@ public abstract class ResourceSpawner {
 	public boolean canSpawn() {
 		return fill >= respawnCost;
 	}
-	
-	public void takeDamage(int dam){
-		damage+=dam;
-		if(damage>=maxFill){
+
+	public void takeDamage(int dam) {
+		damage += dam;
+		if (damage >= maxFill) {
 			damage = maxFill;
-			dead= true;
+			dead = true;
 			gEng.checkPlayerAlive();
 		}
-		Log.i("damage","damage "+damage+"  to spawner colored"+p.getColor());
+		Log.i("damage", "damage " + damage + "  to spawner colored" + p.getColor());
 	}
 
 	/* any implimentation should decrement fill by respawnCost */

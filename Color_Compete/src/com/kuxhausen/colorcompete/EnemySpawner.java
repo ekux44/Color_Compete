@@ -28,18 +28,18 @@ public class EnemySpawner {
 	}
 
 	public void update() {
-		pendingSpawnUnits+=spawnRate;
-		spawnsRemaining-=spawnRate;
-		if(spawnsRemaining<=0)
+		pendingSpawnUnits += spawnRate;
+		spawnsRemaining -= spawnRate;
+		if (spawnsRemaining <= 0)
 			gEng.endGame(true);
 		int maybeSpawn = r.nextInt(pendingSpawnUnits);
-		
-		if(maybeSpawn>BasicEnemy.cost){
-			gEng.enemies.add(new BasicEnemy(gEng.width*gEng.enemyLeftEdgeFactor-1,r.nextInt(gEng.height),gEng));
-			maybeSpawn-=BasicEnemy.cost;
-			pendingSpawnUnits-=BasicEnemy.cost;
+
+		if (maybeSpawn > BasicEnemy.cost) {
+			gEng.enemies.add(new BasicEnemy(gEng.width * gEng.enemyLeftEdgeFactor - 1, r.nextInt(gEng.height), gEng));
+			maybeSpawn -= BasicEnemy.cost;
+			pendingSpawnUnits -= BasicEnemy.cost;
 		}
-			
+
 	}
 
 	public void draw(Canvas c) {
