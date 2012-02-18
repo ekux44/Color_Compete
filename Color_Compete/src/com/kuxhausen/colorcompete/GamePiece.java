@@ -12,6 +12,7 @@ public abstract class GamePiece {
 	float xc;
 	float yc;
 	float health;
+	GameBoard gb;
 
 	public abstract void update();
 

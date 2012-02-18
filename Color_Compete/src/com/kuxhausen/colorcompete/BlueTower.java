@@ -13,7 +13,7 @@ public class BlueTower extends GamePiece {
 
 	static Paint p;
 
-	public BlueTower(float xCenter, float yCenter) {
+	public BlueTower(float xCenter, float yCenter, GameBoard gBoard) {
 		// if(p!=null){
 		p = new Paint();
 		p.setColor(Color.BLUE);
@@ -21,6 +21,7 @@ public class BlueTower extends GamePiece {
 		// }
 		xc = xCenter;
 		yc = yCenter;
+		gb = gBoard;
 		health = 300;
 	}
 

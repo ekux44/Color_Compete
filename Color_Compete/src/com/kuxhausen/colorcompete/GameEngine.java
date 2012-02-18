@@ -35,7 +35,7 @@ public class GameEngine {
 	private int selectedSpawner = 0;
 	EnemySpawner enemyBase;
 	ArrayList<GamePiece> towers;
-	GameBoard towerGrid, enemyGrid;
+	GameBoard towerMap, enemyMap;
 
 	// TODO update game, update physics, etc
 
@@ -65,7 +65,7 @@ public class GameEngine {
 		spawns[0] = new ResourceSpawner(temp1, 4, 400, 20) {
 			public GamePiece spawnResource(float x, float y) {
 				fill -= respawnCost;
-				return new BlueTower(x, y);
+				return new BlueTower(x, y, towerMap);
 			}
 		};
 		Paint temp2 = new Paint();
@@ -73,14 +73,14 @@ public class GameEngine {
 		spawns[1] = new ResourceSpawner(temp2, 1, 30, 0) {
 			public GamePiece spawnResource(float x, float y) {
 				fill -= respawnCost;
-				return new RedTower(x, y);
+				return new RedTower(x, y, towerMap);
 			}
 		};
 
 		enemyBase = new EnemySpawner(1000);
 		towers = new ArrayList<GamePiece>();
-		towerGrid = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
-		enemyGrid = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
+		towerMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
+		enemyMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
 	}
 
 	public void processInput() {
@@ -93,7 +93,7 @@ public class GameEngine {
 			if (e.getAction() == MotionEvent.ACTION_UP
 					&& (width * spawningRightEdgeFactor < e.getX() && e.getX() < width * enemyLeftEdgeFactor)
 					&& spawns[selectedSpawner].canSpawn())
-				towers.add(towerGrid.register(spawns[selectedSpawner].spawnResource(e.getX(), e.getY())));
+				towers.add(towerMap.register(spawns[selectedSpawner].spawnResource(e.getX(), e.getY())));
 
 		}
 
@@ -113,7 +113,7 @@ public class GameEngine {
 			towers.get(i).update();
 			towers.get(i).health--; // temp for testing
 			if (towers.get(i).health <= 0) {
-				towerGrid.unregister(towers.get(i));
+				towerMap.unregister(towers.get(i));
 				towers.remove(i);
 				i--;
 			}

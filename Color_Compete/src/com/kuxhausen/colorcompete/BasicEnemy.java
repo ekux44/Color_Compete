@@ -14,7 +14,7 @@ public class BasicEnemy extends GamePiece {
 	static Paint p;
 	float speed;
 
-	public BasicEnemy(float xCenter, float yCenter) {
+	public BasicEnemy(float xCenter, float yCenter, GameBoard gBoard) {
 		// if(p!=null){
 		p = new Paint();
 		p.setColor(Color.RED);
@@ -22,13 +22,20 @@ public class BasicEnemy extends GamePiece {
 		// }
 		xc = xCenter;
 		yc = yCenter;
+		gb = gBoard;
 		health = 10;
 		speed = 1f;
 	}
 
 	@Override
 	public void update() {
-		yc -= speed;
+		if(gb.willMoveZones(xc, yc, xc-speed, yc)){
+			gb.unregister(this);
+			xc-=speed;
+			gb.register(this);
+		}
+		else
+			xc -= speed;
 	}
 
 	@Override

@@ -36,6 +36,11 @@ public class GameBoard {
 		return o;
 	}
 
+	public boolean willMoveZones(float x1, float y1, float x2, float y2) {
+		return ((int) (grid.length * (x1 - xOffset) / xSpan) != (int) (grid.length * (x2 - xOffset) / xSpan) 
+				|| ((int) (grid[0].length * (y1) / ySpan) != (int) (grid[0].length * (y2) / ySpan)));
+	}
+
 	public void unregister(GamePiece o) {
 		grid[(int) (grid.length * (o.xc - xOffset) / xSpan)][(int) (grid[0].length * (o.yc) / ySpan)].remove(o);
 	}

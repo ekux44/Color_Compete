@@ -13,7 +13,7 @@ public class RedTower extends GamePiece {
 
 	static Paint p;
 
-	public RedTower(float xCenter, float yCenter) {
+	public RedTower(float xCenter, float yCenter, GameBoard gBoard) {
 		// if(p!=null){
 		p = new Paint();
 		p.setColor(Color.RED);
@@ -21,6 +21,7 @@ public class RedTower extends GamePiece {
 		// }
 		xc = xCenter;
 		yc = yCenter;
+		gb = gBoard;
 		health = 100;
 	}
 
