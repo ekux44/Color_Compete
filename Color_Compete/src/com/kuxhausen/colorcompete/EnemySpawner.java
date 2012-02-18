@@ -13,7 +13,7 @@ import android.util.Log;
 public class EnemySpawner {
 	Paint p;
 	int spawnRate = 2;
-	int spawnsRemaining;
+	int spawnsRemaining, damage;
 	final int totalSpawns;
 
 	public EnemySpawner(int enemiesToSpawn) {

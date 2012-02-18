@@ -31,13 +31,9 @@ public class GameLoopThread extends Thread {
 	private long FPS_intervalStartTime;
 	private int FPS_framesCounted = 0; // number of frames since was this
 										// tracking interval started
-	private final int FPS_framesPerInterval = 10; // number of frames in each
-													// FPS tracking interval
+	private final static int FPS_framesPerInterval = 10; // number of frames in each
+	// FPS tracking interval
 	private int FPS = -1; // frames per second
-
-	// use to control how often touch events are processed
-	private long lastTouchSample;
-	private long touchSamplingInterval = 20;
 
 	// state of game
 	int state = 1;
@@ -54,9 +50,8 @@ public class GameLoopThread extends Thread {
 	}
 
 	/**
-	 * invoked when the call to start() is made from the SurfaceView class. It
-	 * loops continuously until the game is finished or the application is
-	 * suspended.
+	 * invoked when the call to start() is made from the SurfaceView class. It loops continuously until the game is
+	 * finished or the application is suspended.
 	 */
 	@Override
 	public void run() {

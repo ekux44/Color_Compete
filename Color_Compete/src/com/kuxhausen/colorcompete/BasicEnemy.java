@@ -14,27 +14,28 @@ public class BasicEnemy extends GamePiece {
 	static Paint p;
 	float speed;
 
-	public BasicEnemy(float xCenter, float yCenter, GameBoard gBoard) {
+	public BasicEnemy(float xCenter, float yCenter, GameEngine gEngine) {
 		// if(p!=null){
 		p = new Paint();
-		p.setColor(Color.RED);
+		p.setColor(Color.BLACK);
 		p.setShadowLayer(health / 2f, 0, 0, Color.BLACK);
 		// }
 		xc = xCenter;
 		yc = yCenter;
-		gb = gBoard;
+		gEng = gEngine;
+		gb = gEng.enemyMap;
+		gb.register(this);
 		health = 10;
 		speed = 1f;
 	}
 
 	@Override
 	public void update() {
-		if(gb.willMoveZones(xc, yc, xc-speed, yc)){
+		if (gb.willMoveZones(xc, yc, xc - speed, yc)) {
 			gb.unregister(this);
-			xc-=speed;
+			xc -= speed;
 			gb.register(this);
-		}
-		else
+		} else
 			xc -= speed;
 	}
 

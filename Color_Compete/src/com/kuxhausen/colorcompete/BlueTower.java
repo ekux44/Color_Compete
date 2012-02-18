@@ -13,15 +13,17 @@ public class BlueTower extends GamePiece {
 
 	static Paint p;
 
-	public BlueTower(float xCenter, float yCenter, GameBoard gBoard) {
-		// if(p!=null){
-		p = new Paint();
-		p.setColor(Color.BLUE);
-		p.setShadowLayer(health / 2f, 0, 0, Color.RED);
-		// }
+	public BlueTower(float xCenter, float yCenter, GameEngine gEngine) {
+		if (p == null) {
+			p = new Paint();
+			p.setColor(Color.BLUE);
+			p.setShadowLayer(health / 2f, 0, 0, Color.RED);
+		}
 		xc = xCenter;
 		yc = yCenter;
-		gb = gBoard;
+		gEng = gEngine;
+		gb = gEng.towerMap;
+		gb.register(this);
 		health = 300;
 	}
 

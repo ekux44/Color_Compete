@@ -29,13 +29,13 @@ public class GameEngine {
 														// play field
 	final static float enemyLeftEdgeFactor = .92f; // rightmost bounds of the
 													// play field
-
 	/* Gamestate */
 	ResourceSpawner[] spawns;
 	private int selectedSpawner = 0;
 	EnemySpawner enemyBase;
 	ArrayList<GamePiece> towers;
 	GameBoard towerMap, enemyMap;
+	GameEngine gEngine = this;
 
 	// TODO update game, update physics, etc
 
@@ -65,7 +65,7 @@ public class GameEngine {
 		spawns[0] = new ResourceSpawner(temp1, 4, 400, 20) {
 			public GamePiece spawnResource(float x, float y) {
 				fill -= respawnCost;
-				return new BlueTower(x, y, towerMap);
+				return new BlueTower(x, y, gEngine);
 			}
 		};
 		Paint temp2 = new Paint();
@@ -73,7 +73,7 @@ public class GameEngine {
 		spawns[1] = new ResourceSpawner(temp2, 1, 30, 0) {
 			public GamePiece spawnResource(float x, float y) {
 				fill -= respawnCost;
-				return new RedTower(x, y, towerMap);
+				return new RedTower(x, y, gEngine);
 			}
 		};
 
@@ -87,13 +87,13 @@ public class GameEngine {
 		gView.getInputs(touches);
 		for (MotionEvent e : touches) {
 			if (e.getHistorySize() > 0 && e.getHistoricalX(0) < (width * spawningRightEdgeFactor))
-				selectedSpawner = (int) (spawns.length * e.getHistoricalY(0) / height);
+				selectedSpawner = whichResourceSpawner(e.getHistoricalY(0));
 			else if (e.getAction() == MotionEvent.ACTION_DOWN && e.getX() < (width * spawningRightEdgeFactor))
-				selectedSpawner = (int) (spawns.length * e.getY() / height);
+				selectedSpawner = whichResourceSpawner(e.getY());
 			if (e.getAction() == MotionEvent.ACTION_UP
 					&& (width * spawningRightEdgeFactor < e.getX() && e.getX() < width * enemyLeftEdgeFactor)
 					&& spawns[selectedSpawner].canSpawn())
-				towers.add(towerMap.register(spawns[selectedSpawner].spawnResource(e.getX(), e.getY())));
+				towers.add(spawns[selectedSpawner].spawnResource(e.getX(), e.getY()));
 
 		}
 
@@ -142,4 +142,10 @@ public class GameEngine {
 		// draw FPS counter
 		c.drawText("FPS:" + FPS, c.getWidth() - 180, 40, textP);
 	}
+
+	/** Returns the index of the resource spawner that covers inputed y coordinate */
+	private int whichResourceSpawner(float y) {
+		return (int) (spawns.length * y / height);
+	}
+
 }

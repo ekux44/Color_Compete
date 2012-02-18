@@ -13,6 +13,7 @@ public abstract class GamePiece {
 	float yc;
 	float health;
 	GameBoard gb;
+	GameEngine gEng;
 
 	public abstract void update();
 

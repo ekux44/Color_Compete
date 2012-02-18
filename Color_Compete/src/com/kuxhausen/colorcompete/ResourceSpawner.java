@@ -12,13 +12,11 @@ import android.util.Log;
 public abstract class ResourceSpawner {
 
 	Paint p;
-	final int maxFill = 1000;// can't be changed without rewriting draw
-	int fill, respawnRate, respawnCost;
+	final static int maxFill = 1000;// can't be changed without rewriting draw
+	int fill, respawnRate, respawnCost, health;
 	int xIncrements;
-	float xIncrementCoefficient;// the inverse of the number of steps the
-								// horizontal progress bar should be divided
-								// into
-	final float yIncrementCoefficient = .1f;
+	float xIncrementCoefficient;// the inverse of the number of steps the horizontal progress bar should be divided into
+	final static float yIncrementCoefficient = .1f;
 
 	public ResourceSpawner(Paint paint, int spawnRate, int spawnCost, int startingFill) {
 		p = paint;

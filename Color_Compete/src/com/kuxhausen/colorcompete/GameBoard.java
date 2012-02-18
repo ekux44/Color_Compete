@@ -11,7 +11,7 @@ import android.util.Log;
  */
 public class GameBoard {
 
-	// may switch datat structures in the future, need to minimize cost of
+	// may switch data structures in the future, need to minimize cost of
 	// combining neighboring cells
 	ArrayList<GamePiece>[][] grid;
 	ArrayList<GamePiece> neighbors;
@@ -37,8 +37,8 @@ public class GameBoard {
 	}
 
 	public boolean willMoveZones(float x1, float y1, float x2, float y2) {
-		return ((int) (grid.length * (x1 - xOffset) / xSpan) != (int) (grid.length * (x2 - xOffset) / xSpan) 
-				|| ((int) (grid[0].length * (y1) / ySpan) != (int) (grid[0].length * (y2) / ySpan)));
+		return ((int) (grid.length * (x1 - xOffset) / xSpan) != (int) (grid.length * (x2 - xOffset) / xSpan) || ((int) (grid[0].length
+				* (y1) / ySpan) != (int) (grid[0].length * (y2) / ySpan)));
 	}
 
 	public void unregister(GamePiece o) {
