@@ -113,20 +113,13 @@ public class GameEngine {
 		if (enemyBase.spawnsRemaining < 10) // temp for testing
 			enemyBase.spawnsRemaining += 10; // temp for testing
 		for (int i = 0; i < towers.size(); i++) {
-			towers.get(i).update();
-			towers.get(i).health--; // temp for testing
-			if (towers.get(i).health <= 0) {
-				towers.get(i).die();
+			
+			if(towers.get(i).update())
 				i--;
-			}
 		}
 		for (int i = 0; i < enemies.size(); i++) {
-			enemies.get(i).update();
-			enemies.get(i).health--; // temp for testing
-			if (enemies.get(i).health <= 0) {
-				enemies.get(i).die();
+			if(enemies.get(i).update())
 				i--;
-			}
 		}
 	}
 
@@ -157,7 +150,7 @@ public class GameEngine {
 	}
 
 	/** Returns the index of the resource spawner that covers inputed y coordinate */
-	private int whichResourceSpawner(float y) {
+	protected int whichResourceSpawner(float y) {
 		return (int) (spawns.length * y / height);
 	}
 

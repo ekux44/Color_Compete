@@ -10,6 +10,7 @@ import android.graphics.Paint;
  * @author Eric Kuxhausen
  */
 public class BlueTower extends GamePiece {
+	private float health;
 
 	static Paint p;
 	private static final int cost = 200;
@@ -28,7 +29,9 @@ public class BlueTower extends GamePiece {
 	}
 
 	@Override
-	public void update() {
+	/** returns false if the piece dies */
+	public boolean update() {
+		return true;
 	}
 	
 	@Override
@@ -40,6 +43,17 @@ public class BlueTower extends GamePiece {
 	@Override
 	public void draw(Canvas c) {
 		c.drawCircle(xc, yc, health / 9f, p);
+	}
+	@Override
+	public void reduceHealth(float damage) {
+		health-=damage;
+		if(health<0)
+			die();
+	}
+
+	@Override
+	public float getHealth() {
+		return health;
 	}
 
 }

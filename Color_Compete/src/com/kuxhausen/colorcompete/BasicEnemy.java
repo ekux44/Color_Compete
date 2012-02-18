@@ -14,6 +14,7 @@ public class BasicEnemy extends GamePiece {
 	static Paint p;
 	float speed;
 	public static final int cost = 200;
+	private float health;
 
 	public BasicEnemy(float xCenter, float yCenter, GameEngine gEngine) {
 		 if(p==null){
@@ -31,11 +32,12 @@ public class BasicEnemy extends GamePiece {
 	}
 
 	@Override
-	public void update() {
+	/** returns false if the piece dies */
+	public boolean update() {
 		if((xc - speed )< (gEng.width*gEng.spawningRightEdgeFactor)){
-			//TODO do damage
+			gEng.spawns[gEng.whichResourceSpawner(yc)].health-=health;
 			die();
-			return;
+			return false;
 		}
 		if (gb.willMoveZones(xc, yc, xc - speed, yc)) {
 			gb.unregister(this);
@@ -43,6 +45,8 @@ public class BasicEnemy extends GamePiece {
 			gb.register(this);
 		} else
 			xc -= speed;
+		
+		return true;
 	}
 	
 	@Override
@@ -56,4 +60,15 @@ public class BasicEnemy extends GamePiece {
 		c.drawCircle(xc, yc, health / 3f, p);
 	}
 
+	@Override
+	public void reduceHealth(float damage) {
+		health-=damage;
+		if(health<0)
+			die();
+	}
+
+	@Override
+	public float getHealth() {
+		return health;
+	}
 }

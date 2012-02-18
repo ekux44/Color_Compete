@@ -13,6 +13,7 @@ public class RedTower extends GamePiece {
 
 	static Paint p;
 	private static final int cost = 300;
+	private float health;
 
 	public RedTower(float xCenter, float yCenter, GameEngine gEngine) {
 		if (p == null) {
@@ -28,7 +29,9 @@ public class RedTower extends GamePiece {
 	}
 
 	@Override
-	public void update() {
+	/** returns false if the piece dies */
+	public boolean update() {
+		return true;
 	}
 
 	@Override
@@ -40,6 +43,18 @@ public class RedTower extends GamePiece {
 	@Override
 	public void draw(Canvas c) {
 		c.drawCircle(xc, yc, health / 3f, p);
+	}
+
+	@Override
+	public void reduceHealth(float damage) {
+		health-=damage;
+		if(health<0)
+			die();
+	}
+
+	@Override
+	public float getHealth() {
+		return health;
 	}
 
 }

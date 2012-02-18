@@ -11,14 +11,19 @@ public abstract class GamePiece {
 
 	float xc;
 	float yc;
-	float health;
 	GameBoard gb;
 	GameEngine gEng;
-
-	public abstract void update();
+	float radius;
+	
+	/** returns false if the piece dies */
+	public abstract boolean update();
 	
 	public abstract void die();
 
 	public abstract void draw(Canvas c);
 
+	public abstract void reduceHealth(float damage);
+	
+	public abstract float getHealth();
+	
 }
