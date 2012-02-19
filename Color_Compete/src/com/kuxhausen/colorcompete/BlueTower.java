@@ -6,6 +6,8 @@ import android.graphics.Paint;
 
 /**
  * (c) 2012 Eric Kuxhausen
+ * <p>
+ * Player tower that serves as a passive barrier
  * 
  * @author Eric Kuxhausen
  */

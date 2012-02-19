@@ -6,6 +6,9 @@ import android.util.Log;
 
 /**
  * (c) 2012 Eric Kuxhausen
+ * <p>
+ * GameBoard manages the location of all GamePieces in it. Future revisions will be used to optimizing which GamePieces
+ * to check when calculating neighbors for collision detection and other area interaction
  * 
  * @author Eric Kuxhausen
  */
@@ -87,6 +90,7 @@ public class GameBoard {
 		return nearest;
 	}
 
+	/** performs simple calculation of geometric distance between two points */
 	public static float distanceBetween(float x1, float y1, float x2, float y2) {
 		return (float) Math.sqrt(((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2)));
 	}

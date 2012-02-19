@@ -9,28 +9,33 @@ import android.widget.TextView;
 
 /**
  * (c) 2012 Eric Kuxhausen
+ * <p>
+ * GameActivity is the Android Activity within which individual game levels run
  * 
  * @author Eric Kuxhausen
  */
 public class GameActivity extends Activity {
 
-	private GameView mGameView;
+	private GameView gameView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		// disable title bar, ask for fullscreen mode
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		// tell system to use the layout defined in our XML file
+
+		// tell system to use the layout defined in this XML file
 		setContentView(R.layout.game);
 
-		// get handle to the ColorCompeteView from XML
-		mGameView = (GameView) findViewById(R.id.gView);
+		// get handle to the GameView from XML
+		gameView = (GameView) findViewById(R.id.gView);
 
-		// give the LunarView a handle to the TextView used for messages
-        mGameView.setTextView((TextView) findViewById(R.id.text));
-		
+		// give the GameView a handle to the TextView used for messages
+		gameView.setTextView((TextView) findViewById(R.id.text));
+
+		// TODO allow for actually resuming from previous game
 		if (savedInstanceState == null) {
 			// we were just launched: set up a new game
 			Log.w(this.getClass().getName(), "Saved Instance State is null");

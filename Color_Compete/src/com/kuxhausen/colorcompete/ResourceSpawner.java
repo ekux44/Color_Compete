@@ -6,6 +6,8 @@ import android.util.Log;
 
 /**
  * (c) 2012 Eric Kuxhausen
+ * <p>
+ * Spawner that generatates player towers on demand when available
  * 
  * @author Eric Kuxhausen
  */
@@ -64,7 +66,7 @@ public abstract class ResourceSpawner {
 		Log.i("damage", "damage " + damage + "  to spawner colored" + p.getColor());
 	}
 
-	/* any implimentation should decrement fill by respawnCost */
+	/** any implementation should decrement fill by respawnCost */
 	public abstract GamePiece spawnResource(float xCenter, float yCenter);
 
 }

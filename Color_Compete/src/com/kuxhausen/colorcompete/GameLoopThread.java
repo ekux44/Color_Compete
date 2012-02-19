@@ -15,6 +15,8 @@ import android.view.View;
 
 /**
  * (c) 2012 Eric Kuxhausen
+ * <p>
+ * Thread that contains the game loop
  * 
  * @author Eric Kuxhausen
  */
@@ -53,8 +55,8 @@ public class GameLoopThread extends Thread {
 	}
 
 	/**
-	 * invoked when the call to start() is made from the SurfaceView class. It loops continuously until the game is
-	 * finished or the application is suspended.
+	 * invoked when the call to start() is made from the GameView. It loops continuously until the game is finished or
+	 * the application is suspended.
 	 */
 	@Override
 	public void run() {
@@ -100,17 +102,19 @@ public class GameLoopThread extends Thread {
 			}
 		}
 	}
-	public void endGame(boolean playerWon){
+
+	/** Marks game paused to shut down game loop. Also, passes message to make the results TextView visible */
+	public void endGame(boolean playerWon) {
 		state = GameLoopThread.PAUSED;
 		Message msg = mHandler.obtainMessage();
-        Bundle b = new Bundle();
-        if(playerWon)
-      		b.putString("text", "You Won!");
-      	else
-      		b.putString("text", "You Won!");
-        b.putInt("viz", View.VISIBLE);
-        msg.setData(b);
-        mHandler.sendMessage(msg);
+		Bundle b = new Bundle();
+		if (playerWon)
+			b.putString("text", "You Won!");
+		else
+			b.putString("text", "You Lost!");
+		b.putInt("viz", View.VISIBLE);
+		msg.setData(b);
+		mHandler.sendMessage(msg);
 	}
 
 	private void updateFPS() {
@@ -122,8 +126,7 @@ public class GameLoopThread extends Thread {
 		}
 	}
 
+	/** Override to use */
 	public void handleMessage(Message m) {
-		// TODO Auto-generated method stub
-		
 	}
 }

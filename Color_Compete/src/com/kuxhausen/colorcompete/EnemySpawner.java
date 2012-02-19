@@ -5,10 +5,11 @@ import java.util.Random;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
 
 /**
  * (c) 2012 Eric Kuxhausen
+ * <p>
+ * Spawner that generates enemies based on spawn rate until all of the spawn points have been spent
  * 
  * @author Eric Kuxhausen
  */
@@ -25,18 +26,18 @@ public class EnemySpawner {
 		totalSpawns = toSpawn;
 		spawnsRemaining = totalSpawns;
 		spawnRate = rateToSpawn;
-		spawnAccelInterval+=spawnAccelerationInterval;
+		spawnAccelInterval += spawnAccelerationInterval;
 	}
 
 	public void update() {
 		pendingSpawnUnits += spawnRate;
 		spawnsRemaining -= spawnRate;
 		spawnAccelerationCount++;
-		if(spawnAccelerationCount>=spawnAccelInterval){
-			spawnAccelerationCount=0;
-			spawnRate+=(10*spawnRate)/9;
-		}			
-		if (spawnsRemaining <= 0)
+		if (spawnAccelerationCount >= spawnAccelInterval) {
+			spawnAccelerationCount = 0;
+			spawnRate += (10 * spawnRate) / 9;
+		}
+		if (spawnsRemaining <= BasicEnemy.cost)
 			gEng.endGame(true);
 		int maybeSpawn = r.nextInt(pendingSpawnUnits);
 
@@ -45,7 +46,6 @@ public class EnemySpawner {
 			maybeSpawn -= BasicEnemy.cost;
 			pendingSpawnUnits -= BasicEnemy.cost;
 		}
-
 	}
 
 	public void draw(Canvas c) {

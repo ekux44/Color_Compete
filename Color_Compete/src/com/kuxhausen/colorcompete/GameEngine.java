@@ -26,10 +26,9 @@ public class GameEngine {
 	private Paint textP;
 	private Paint userInterfaceP;
 	int width, height; // TODO create scaling factor
-	final static float spawningRightEdgeFactor = .12f; // leftmost bounds of the
-														// play field
-	final static float enemyLeftEdgeFactor = .92f; // rightmost bounds of the
-													// play field
+	final static float spawningRightEdgeFactor = .12f; // leftmost bounds of the play field
+	final static float enemyLeftEdgeFactor = .92f; // rightmost bounds of the play field
+
 	/* Gamestate */
 	ResourceSpawner[] spawns;
 	private int selectedSpawner = 0;
@@ -105,7 +104,7 @@ public class GameEngine {
 
 		}
 
-		/** IMPORTANT **/
+		/* IMPORTANT */
 		touches.clear();
 	}
 
@@ -163,7 +162,7 @@ public class GameEngine {
 		return (int) (spawns.length * y / height);
 	}
 
-	/* if all of the ResouceSpawners are dead, player lost* */
+	/** if all of the ResouceSpawners are dead, player lost so end game */
 	public void checkPlayerAlive() {
 		boolean dead = true;
 		for (ResourceSpawner rs : spawns)

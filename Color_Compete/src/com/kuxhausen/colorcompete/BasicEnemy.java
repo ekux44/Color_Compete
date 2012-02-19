@@ -6,6 +6,8 @@ import android.graphics.Paint;
 
 /**
  * (c) 2012 Eric Kuxhausen
+ * <p>
+ * Basic enemy that chargers as player spanners
  * 
  * @author Eric Kuxhausen
  */

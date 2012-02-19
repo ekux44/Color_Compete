@@ -8,6 +8,8 @@ import android.view.View.OnClickListener;
 
 /**
  * (c) 2012 Eric Kuxhausen
+ * <p>
+ * Activity that launches specific game levels
  * 
  * @author Eric Kuxhausen
  */
@@ -21,6 +23,7 @@ public class LaunchScreen extends Activity implements OnClickListener {
 		View LaunchButton = this.findViewById(R.id.launchButton);
 		LaunchButton.setOnClickListener(this);
 
+		// TODO add support for multiple levels
 	}
 
 	public void onClick(View v) {

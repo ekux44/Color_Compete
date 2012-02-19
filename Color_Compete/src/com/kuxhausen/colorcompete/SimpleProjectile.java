@@ -4,6 +4,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+/**
+ * (c) 2012 Eric Kuxhausen
+ * <p>
+ * Simple projectile that acts as a homing missile against an enemy
+ * 
+ * @author Eric Kuxhausen
+ */
 public class SimpleProjectile extends GamePiece {
 
 	static Paint p;
@@ -54,8 +61,8 @@ public class SimpleProjectile extends GamePiece {
 		// update location tracking target
 		float dx = target.xc - xc;
 		float dy = target.yc - yc;
-		dx = (float) (dx* Math.min(1f,speed/Math.sqrt(dx * dx + dy * dy)));
-		dy = (float) (dy* Math.min(1f, speed/Math.sqrt(dx * dx + dy * dy)));
+		dx = (float) (dx * Math.min(1f, speed / Math.sqrt(dx * dx + dy * dy)));
+		dy = (float) (dy * Math.min(1f, speed / Math.sqrt(dx * dx + dy * dy)));
 		if (gb.willMoveZones(xc, yc, xc + dx, yc + dy)) {
 			gb.unregister(this);
 			xc += dx;
