@@ -8,11 +8,11 @@ public class SimpleProjectile extends GamePiece {
 
 	static Paint p;
 	float speed;
-	public static final int cost = 180;
+	public static final int cost = 60;
 	private float health;
 	private static final float sizeingFactor = .5f;
 	GamePiece target;
-	
+
 	public SimpleProjectile(float xCenter, float yCenter, GameEngine gEngine, GamePiece theTarget) {
 		if (p == null) {
 			p = new Paint();
@@ -24,16 +24,16 @@ public class SimpleProjectile extends GamePiece {
 		gb = gEng.projectileMap;
 		gb.register(this);
 		health = cost / 2;
-		speed = 5f;
+		speed = 3f;
 		radius = sizeingFactor * (float) Math.sqrt(health);
-		
+
 		target = theTarget;
 	}
 
 	@Override
 	/** returns false if the piece dies */
 	public boolean update() {
-		
+
 		// check for collisions
 		GamePiece maybeCollision = gEng.enemyMap.getNearestNeighbor(xc, yc);
 		if (maybeCollision != null
@@ -41,28 +41,28 @@ public class SimpleProjectile extends GamePiece {
 						maybeCollision.yc)) {
 			float damage = Math.min(health, maybeCollision.getHealth());
 			maybeCollision.reduceHealth(damage);
-			if(this.reduceHealth(damage))
-					return false;
+			if (this.reduceHealth(damage))
+				return false;
 		}
-		
+
 		/* die if target is dead */
-		if(target.getHealth()<0){
+		if (target.getHealth() <= 0) {
 			die();
 			return false;
 		}
-		
+
 		// update location tracking target
-		float dx = target.xc-xc;
-		float dy = target.yc-yc;
-		dx=(float)(speed*dx/Math.sqrt(dx*dx + dy*dy));
-		dy=(float)(speed*dx/Math.sqrt(dx*dx + dy*dy));
+		float dx = target.xc - xc;
+		float dy = target.yc - yc;
+		dx = (float) (dx* Math.min(1f,speed/Math.sqrt(dx * dx + dy * dy)));
+		dy = (float) (dy* Math.min(1f, speed/Math.sqrt(dx * dx + dy * dy)));
 		if (gb.willMoveZones(xc, yc, xc + dx, yc + dy)) {
 			gb.unregister(this);
 			xc += dx;
 			yc += dy;
 			gb.register(this);
-		} else{
-			xc -= dx;
+		} else {
+			xc += dx;
 			yc += dy;
 		}
 		return true;
@@ -70,7 +70,7 @@ public class SimpleProjectile extends GamePiece {
 
 	@Override
 	public void die() {
-		health=0;
+		health = 0;
 		gb.unregister(this);
 		gEng.projectiles.remove(this);
 	}
@@ -84,7 +84,7 @@ public class SimpleProjectile extends GamePiece {
 	/** @return true still alive*/
 	public boolean reduceHealth(float damage) {
 		health -= damage;
-		if (health <= 0){
+		if (health <= 0) {
 			die();
 			return false;
 		}

@@ -38,7 +38,7 @@ public class BlueTower extends GamePiece {
 
 	@Override
 	public void die() {
-		health=0;
+		health = 0;
 		gb.unregister(this);
 		gEng.towers.remove(this);
 	}
@@ -51,7 +51,7 @@ public class BlueTower extends GamePiece {
 	@Override
 	public boolean reduceHealth(float damage) {
 		health -= damage;
-		if (health <= 0){
+		if (health <= 0) {
 			die();
 			return false;
 		}

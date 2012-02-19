@@ -49,10 +49,10 @@ public class BasicEnemy extends GamePiece {
 						maybeCollision.yc)) {
 			float damage = Math.min(health, maybeCollision.getHealth());
 			maybeCollision.reduceHealth(damage);
-			if(this.reduceHealth(damage))
-					return false;
+			if (this.reduceHealth(damage))
+				return false;
 		}
-		
+
 		// update location
 		if (gb.willMoveZones(xc, yc, xc - speed, yc)) {
 			gb.unregister(this);
@@ -60,13 +60,13 @@ public class BasicEnemy extends GamePiece {
 			gb.register(this);
 		} else
 			xc -= speed;
-		
+
 		return true;
 	}
 
 	@Override
 	public void die() {
-		health=0;
+		health = 0;
 		gb.unregister(this);
 		gEng.enemies.remove(this);
 	}
@@ -80,7 +80,7 @@ public class BasicEnemy extends GamePiece {
 	/** @return true still alive*/
 	public boolean reduceHealth(float damage) {
 		health -= damage;
-		if (health <= 0){
+		if (health <= 0) {
 			die();
 			return false;
 		}

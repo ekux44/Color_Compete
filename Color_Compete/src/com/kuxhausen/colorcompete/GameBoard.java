@@ -64,7 +64,7 @@ public class GameBoard {
 	 * @return ArrayList containing at least all GamePices on this board in that radius; other pieces may be returned as
 	 *         well
 	 */
-	public ArrayList<GamePiece> getNeighbors(float x, float y, int radius) {
+	public ArrayList<GamePiece> getNeighbors(float x, float y, float radius) {
 		// neighbors.clear();
 		// neighbors.addAll(grid[(int) (grid.length * (y - xOffset) / xSpan)][(int) (grid[0].length * (y) / ySpan)]);
 		// TODO check next level neighboring
@@ -78,10 +78,10 @@ public class GameBoard {
 		for (int i = 0; i < all.size(); i++) {
 			if (i == 0) {
 				nearest = all.get(i);
-				nearness = distanceBetween(nearest.xc, nearest.yc, x, y)-nearest.radius;
-			} else if (distanceBetween(all.get(i).xc, all.get(i).yc, x, y)- all.get(i).radius < nearness) {
+				nearness = distanceBetween(nearest.xc, nearest.yc, x, y) - nearest.radius;
+			} else if (distanceBetween(all.get(i).xc, all.get(i).yc, x, y) - all.get(i).radius < nearness) {
 				nearest = all.get(i);
-				nearness = distanceBetween(nearest.xc, nearest.yc, x, y)-nearest.radius;
+				nearness = distanceBetween(nearest.xc, nearest.yc, x, y) - nearest.radius;
 			}
 		}
 		return nearest;

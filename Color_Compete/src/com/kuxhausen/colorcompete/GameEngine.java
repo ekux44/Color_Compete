@@ -63,7 +63,7 @@ public class GameEngine {
 
 		/* GameState */
 		gView = g;
-		enemyBase = new EnemySpawner(gEngine, 1000, 1);
+		enemyBase = new EnemySpawner(gEngine, 1000, 2);
 		towers = new ArrayList<GamePiece>();
 		enemies = new ArrayList<GamePiece>();
 		projectiles = new ArrayList<GamePiece>();
