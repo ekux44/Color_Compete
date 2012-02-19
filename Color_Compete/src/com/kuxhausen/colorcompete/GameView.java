@@ -3,11 +3,15 @@ package com.kuxhausen.colorcompete;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.TextView;
 
 /**
  * (c) 2012 Eric Kuxhausen
@@ -23,6 +27,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	private Context context;
 	private GameLoopThread gThread;
 	private ArrayList<MotionEvent> touches = new ArrayList<MotionEvent>();
+	
+	/** Pointer to the text view to display */
+    private TextView statusText;
 
 	/** initialization code **/
 	void InitView() {
@@ -35,9 +42,18 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		gEngine.Init(this, context.getResources());
 
 		// initialize game loop thread, start will be called later
-		gThread = new GameLoopThread(holder, context, new Handler(), gEngine);
+		gThread = new GameLoopThread(holder, context, gEngine, new Handler(){
+            @Override
+            public void handleMessage(Message m) {
+                statusText.setVisibility(m.getData().getInt("viz"));
+                statusText.setText(m.getData().getString("text"));
+            }
+        });
 		setFocusable(true);
-
+	}
+	
+	public void endGame(boolean playerWon){
+		gThread.endGame(playerWon);
 	}
 
 	/** constructor **/
@@ -71,6 +87,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		copy.addAll(touches);
 		touches.clear();
 	}
+	
+    public void setTextView(TextView textView) {
+        statusText = textView;
+    }
 
 	@Override
 	public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
@@ -95,7 +115,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	public void surfaceCreated(SurfaceHolder arg0) {
 		if (gThread.state == GameLoopThread.PAUSED) {
 			// When game is opened again in the Android OS
-			gThread = new GameLoopThread(getHolder(), context, new Handler(), gEngine);
+			gThread = new GameLoopThread(getHolder(), context, gEngine, new Handler(){
+	            @Override
+	            public void handleMessage(Message m) {
+	                statusText.setVisibility(m.getData().getInt("viz"));
+	                statusText.setText(m.getData().getString("text"));
+	            }
+	        });
 			gThread.start();
 		} else {
 			// create game loop thread for the first time

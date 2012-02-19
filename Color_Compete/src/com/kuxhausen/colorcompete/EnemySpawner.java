@@ -14,22 +14,28 @@ import android.util.Log;
  */
 public class EnemySpawner {
 	Paint p;
-	int totalSpawns, spawnsRemaining, damage, spawnRate, pendingSpawnUnits;
+	int totalSpawns, spawnsRemaining, damage, spawnRate, pendingSpawnUnits, spawnAccelInterval, spawnAccelerationCount;
 	Random r = new Random();
 	GameEngine gEng;
 
-	public EnemySpawner(GameEngine gEngine, int toSpawn, int rateToSpawn) {
+	public EnemySpawner(GameEngine gEngine, int toSpawn, int rateToSpawn, int spawnAccelerationInterval) {
 		p = new Paint();
 		p.setShadowLayer(10, 0, 0, Color.GRAY);
 		gEng = gEngine;
 		totalSpawns = toSpawn;
 		spawnsRemaining = totalSpawns;
 		spawnRate = rateToSpawn;
+		spawnAccelInterval+=spawnAccelerationInterval;
 	}
 
 	public void update() {
 		pendingSpawnUnits += spawnRate;
 		spawnsRemaining -= spawnRate;
+		spawnAccelerationCount++;
+		if(spawnAccelerationCount>=spawnAccelInterval){
+			spawnAccelerationCount=0;
+			spawnRate+=(10*spawnRate)/9;
+		}			
 		if (spawnsRemaining <= 0)
 			gEng.endGame(true);
 		int maybeSpawn = r.nextInt(pendingSpawnUnits);

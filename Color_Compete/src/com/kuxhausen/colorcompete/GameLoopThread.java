@@ -5,10 +5,13 @@ import java.util.logging.Logger;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
+import android.view.View;
 
 /**
  * (c) 2012 Eric Kuxhausen
@@ -40,7 +43,7 @@ public class GameLoopThread extends Thread {
 	public final static int RUNNING = 1;
 	public final static int PAUSED = 2;
 
-	public GameLoopThread(SurfaceHolder surfaceHolder, Context context, Handler handler, GameEngine gEngineS) {
+	public GameLoopThread(SurfaceHolder surfaceHolder, Context context, GameEngine gEngineS, Handler handler) {
 
 		// data about the screen
 		mSurfaceHolder = surfaceHolder;
@@ -97,6 +100,18 @@ public class GameLoopThread extends Thread {
 			}
 		}
 	}
+	public void endGame(boolean playerWon){
+		state = GameLoopThread.PAUSED;
+		Message msg = mHandler.obtainMessage();
+        Bundle b = new Bundle();
+        if(playerWon)
+      		b.putString("text", "You Won!");
+      	else
+      		b.putString("text", "You Won!");
+        b.putInt("viz", View.VISIBLE);
+        msg.setData(b);
+        mHandler.sendMessage(msg);
+	}
 
 	private void updateFPS() {
 		FPS_framesCounted++;
@@ -105,6 +120,10 @@ public class GameLoopThread extends Thread {
 			FPS_framesCounted = 0;
 			FPS_intervalStartTime = System.nanoTime();
 		}
-		// Log.i("FPS", "" + FPS);
+	}
+
+	public void handleMessage(Message m) {
+		// TODO Auto-generated method stub
+		
 	}
 }

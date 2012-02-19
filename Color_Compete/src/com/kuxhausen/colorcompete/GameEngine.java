@@ -63,7 +63,7 @@ public class GameEngine {
 
 		/* GameState */
 		gView = g;
-		enemyBase = new EnemySpawner(gEngine, 1000, 2);
+		enemyBase = new EnemySpawner(gEngine, 10000, 2, 1000);
 		towers = new ArrayList<GamePiece>();
 		enemies = new ArrayList<GamePiece>();
 		projectiles = new ArrayList<GamePiece>();
@@ -173,7 +173,7 @@ public class GameEngine {
 	}
 
 	public void endGame(boolean playerWon) {
-		// TODO Auto-generated method stub
+		gView.endGame(playerWon);
 	}
 
 }

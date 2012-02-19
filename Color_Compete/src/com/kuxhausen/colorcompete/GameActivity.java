@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 /**
  * (c) 2012 Eric Kuxhausen
@@ -27,6 +28,9 @@ public class GameActivity extends Activity {
 		// get handle to the ColorCompeteView from XML
 		mGameView = (GameView) findViewById(R.id.gView);
 
+		// give the LunarView a handle to the TextView used for messages
+        mGameView.setTextView((TextView) findViewById(R.id.text));
+		
 		if (savedInstanceState == null) {
 			// we were just launched: set up a new game
 			Log.w(this.getClass().getName(), "Saved Instance State is null");

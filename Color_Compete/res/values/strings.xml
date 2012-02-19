@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">Color_Compete</string>
 	<string name="launch">Play!</string>
+	<string name="text">This should not be visible</string>
 </resources>
