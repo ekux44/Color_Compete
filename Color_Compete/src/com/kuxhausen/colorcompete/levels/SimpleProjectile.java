@@ -17,9 +17,8 @@ import android.graphics.Paint;
 public class SimpleProjectile extends GamePiece {
 
 	static Paint p;
-	float speed=3f;
+	float speed = 3f;
 	public static final int cost = 60;
-	private float health;
 	private static final float sizeingFactor = .5f, healthCostRatio = .5f;
 	GamePiece target;
 
@@ -32,6 +31,7 @@ public class SimpleProjectile extends GamePiece {
 		yc = yCenter;
 		gEng = gEngine;
 		gb = gEng.projectileMap;
+		gList = gEng.projectiles;
 		gb.register(this);
 		health = cost * healthCostRatio;
 		radius = sizeingFactor * (float) Math.sqrt(health);
@@ -78,13 +78,6 @@ public class SimpleProjectile extends GamePiece {
 	}
 
 	@Override
-	public void die() {
-		health = 0;
-		gb.unregister(this);
-		gEng.projectiles.remove(this);
-	}
-
-	@Override
 	public void draw(Canvas c) {
 		c.drawCircle(xc, yc, radius, p);
 	}
@@ -99,11 +92,6 @@ public class SimpleProjectile extends GamePiece {
 		}
 		radius = sizeingFactor * (float) Math.sqrt(health);
 		return true;
-	}
-
-	@Override
-	public float getHealth() {
-		return health;
 	}
 
 }

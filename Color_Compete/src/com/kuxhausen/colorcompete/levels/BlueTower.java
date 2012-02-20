@@ -17,7 +17,6 @@ public class BlueTower extends GamePiece {
 
 	static Paint p;
 	private static final int cost = 200;
-	private float health;
 	private static final float sizeingFactor = 2, healthCostRatio = 1.5f;
 
 	public BlueTower(float xCenter, float yCenter, GameEngine gEngine) {
@@ -29,6 +28,7 @@ public class BlueTower extends GamePiece {
 		yc = yCenter;
 		gEng = gEngine;
 		gb = gEng.towerMap;
+		gList = gEng.towers;
 		gb.register(this);
 		health = cost * healthCostRatio;
 		radius = sizeingFactor * (float) Math.sqrt(health);
@@ -38,13 +38,6 @@ public class BlueTower extends GamePiece {
 	/** returns false if the piece dies */
 	public boolean update() {
 		return true;
-	}
-
-	@Override
-	public void die() {
-		health = 0;
-		gb.unregister(this);
-		gEng.towers.remove(this);
 	}
 
 	@Override
@@ -62,10 +55,4 @@ public class BlueTower extends GamePiece {
 		radius = sizeingFactor * (float) Math.sqrt(health);
 		return true;
 	}
-
-	@Override
-	public float getHealth() {
-		return health;
-	}
-
 }

@@ -17,9 +17,8 @@ import android.graphics.Paint;
 public class BasicEnemy extends GamePiece {
 
 	static Paint p;
-	float speed=2f;
+	float speed = 2f;
 	public static final int cost = 180;
-	private float health;
 	private static final float sizeingFactor = 2, healthCostRatio = .5f;
 
 	public BasicEnemy(float xCenter, float yCenter, GameEngine gEngine) {
@@ -31,6 +30,7 @@ public class BasicEnemy extends GamePiece {
 		yc = yCenter;
 		gEng = gEngine;
 		gb = gEng.enemyMap;
+		gList = gEng.enemies;
 		gb.register(this);
 		health = cost * healthCostRatio;
 		radius = sizeingFactor * (float) Math.sqrt(health);
@@ -69,13 +69,6 @@ public class BasicEnemy extends GamePiece {
 	}
 
 	@Override
-	public void die() {
-		health = 0;
-		gb.unregister(this);
-		gEng.enemies.remove(this);
-	}
-
-	@Override
 	public void draw(Canvas c) {
 		c.drawCircle(xc, yc, radius, p);
 	}
@@ -90,10 +83,5 @@ public class BasicEnemy extends GamePiece {
 		}
 		radius = sizeingFactor * (float) Math.sqrt(health);
 		return true;
-	}
-
-	@Override
-	public float getHealth() {
-		return health;
 	}
 }

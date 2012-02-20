@@ -1,5 +1,7 @@
 package com.kuxhausen.colorcompete.levels;
 
+import java.util.ArrayList;
+
 import com.kuxhausen.colorcompete.GameBoard;
 import com.kuxhausen.colorcompete.GameEngine;
 
@@ -15,8 +17,10 @@ import android.graphics.Canvas;
 public abstract class GamePiece {
 
 	public float xc, yc, radius;
-	GameBoard gb;
-	GameEngine gEng;
+	protected GameBoard gb;
+	protected GameEngine gEng;
+	protected ArrayList<GamePiece> gList;
+	protected float health;
 
 	/** @return true if still alive */
 	public abstract boolean update();
@@ -25,7 +29,11 @@ public abstract class GamePiece {
 	 * Unregisters GamePiece from GameBoard and GameEngine; sets health to 0 so any other objects holding references to
 	 * this GamePiece can figure out when to deallocate
 	 */
-	public abstract void die();
+	public void die() {
+		health = 0;
+		gb.unregister(this);
+		gList.remove(this);
+	}
 
 	/**
 	 * @param c
@@ -41,6 +49,8 @@ public abstract class GamePiece {
 	public abstract boolean reduceHealth(float damage);
 
 	/** @return health */
-	public abstract float getHealth();
+	public float getHealth() {
+		return health;
+	}
 
 }
