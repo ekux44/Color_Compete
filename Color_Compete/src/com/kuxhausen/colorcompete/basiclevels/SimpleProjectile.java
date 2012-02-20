@@ -22,7 +22,7 @@ public class SimpleProjectile extends GamePiece {
 	GamePiece target;
 
 	public SimpleProjectile(float xCenter, float yCenter, GameEngine gEngine, GamePiece theTarget) {
-		
+
 		p = LevelLoader.simpleProjectileP;
 		xc = xCenter;
 		yc = yCenter;

@@ -23,7 +23,7 @@ public abstract class GamePiece {
 	protected ArrayList<GamePiece> gList;
 	protected float health;
 	protected Paint p;
-	
+
 	/** @return true if still alive */
 	public abstract boolean update();
 

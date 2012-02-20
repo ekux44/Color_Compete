@@ -21,7 +21,7 @@ public class RedTower extends GamePiece {
 	private int spawnPool = 200;
 
 	public RedTower(float xCenter, float yCenter, GameEngine gEngine) {
-		
+
 		p = LevelLoader.redTowerP;
 		xc = xCenter;
 		yc = yCenter;

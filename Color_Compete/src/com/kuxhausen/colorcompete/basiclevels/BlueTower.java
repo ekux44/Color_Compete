@@ -19,7 +19,7 @@ public class BlueTower extends GamePiece {
 	private static final float sizeingFactor = 2, healthCostRatio = 1.5f;
 
 	public BlueTower(float xCenter, float yCenter, GameEngine gEngine) {
-		
+
 		p = LevelLoader.blueTowerP;
 		xc = xCenter;
 		yc = yCenter;

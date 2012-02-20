@@ -21,7 +21,7 @@ public class BasicEnemy extends GamePiece {
 	private static final float sizeingFactor = 2, healthCostRatio = .5f;
 
 	public BasicEnemy(float xCenter, float yCenter, GameEngine gEngine) {
-		
+
 		p = LevelLoader.basicEnemyP;
 		xc = xCenter;
 		yc = yCenter;
@@ -64,8 +64,6 @@ public class BasicEnemy extends GamePiece {
 
 		return true;
 	}
-
-	
 
 	@Override
 	/** @return true still alive*/
