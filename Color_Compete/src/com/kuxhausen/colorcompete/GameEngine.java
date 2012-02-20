@@ -2,9 +2,9 @@ package com.kuxhausen.colorcompete;
 
 import java.util.ArrayList;
 
-import com.kuxhausen.colorcompete.levels.BlueTower;
-import com.kuxhausen.colorcompete.levels.GamePiece;
-import com.kuxhausen.colorcompete.levels.RedTower;
+import com.kuxhausen.colorcompete.basiclevels.BlueTower;
+import com.kuxhausen.colorcompete.basiclevels.GamePiece;
+import com.kuxhausen.colorcompete.basiclevels.RedTower;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;

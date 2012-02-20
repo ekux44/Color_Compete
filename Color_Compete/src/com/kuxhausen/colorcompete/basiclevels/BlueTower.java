@@ -1,4 +1,4 @@
-package com.kuxhausen.colorcompete.levels;
+package com.kuxhausen.colorcompete.basiclevels;
 
 import com.kuxhausen.colorcompete.GameEngine;
 

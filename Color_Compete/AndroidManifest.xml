@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="GameActivity" 
+        <activity android:name=".GameActivity" 
             android:configChanges="keyboard|keyboardHidden|orientation" 
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar" 
