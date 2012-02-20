@@ -14,10 +14,10 @@ import android.graphics.Paint;
 public class BasicEnemy extends GamePiece {
 
 	static Paint p;
-	float speed;
+	float speed=2f;
 	public static final int cost = 180;
 	private float health;
-	private static final float sizeingFactor = 2;
+	private static final float sizeingFactor = 2, healthCostRatio = .5f;
 
 	public BasicEnemy(float xCenter, float yCenter, GameEngine gEngine) {
 		if (p == null) {
@@ -29,8 +29,7 @@ public class BasicEnemy extends GamePiece {
 		gEng = gEngine;
 		gb = gEng.enemyMap;
 		gb.register(this);
-		health = cost / 2;
-		speed = 2f;
+		health = cost * healthCostRatio;
 		radius = sizeingFactor * (float) Math.sqrt(health);
 	}
 

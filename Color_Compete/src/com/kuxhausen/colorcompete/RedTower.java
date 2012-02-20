@@ -16,8 +16,8 @@ public class RedTower extends GamePiece {
 	static Paint p;
 	private static final int cost = 300, spawnRate = 2, spawnPoolMax = 75;
 	private float health;
-	private static final float sizeingFactor = 2, firingRadius = 100f;
-	private int spawnPool;
+	private static final float sizeingFactor = 2, firingRadius = 100f, healthCostRatio = .5f;
+	private int spawnPool=200;
 
 	public RedTower(float xCenter, float yCenter, GameEngine gEngine) {
 		if (p == null) {
@@ -29,9 +29,8 @@ public class RedTower extends GamePiece {
 		gEng = gEngine;
 		gb = gEng.towerMap;
 		gb.register(this);
-		health = cost / 2;
+		health = cost * healthCostRatio;
 		radius = sizeingFactor * (float) Math.sqrt(health);
-		spawnPool = 200;
 	}
 
 	@Override
@@ -49,7 +48,6 @@ public class RedTower extends GamePiece {
 			gEng.projectiles.add(new SimpleProjectile(xc, yc, gEng, nearestEnemy));
 			spawnPool -= SimpleProjectile.cost;
 		}
-
 		return true;
 	}
 
@@ -80,5 +78,4 @@ public class RedTower extends GamePiece {
 	public float getHealth() {
 		return health;
 	}
-
 }

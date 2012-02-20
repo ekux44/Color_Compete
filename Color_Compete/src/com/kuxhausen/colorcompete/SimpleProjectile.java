@@ -14,10 +14,10 @@ import android.graphics.Paint;
 public class SimpleProjectile extends GamePiece {
 
 	static Paint p;
-	float speed;
+	float speed=3f;
 	public static final int cost = 60;
 	private float health;
-	private static final float sizeingFactor = .5f;
+	private static final float sizeingFactor = .5f, healthCostRatio = .5f;
 	GamePiece target;
 
 	public SimpleProjectile(float xCenter, float yCenter, GameEngine gEngine, GamePiece theTarget) {
@@ -30,8 +30,7 @@ public class SimpleProjectile extends GamePiece {
 		gEng = gEngine;
 		gb = gEng.projectileMap;
 		gb.register(this);
-		health = cost / 2;
-		speed = 3f;
+		health = cost * healthCostRatio;
 		radius = sizeingFactor * (float) Math.sqrt(health);
 
 		target = theTarget;

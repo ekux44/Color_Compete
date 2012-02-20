@@ -16,7 +16,7 @@ public class BlueTower extends GamePiece {
 	static Paint p;
 	private static final int cost = 200;
 	private float health;
-	private static final float sizeingFactor = 2;
+	private static final float sizeingFactor = 2, healthCostRatio = 1.5f;
 
 	public BlueTower(float xCenter, float yCenter, GameEngine gEngine) {
 		if (p == null) {
@@ -28,7 +28,7 @@ public class BlueTower extends GamePiece {
 		gEng = gEngine;
 		gb = gEng.towerMap;
 		gb.register(this);
-		health = 3 * cost / 2;
+		health = cost * healthCostRatio;
 		radius = sizeingFactor * (float) Math.sqrt(health);
 	}
 
