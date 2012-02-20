@@ -16,16 +16,13 @@ import android.graphics.Paint;
  */
 public class BasicEnemy extends GamePiece {
 
-	static Paint p;
 	float speed = 2f;
 	public static final int cost = 180;
 	private static final float sizeingFactor = 2, healthCostRatio = .5f;
 
 	public BasicEnemy(float xCenter, float yCenter, GameEngine gEngine) {
-		if (p == null) {
-			p = new Paint();
-			p.setColor(Color.BLACK);
-		}
+		
+		p = LevelLoader.basicEnemyP;
 		xc = xCenter;
 		yc = yCenter;
 		gEng = gEngine;

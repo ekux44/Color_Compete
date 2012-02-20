@@ -15,15 +15,12 @@ import android.graphics.Paint;
  */
 public class BlueTower extends GamePiece {
 
-	static Paint p;
 	private static final int cost = 200;
 	private static final float sizeingFactor = 2, healthCostRatio = 1.5f;
 
 	public BlueTower(float xCenter, float yCenter, GameEngine gEngine) {
-		if (p == null) {
-			p = new Paint();
-			p.setColor(Color.BLUE);
-		}
+		
+		p = LevelLoader.blueTowerP;
 		xc = xCenter;
 		yc = yCenter;
 		gEng = gEngine;

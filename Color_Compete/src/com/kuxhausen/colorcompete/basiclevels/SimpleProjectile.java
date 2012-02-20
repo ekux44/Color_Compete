@@ -16,17 +16,14 @@ import android.graphics.Paint;
  */
 public class SimpleProjectile extends GamePiece {
 
-	static Paint p;
 	float speed = 3f;
 	public static final int cost = 60;
 	private static final float sizeingFactor = .5f, healthCostRatio = .5f;
 	GamePiece target;
 
 	public SimpleProjectile(float xCenter, float yCenter, GameEngine gEngine, GamePiece theTarget) {
-		if (p == null) {
-			p = new Paint();
-			p.setColor(Color.RED);
-		}
+		
+		p = LevelLoader.simpleProjectileP;
 		xc = xCenter;
 		yc = yCenter;
 		gEng = gEngine;

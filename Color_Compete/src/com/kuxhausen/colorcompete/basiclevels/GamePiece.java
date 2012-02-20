@@ -6,6 +6,7 @@ import com.kuxhausen.colorcompete.GameBoard;
 import com.kuxhausen.colorcompete.GameEngine;
 
 import android.graphics.Canvas;
+import android.graphics.Paint;
 
 /**
  * (c) 2012 Eric Kuxhausen
@@ -21,7 +22,8 @@ public abstract class GamePiece {
 	protected GameEngine gEng;
 	protected ArrayList<GamePiece> gList;
 	protected float health;
-
+	protected Paint p;
+	
 	/** @return true if still alive */
 	public abstract boolean update();
 

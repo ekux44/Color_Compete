@@ -16,16 +16,13 @@ import android.graphics.Paint;
  */
 public class RedTower extends GamePiece {
 
-	static Paint p;
 	private static final int cost = 300, spawnRate = 2, spawnPoolMax = 75;
 	private static final float sizeingFactor = 2, firingRadius = 100f, healthCostRatio = .5f;
 	private int spawnPool = 200;
 
 	public RedTower(float xCenter, float yCenter, GameEngine gEngine) {
-		if (p == null) {
-			p = new Paint();
-			p.setColor(Color.RED);
-		}
+		
+		p = LevelLoader.redTowerP;
 		xc = xCenter;
 		yc = yCenter;
 		gEng = gEngine;

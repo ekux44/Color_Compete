@@ -35,6 +35,7 @@ public class GameEngine {
 	final static float enemyLeftEdgeFactor = .92f; // rightmost bounds of the play field
 
 	/* Gamestate */
+	LevelLoader load;
 	public ResourceSpawner[] spawns;
 	private int selectedSpawner = 0;
 	EnemySpawner enemyBase;
@@ -75,6 +76,7 @@ public class GameEngine {
 		enemyMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
 		projectileMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
 		
+		load = new LevelLoader();
 		//TODO pull level as was set in LaunchScreen
 		spawns = LevelLoader.loadSpawners(0, gEngine);
 		
