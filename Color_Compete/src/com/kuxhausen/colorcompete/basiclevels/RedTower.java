@@ -16,8 +16,8 @@ import android.graphics.Paint;
  */
 public class RedTower extends GamePiece {
 
-	private static final int cost = 300, spawnRate = 2, spawnPoolMax = 75;
-	private static final float sizeingFactor = 2, firingRadius = 100f, healthCostRatio = .5f;
+	private static final int cost = 300, spawnRate = 2, spawnPoolMax = 65;
+	private static final float sizeingFactor = 2, firingRadius = 200f, healthCostRatio = .5f;
 	private int spawnPool = 200;
 
 	public RedTower(float xCenter, float yCenter, GameEngine gEngine) {
@@ -43,7 +43,7 @@ public class RedTower extends GamePiece {
 		GamePiece nearestEnemy = gEng.enemyMap.getNearestNeighbor(xc, yc);
 		if (nearestEnemy != null
 				&& spawnPool >= SimpleProjectile.cost
-				&& (nearestEnemy.radius + firingRadius) < GameBoard.distanceBetween(xc, yc, nearestEnemy.xc,
+				&& (nearestEnemy.radius + firingRadius) > GameBoard.distanceBetween(xc, yc, nearestEnemy.xc,
 						nearestEnemy.yc)) {
 			gEng.projectiles.add(new SimpleProjectile(xc, yc, gEng, nearestEnemy));
 			spawnPool -= SimpleProjectile.cost;
