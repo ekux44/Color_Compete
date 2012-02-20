@@ -30,6 +30,7 @@ public class LaunchScreen extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.launchButton:
 			Intent singlePlayerGame = new Intent(this, GameActivity.class);
+			singlePlayerGame.putExtra("level", 0);
 			startActivity(singlePlayerGame);
 			break;
 

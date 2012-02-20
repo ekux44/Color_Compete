@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kuxhausen.colorcompete.basiclevels.BlueTower;
 import com.kuxhausen.colorcompete.basiclevels.GamePiece;
+import com.kuxhausen.colorcompete.basiclevels.LevelLoader;
 import com.kuxhausen.colorcompete.basiclevels.RedTower;
 
 import android.content.res.Resources;
@@ -73,25 +74,10 @@ public class GameEngine {
 		towerMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
 		enemyMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
 		projectileMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
-		spawns = new ResourceSpawner[2];
-
-		/* Resource Spawners */
-		Paint temp1 = new Paint();
-		temp1.setColor(Color.BLUE);
-		spawns[0] = new ResourceSpawner(gEngine, temp1, 3, 200, 500) {
-			public GamePiece spawnResource(float x, float y) {
-				fill -= respawnCost;
-				return new BlueTower(x, y, gEngine);
-			}
-		};
-		Paint temp2 = new Paint();
-		temp2.setColor(Color.RED);
-		spawns[1] = new ResourceSpawner(gEngine, temp2, 1, 300, 600) {
-			public GamePiece spawnResource(float x, float y) {
-				fill -= respawnCost;
-				return new RedTower(x, y, gEngine);
-			}
-		};
+		
+		//TODO pull level as was set in LaunchScreen
+		spawns = LevelLoader.loadSpawners(0, gEngine);
+		
 	}
 
 	public void processInput() {
