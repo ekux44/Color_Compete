@@ -41,7 +41,9 @@ public abstract class GamePiece {
 	 * @param c
 	 *            Canvas onto which GamePiece will draw itself
 	 */
-	public abstract void draw(Canvas c);
+	public void draw(Canvas c) {
+		c.drawCircle(xc, yc, radius, p);
+	}
 
 	/**
 	 * @return true if still alive

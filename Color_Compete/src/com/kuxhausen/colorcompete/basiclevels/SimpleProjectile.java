@@ -75,11 +75,6 @@ public class SimpleProjectile extends GamePiece {
 	}
 
 	@Override
-	public void draw(Canvas c) {
-		c.drawCircle(xc, yc, radius, p);
-	}
-
-	@Override
 	/** @return true still alive*/
 	public boolean reduceHealth(float damage) {
 		health -= damage;

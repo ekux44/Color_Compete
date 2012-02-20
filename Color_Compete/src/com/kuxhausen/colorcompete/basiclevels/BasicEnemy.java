@@ -65,10 +65,7 @@ public class BasicEnemy extends GamePiece {
 		return true;
 	}
 
-	@Override
-	public void draw(Canvas c) {
-		c.drawCircle(xc, yc, radius, p);
-	}
+	
 
 	@Override
 	/** @return true still alive*/

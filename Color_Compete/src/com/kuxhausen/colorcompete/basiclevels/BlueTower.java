@@ -38,11 +38,6 @@ public class BlueTower extends GamePiece {
 	}
 
 	@Override
-	public void draw(Canvas c) {
-		c.drawCircle(xc, yc, radius, p);
-	}
-
-	@Override
 	public boolean reduceHealth(float damage) {
 		health -= damage;
 		if (health <= 0) {
