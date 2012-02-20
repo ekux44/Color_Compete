@@ -1,4 +1,7 @@
-package com.kuxhausen.colorcompete;
+package com.kuxhausen.colorcompete.levels;
+
+import com.kuxhausen.colorcompete.GameBoard;
+import com.kuxhausen.colorcompete.GameEngine;
 
 import android.graphics.Canvas;
 
@@ -11,11 +14,9 @@ import android.graphics.Canvas;
  */
 public abstract class GamePiece {
 
-	float xc;
-	float yc;
+	public float xc, yc, radius;
 	GameBoard gb;
 	GameEngine gEng;
-	float radius;
 
 	/** @return true if still alive */
 	public abstract boolean update();

@@ -2,6 +2,8 @@ package com.kuxhausen.colorcompete;
 
 import java.util.ArrayList;
 
+import com.kuxhausen.colorcompete.levels.GamePiece;
+
 import android.util.Log;
 
 /**

@@ -2,6 +2,8 @@ package com.kuxhausen.colorcompete;
 
 import java.util.Random;
 
+import com.kuxhausen.colorcompete.levels.BasicEnemy;
+
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;

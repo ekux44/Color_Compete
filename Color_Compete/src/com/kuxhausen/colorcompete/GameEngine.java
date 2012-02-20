@@ -2,6 +2,10 @@ package com.kuxhausen.colorcompete;
 
 import java.util.ArrayList;
 
+import com.kuxhausen.colorcompete.levels.BlueTower;
+import com.kuxhausen.colorcompete.levels.GamePiece;
+import com.kuxhausen.colorcompete.levels.RedTower;
+
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -22,20 +26,20 @@ public class GameEngine {
 
 	/* Graphics */
 	Paint backgroundP;
-	Paint blackP;
+	public Paint blackP;
 	private Paint textP;
 	private Paint userInterfaceP;
-	int width, height; // TODO create scaling factor
-	final static float spawningRightEdgeFactor = .12f; // leftmost bounds of the play field
+	public int width, height; // TODO create scaling factor
+	public final static float spawningRightEdgeFactor = .12f; // leftmost bounds of the play field
 	final static float enemyLeftEdgeFactor = .92f; // rightmost bounds of the play field
 
 	/* Gamestate */
-	ResourceSpawner[] spawns;
+	public ResourceSpawner[] spawns;
 	private int selectedSpawner = 0;
 	EnemySpawner enemyBase;
-	ArrayList<GamePiece> towers, enemies, projectiles;
-	GameBoard towerMap, enemyMap, projectileMap;
-	GameEngine gEngine = this;
+	public ArrayList<GamePiece> towers, enemies, projectiles;
+	public GameBoard towerMap, enemyMap, projectileMap;
+	public GameEngine gEngine = this;
 
 	public void Init(GameView g, Resources resource) {
 
@@ -158,7 +162,7 @@ public class GameEngine {
 	}
 
 	/** Returns the index of the resource spawner that covers inputed y coordinate */
-	protected int whichResourceSpawner(float y) {
+	public int whichResourceSpawner(float y) {
 		return (int) (spawns.length * y / height);
 	}
 

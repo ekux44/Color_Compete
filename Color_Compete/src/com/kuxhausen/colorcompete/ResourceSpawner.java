@@ -1,5 +1,7 @@
 package com.kuxhausen.colorcompete;
 
+import com.kuxhausen.colorcompete.levels.GamePiece;
+
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.Log;

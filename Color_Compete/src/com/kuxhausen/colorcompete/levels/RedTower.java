@@ -1,4 +1,7 @@
-package com.kuxhausen.colorcompete;
+package com.kuxhausen.colorcompete.levels;
+
+import com.kuxhausen.colorcompete.GameBoard;
+import com.kuxhausen.colorcompete.GameEngine;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

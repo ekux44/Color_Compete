@@ -1,4 +1,7 @@
-package com.kuxhausen.colorcompete;
+package com.kuxhausen.colorcompete.levels;
+
+import com.kuxhausen.colorcompete.GameBoard;
+import com.kuxhausen.colorcompete.GameEngine;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -7,41 +10,44 @@ import android.graphics.Paint;
 /**
  * (c) 2012 Eric Kuxhausen
  * <p>
- * Simple projectile that acts as a homing missile against an enemy
+ * Basic enemy that chargers as player spanners
  * 
  * @author Eric Kuxhausen
  */
-public class SimpleProjectile extends GamePiece {
+public class BasicEnemy extends GamePiece {
 
 	static Paint p;
-	float speed=3f;
-	public static final int cost = 60;
+	float speed=2f;
+	public static final int cost = 180;
 	private float health;
-	private static final float sizeingFactor = .5f, healthCostRatio = .5f;
-	GamePiece target;
+	private static final float sizeingFactor = 2, healthCostRatio = .5f;
 
-	public SimpleProjectile(float xCenter, float yCenter, GameEngine gEngine, GamePiece theTarget) {
+	public BasicEnemy(float xCenter, float yCenter, GameEngine gEngine) {
 		if (p == null) {
 			p = new Paint();
-			p.setColor(Color.RED);
+			p.setColor(Color.BLACK);
 		}
 		xc = xCenter;
 		yc = yCenter;
 		gEng = gEngine;
-		gb = gEng.projectileMap;
+		gb = gEng.enemyMap;
 		gb.register(this);
 		health = cost * healthCostRatio;
 		radius = sizeingFactor * (float) Math.sqrt(health);
-
-		target = theTarget;
 	}
 
 	@Override
 	/** returns false if the piece dies */
 	public boolean update() {
+		// check to see if reach resource spawner
+		if ((xc - speed) < (gEng.width * gEng.spawningRightEdgeFactor)) {
+			gEng.spawns[gEng.whichResourceSpawner(yc)].takeDamage((int) health);
+			die();
+			return false;
+		}
 
 		// check for collisions
-		GamePiece maybeCollision = gEng.enemyMap.getNearestNeighbor(xc, yc);
+		GamePiece maybeCollision = gEng.towerMap.getNearestNeighbor(xc, yc);
 		if (maybeCollision != null
 				&& (maybeCollision.radius + this.radius) > GameBoard.distanceBetween(xc, yc, maybeCollision.xc,
 						maybeCollision.yc)) {
@@ -51,26 +57,14 @@ public class SimpleProjectile extends GamePiece {
 				return false;
 		}
 
-		/* die if target is dead */
-		if (target.getHealth() <= 0) {
-			die();
-			return false;
-		}
-
-		// update location tracking target
-		float dx = target.xc - xc;
-		float dy = target.yc - yc;
-		dx = (float) (dx * Math.min(1f, speed / Math.sqrt(dx * dx + dy * dy)));
-		dy = (float) (dy * Math.min(1f, speed / Math.sqrt(dx * dx + dy * dy)));
-		if (gb.willMoveZones(xc, yc, xc + dx, yc + dy)) {
+		// update location
+		if (gb.willMoveZones(xc, yc, xc - speed, yc)) {
 			gb.unregister(this);
-			xc += dx;
-			yc += dy;
+			xc -= speed;
 			gb.register(this);
-		} else {
-			xc += dx;
-			yc += dy;
-		}
+		} else
+			xc -= speed;
+
 		return true;
 	}
 
@@ -78,7 +72,7 @@ public class SimpleProjectile extends GamePiece {
 	public void die() {
 		health = 0;
 		gb.unregister(this);
-		gEng.projectiles.remove(this);
+		gEng.enemies.remove(this);
 	}
 
 	@Override
@@ -102,5 +96,4 @@ public class SimpleProjectile extends GamePiece {
 	public float getHealth() {
 		return health;
 	}
-
 }
