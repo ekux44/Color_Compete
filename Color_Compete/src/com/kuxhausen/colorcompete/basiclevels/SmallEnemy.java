@@ -14,15 +14,15 @@ import android.graphics.Paint;
  * 
  * @author Eric Kuxhausen
  */
-public class BasicEnemy extends GamePiece {
+public class SmallEnemy extends GamePiece {
 
 	float speed = 2f;
-	public static final int cost = 180;
+	public static final int cost = 150;
 	private static final float sizeingFactor = 2, healthCostRatio = .5f;
 
-	public BasicEnemy(float xCenter, float yCenter, GameEngine gEngine) {
+	public SmallEnemy(float xCenter, float yCenter, GameEngine gEngine) {
 
-		p = LevelLoader.basicEnemyP;
+		p = LevelLoader.smallEnemyP;
 		xc = xCenter;
 		yc = yCenter;
 		gEng = gEngine;

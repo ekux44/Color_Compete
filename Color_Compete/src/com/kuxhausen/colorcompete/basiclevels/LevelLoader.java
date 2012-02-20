@@ -17,11 +17,14 @@ import com.kuxhausen.colorcompete.ResourceSpawner;
  */
 public class LevelLoader {
 
-	static Paint basicEnemyP, blueTowerP, redTowerP, simpleProjectileP;
+	static Paint smallEnemyP, mediumEnemyP, blueTowerP, redTowerP, simpleProjectileP;
 
 	public LevelLoader() {
-		basicEnemyP = new Paint();
-		basicEnemyP.setColor(Color.BLACK);
+		smallEnemyP = new Paint();
+		smallEnemyP.setColor(Color.BLACK);
+		
+		mediumEnemyP = new Paint();
+		mediumEnemyP.setColor(Color.BLACK);
 
 		blueTowerP = new Paint();
 		blueTowerP.setColor(Color.BLUE);

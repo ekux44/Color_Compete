@@ -2,7 +2,7 @@ package com.kuxhausen.colorcompete;
 
 import java.util.Random;
 
-import com.kuxhausen.colorcompete.basiclevels.BasicEnemy;
+import com.kuxhausen.colorcompete.basiclevels.SmallEnemy;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -39,14 +39,14 @@ public class EnemySpawner {
 			spawnAccelerationCount = 0;
 			spawnRate += (10 * spawnRate) / 9;
 		}
-		if (spawnsRemaining <= BasicEnemy.cost)
+		if (spawnsRemaining <= SmallEnemy.cost)
 			gEng.endGame(true);
 		int maybeSpawn = r.nextInt(pendingSpawnUnits);
 
-		if (maybeSpawn > BasicEnemy.cost) {
-			gEng.enemies.add(new BasicEnemy(gEng.width * gEng.enemyLeftEdgeFactor - 1, r.nextInt(gEng.height), gEng));
-			maybeSpawn -= BasicEnemy.cost;
-			pendingSpawnUnits -= BasicEnemy.cost;
+		if (maybeSpawn > SmallEnemy.cost) {
+			gEng.enemies.add(new SmallEnemy(gEng.width * gEng.enemyLeftEdgeFactor - 1, r.nextInt(gEng.height), gEng));
+			maybeSpawn -= SmallEnemy.cost;
+			pendingSpawnUnits -= SmallEnemy.cost;
 		}
 	}
 
