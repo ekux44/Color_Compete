@@ -107,7 +107,7 @@ public class GameLoopThread extends Thread {
 	/** Marks game paused to shut down game loop. Also, passes message to make the results TextView visible */
 	public void endGame(boolean playerWon) {
 		state = GameLoopThread.PAUSED;
-		Message msg = mHandler.obtainMessage();
+		/*Message msg = mHandler.obtainMessage();
 		Bundle b = new Bundle();
 		if (playerWon)
 			b.putString("text", "You Won!");
@@ -116,7 +116,7 @@ public class GameLoopThread extends Thread {
 		b.putInt("viz", View.VISIBLE);
 		b.putBoolean("clickable", true);
 		msg.setData(b);
-		mHandler.sendMessage(msg);
+		mHandler.sendMessage(msg);*/
 	}
 
 	private void updateFPS() {

@@ -24,6 +24,12 @@
             android:theme="@android:style/Theme.NoTitleBar" 
             android:launchMode="singleTask" 
             android:alwaysRetainTaskState="true"></activity>
+        <activity android:name=".ResultsPage" 
+            android:configChanges="keyboard|keyboardHidden|orientation" 
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar" 
+            android:launchMode="singleTask" 
+            android:alwaysRetainTaskState="true"></activity>
     </application>
 
 </manifest>

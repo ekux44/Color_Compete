@@ -36,8 +36,8 @@ public class GameActivity extends Activity {
 		// give the GameView a handle to the TextView used for messages
 		gameView.setTextView((TextView) findViewById(R.id.text));
 		
-		// give the GameView a handle to the Buttons to be displayed during messaging
-		gameView.setNextButton((Button) findViewById(R.id.nextButton));
+		// give the GameView a handle to this(used to end the game)
+		gameView.setGameActivity(this);
 		
 		// give the GameView a the level it should be loading
 		gameView.initView(this.getIntent().getExtras().getInt("level"));
@@ -52,6 +52,10 @@ public class GameActivity extends Activity {
 		}
 	}
 
+	public void die(){
+		onDestroy();
+	}
+	
 	@Override
 	protected void onPause() {
 		super.onPause();

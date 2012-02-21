@@ -21,17 +21,6 @@
           android:textColor="#88ffffff"
           android:background="@drawable/text_background"
           android:textSize="24sp"/>
-        <!-- -->  <Button
-        android:id="@+id/nextButton"
-        android:text="@string/next" 
-        android:visibility="invisible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center_horizontal"
-        android:layout_below="@id/text" 
-        android:clickable="false"
-        android:textSize="24sp"/> 
      </RelativeLayout>
          
 </FrameLayout>

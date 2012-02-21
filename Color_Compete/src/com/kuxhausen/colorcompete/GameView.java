@@ -3,6 +3,7 @@ package com.kuxhausen.colorcompete;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,8 +35,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	/** Pointer to the text view to display */
 	private TextView statusText;
 
-	/** Pointer to the button to display */
-	private Button nextButton;
+	/** Pointer to the GameActivity */
+	private GameActivity parentActivity;
 	
 	/** initialization code */
 	public void initView(int level) {
@@ -53,8 +54,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 			public void handleMessage(Message m) {
 				statusText.setVisibility(m.getData().getInt("viz"));
 				statusText.setText(m.getData().getString("text"));
-				nextButton.setVisibility(m.getData().getInt("viz"));
-				nextButton.setClickable(m.getData().getBoolean("clickable"));
 			}
 		});
 		setFocusable(true);
@@ -62,6 +61,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
 	public void endGame(boolean playerWon) {
 		gThread.endGame(playerWon);
+		Intent resultsScreen = new Intent(context, ResultsPage.class);
+		resultsScreen.putExtra("playerWon", playerWon);
+		context.startActivity(resultsScreen);
+		parentActivity.die();
 	}
 
 	/** constructor **/
@@ -108,8 +111,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		statusText = textView;
 	}
 
-	public void setNextButton(Button nextB) {
-		nextButton = nextB;
+	public void setGameActivity(GameActivity parent) {
+		parentActivity = parent;
 	}
 	
 	@Override
