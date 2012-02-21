@@ -43,7 +43,7 @@ public class GameEngine {
 	public GameBoard towerMap, enemyMap, projectileMap;
 	public GameEngine gEngine = this;
 
-	public void Init(GameView g, Resources resource) {
+	public void Init(GameView g, Resources resource, int level) {
 
 		height = resource.getDisplayMetrics().heightPixels;
 		width = resource.getDisplayMetrics().widthPixels;
@@ -77,8 +77,7 @@ public class GameEngine {
 		projectileMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
 		
 		load = new LevelLoader();
-		//TODO pull level as was set in LaunchScreen
-		spawns = LevelLoader.loadSpawners(0, gEngine);
+		spawns = LevelLoader.loadSpawners(level, gEngine);
 		
 	}
 

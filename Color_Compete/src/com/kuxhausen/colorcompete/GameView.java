@@ -34,14 +34,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	private TextView statusText;
 
 	/** initialization code */
-	private void InitView() {
+	public void initView(int level) {
 		// initialize screen holder
 		SurfaceHolder holder = getHolder();
 		holder.addCallback(this);
 
 		// initialize game engine
 		gEngine = new GameEngine();
-		gEngine.Init(this, context.getResources());
+		gEngine.Init(this, context.getResources(), level);
 
 		// initialize game loop thread, start will be called later
 		gThread = new GameLoopThread(holder, context, gEngine, new Handler() {
@@ -62,21 +62,22 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	public GameView(Context cont) {
 		super(cont);
 		context = cont;
-		InitView();
+		
+		//InitView();
 	}
 
 	/** constructor **/
 	public GameView(Context cont, AttributeSet attrs) {
 		super(cont, attrs);
 		context = cont;
-		InitView();
+		//InitView();
 	}
 
 	/** constructor **/
 	public GameView(Context cont, AttributeSet attrs, int defStyle) {
 		super(cont, attrs, defStyle);
 		context = cont;
-		InitView();
+		//InitView();
 	}
 
 	@Override

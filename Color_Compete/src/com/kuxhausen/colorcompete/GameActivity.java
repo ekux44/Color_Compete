@@ -34,6 +34,9 @@ public class GameActivity extends Activity {
 
 		// give the GameView a handle to the TextView used for messages
 		gameView.setTextView((TextView) findViewById(R.id.text));
+		
+		// give the GameView a the level it should be loading
+		gameView.initView(this.getIntent().getExtras().getInt("level"));
 
 		// TODO allow for actually resuming from previous game
 		if (savedInstanceState == null) {
