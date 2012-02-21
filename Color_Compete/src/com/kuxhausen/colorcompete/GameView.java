@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -33,6 +34,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	/** Pointer to the text view to display */
 	private TextView statusText;
 
+	/** Pointer to the button to display */
+	private Button nextButton;
+	
 	/** initialization code */
 	public void initView(int level) {
 		// initialize screen holder
@@ -49,6 +53,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 			public void handleMessage(Message m) {
 				statusText.setVisibility(m.getData().getInt("viz"));
 				statusText.setText(m.getData().getString("text"));
+				nextButton.setVisibility(m.getData().getInt("viz"));
+				nextButton.setClickable(m.getData().getBoolean("clickable"));
 			}
 		});
 		setFocusable(true);
@@ -102,6 +108,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		statusText = textView;
 	}
 
+	public void setNextButton(Button nextB) {
+		nextButton = nextB;
+	}
+	
 	@Override
 	public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
 	}

@@ -4,4 +4,5 @@
 	<string name="launch0">Level 0 (developer sandbox)</string>
 	<string name="launch1">Level 1</string>
 	<string name="text">This should not be visible</string>
+	<string name="next">Next Level!</string>
 </resources>

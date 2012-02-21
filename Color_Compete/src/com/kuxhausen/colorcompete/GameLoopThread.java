@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.View;
+import android.widget.Button;
 
 /**
  * (c) 2012 Eric Kuxhausen
@@ -113,6 +114,7 @@ public class GameLoopThread extends Thread {
 		else
 			b.putString("text", "You Lost!");
 		b.putInt("viz", View.VISIBLE);
+		b.putBoolean("clickable", true);
 		msg.setData(b);
 		mHandler.sendMessage(msg);
 	}
