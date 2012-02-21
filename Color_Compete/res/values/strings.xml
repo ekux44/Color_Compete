@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Color_Compete</string>
-	<string name="launch">Play!</string>
+	<string name="launch0">Level 0 (developer sandbox)</string>
+	<string name="launch1">Level 1</string>
 	<string name="text">This should not be visible</string>
 </resources>

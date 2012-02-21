@@ -20,17 +20,22 @@ public class LaunchScreen extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		View LaunchButton = this.findViewById(R.id.launchButton);
-		LaunchButton.setOnClickListener(this);
+		View LaunchButton0 = this.findViewById(R.id.launchButton0);
+		LaunchButton0.setOnClickListener(this);
 
-		// TODO add support for multiple levels
+		View LaunchButton1 = this.findViewById(R.id.launchButton1);
+		LaunchButton1.setOnClickListener(this);
 	}
 
 	public void onClick(View v) {
+		Intent singlePlayerGame = new Intent(this, GameActivity.class);
 		switch (v.getId()) {
-		case R.id.launchButton:
-			Intent singlePlayerGame = new Intent(this, GameActivity.class);
+		case R.id.launchButton0:
 			singlePlayerGame.putExtra("level", 0);
+			startActivity(singlePlayerGame);
+			break;
+		case R.id.launchButton1:
+			singlePlayerGame.putExtra("level", 1);
 			startActivity(singlePlayerGame);
 			break;
 
