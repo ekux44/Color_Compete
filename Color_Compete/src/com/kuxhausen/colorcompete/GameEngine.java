@@ -47,6 +47,9 @@ public class GameEngine {
 	public GameBoard towerMap, enemyMap, projectileMap;
 	public GameEngine gEngine = this;
 	private int gameEndDelayer = 0;
+	
+	/* Stats */
+	public float playerScore;
 
 	public void Init(GameView g, Resources resource, int level) {
 
@@ -197,7 +200,7 @@ public class GameEngine {
 	}
 
 	public void endGame(boolean playerWon) {
-		gView.endGame(playerWon);
+		gView.endGame(playerWon, (int)playerScore);
 	}
 
 }

@@ -68,8 +68,10 @@ public class MediumEnemy extends GamePiece {
 	@Override
 	/** @return true still alive*/
 	public boolean reduceHealth(float damage) {
+		gEng.playerScore+= Math.min(health, damage);
 		health -= damage;
 		if (health <= 0) {
+			health = 0;
 			die();
 			return false;
 		}

@@ -23,11 +23,14 @@ public class ResultsPage extends Activity implements OnClickListener {
 		setContentView(R.layout.results);
 
 		TextView ResultsText = (TextView) this.findViewById(R.id.resultsText);
-		if (this.getIntent().getExtras().getBoolean("playerWon"))
+		if (this.getIntent().getExtras().getBoolean("PLAYER_WON"))
 			ResultsText.setText("You Won");
 		else
 			ResultsText.setText("You Lost!");
 
+		TextView ScoreText = (TextView) this.findViewById(R.id.scoreText);
+		ScoreText.setText("Score:"+this.getIntent().getExtras().getInt("SCORE"));
+		
 		Button NextButton = (Button) this.findViewById(R.id.nextButton);
 		NextButton.setOnClickListener(this);
 

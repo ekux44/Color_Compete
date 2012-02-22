@@ -52,17 +52,18 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		gThread = new GameLoopThread(holder, context, gEngine, new Handler() {
 			@Override
 			public void handleMessage(Message m) {
-				statusText.setVisibility(m.getData().getInt("viz"));
-				statusText.setText(m.getData().getString("text"));
+				statusText.setVisibility(m.getData().getInt("VISIBLE"));
+				statusText.setText(m.getData().getString("TEXT"));
 			}
 		});
 		setFocusable(true);
 	}
 
-	public void endGame(boolean playerWon) {
+	public void endGame(boolean playerWon, int score) {
 		gThread.endGame(playerWon);
 		Intent resultsScreen = new Intent(context, ResultsPage.class);
-		resultsScreen.putExtra("playerWon", playerWon);
+		resultsScreen.putExtra("PLAYER_WON", playerWon);
+		resultsScreen.putExtra("SCORE", score);
 		context.startActivity(resultsScreen);
 		parentActivity.die();
 	}
@@ -141,8 +142,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 			gThread = new GameLoopThread(getHolder(), context, gEngine, new Handler() {
 				@Override
 				public void handleMessage(Message m) {
-					statusText.setVisibility(m.getData().getInt("viz"));
-					statusText.setText(m.getData().getString("text"));
+					statusText.setVisibility(m.getData().getInt("VISIBLE"));
+					statusText.setText(m.getData().getString("TEXT"));
 				}
 			});
 			gThread.start();
