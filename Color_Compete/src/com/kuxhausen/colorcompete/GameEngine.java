@@ -46,6 +46,7 @@ public class GameEngine {
 	public ArrayList<GamePiece> towers, enemies, projectiles;
 	public GameBoard towerMap, enemyMap, projectileMap;
 	public GameEngine gEngine = this;
+	private int gameEndDelayer = 0;
 
 	public void Init(GameView g, Resources resource, int level) {
 
@@ -72,7 +73,7 @@ public class GameEngine {
 
 		/* GameState */
 		gView = g;
-		enemyBase = new EnemySpawner(gEngine, 10000, 2, 1000);
+		enemyBase = new EnemySpawner(gEngine, 1000, 2, 1000);
 		towers = new ArrayList<GamePiece>();
 		enemies = new ArrayList<GamePiece>();
 		projectiles = new ArrayList<GamePiece>();
@@ -130,8 +131,6 @@ public class GameEngine {
 			rs.update();
 		}
 		enemyBase.update();
-		if (enemyBase.spawnsRemaining < 10) // temp for testing
-			enemyBase.spawnsRemaining += 10; // temp for testing
 		for (int i = 0; i < towers.size(); i++) {
 
 			if (!towers.get(i).update())
@@ -144,6 +143,13 @@ public class GameEngine {
 		for (int i = 0; i < projectiles.size(); i++) {
 			if (!projectiles.get(i).update())
 				i--;
+		}
+		
+		if(enemyBase.spawnsRemaining<=0 && enemies.size()<=0){
+			gameEndDelayer++;
+			if(gameEndDelayer>=90)
+				endGame(true);
+			
 		}
 	}
 

@@ -32,21 +32,26 @@ public class EnemySpawner {
 	}
 
 	public void update() {
-		pendingSpawnUnits += spawnRate;
-		spawnsRemaining -= spawnRate;
-		spawnAccelerationCount++;
-		if (spawnAccelerationCount >= spawnAccelInterval) {
-			spawnAccelerationCount = 0;
-			spawnRate += (10 * spawnRate) / 9;
+		if(spawnsRemaining <=0){
+			
 		}
-		if (spawnsRemaining <= SmallEnemy.cost)
-			gEng.endGame(true);
-		int maybeSpawn = r.nextInt(pendingSpawnUnits);
-
-		if (maybeSpawn > SmallEnemy.cost) {
-			gEng.enemies.add(new SmallEnemy(gEng.width * gEng.enemyLeftEdgeFactor - 1, r.nextInt(gEng.height), gEng));
-			maybeSpawn -= SmallEnemy.cost;
-			pendingSpawnUnits -= SmallEnemy.cost;
+		else{
+			pendingSpawnUnits += spawnRate;
+			spawnsRemaining -= spawnRate;
+			spawnAccelerationCount++;
+			if (spawnAccelerationCount >= spawnAccelInterval) {
+				spawnAccelerationCount = 0;
+				spawnRate += (10 * spawnRate) / 9;
+			}
+			
+			int maybeSpawn = r.nextInt(pendingSpawnUnits);
+	
+			if (maybeSpawn > SmallEnemy.cost) {
+				gEng.enemies.add(new SmallEnemy(gEng.width * gEng.enemyLeftEdgeFactor - 1, r.nextInt(gEng.height), gEng));
+				maybeSpawn -= SmallEnemy.cost;
+				pendingSpawnUnits -= SmallEnemy.cost;
+			}
+		
 		}
 	}
 
