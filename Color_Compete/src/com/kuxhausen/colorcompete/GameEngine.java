@@ -76,7 +76,6 @@ public class GameEngine {
 
 		/* GameState */
 		gView = g;
-		enemyBase = new EnemySpawner(gEngine, 1000, 2, 1000);
 		towers = new ArrayList<GamePiece>();
 		enemies = new ArrayList<GamePiece>();
 		projectiles = new ArrayList<GamePiece>();
@@ -86,6 +85,7 @@ public class GameEngine {
 
 		load = new LevelLoader();
 		spawns = LevelLoader.loadSpawners(level, gEngine);
+		enemyBase = LevelLoader.loadEnemySpawner(level, gEngine);
 
 		/* More UI */
 		pathEffects = new DashPathEffect[15];

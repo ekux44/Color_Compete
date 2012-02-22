@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import com.kuxhausen.colorcompete.EnemySpawner;
 import com.kuxhausen.colorcompete.GameEngine;
 import com.kuxhausen.colorcompete.ResourceSpawner;
 
@@ -36,36 +37,43 @@ public class LevelLoader {
 		simpleProjectileP.setColor(Color.RED);
 	}
 
-	public static ResourceSpawner[] loadSpawners(int level, GameEngine gEng) {
+	public static EnemySpawner loadEnemySpawner(int level, GameEngine gEng) {
+		EnemySpawner enemy = new EnemySpawner(gEng, 1000, 2, 1000);
 		switch (level) {
 		case 0:
-			return buildLevel0(gEng);
+			break;
 		case 1:
-			return buildLevel1(gEng);
+			break;
 		case 2:
-			return buildLevel2(gEng);
+			break;
 		default:
-			return buildLevel0(gEng);
-		}
+			}
+		return enemy;
 	}
-
-	private static ResourceSpawner[] buildLevel0(GameEngine gEng) {
-		ResourceSpawner[] spawns = new ResourceSpawner[2];
-		spawns[0] = getBlue(gEng, 3, 200, 900);
-		spawns[1] = getRed(gEng, 1, 300, 900);
+	public static ResourceSpawner[] loadSpawners(int level, GameEngine gEng) {
+		ResourceSpawner[] spawns;
+		switch (level) {
+		case 0:
+			spawns = new ResourceSpawner[2];
+			spawns[0] = getBlue(gEng, 3, 200, 900);
+			spawns[1] = getRed(gEng, 1, 300, 900);
+			break;
+		case 1:
+			spawns = new ResourceSpawner[1];
+			spawns[0] = getBlue(gEng, 3, 200, 400);
+			break;
+		case 2:
+			spawns = new ResourceSpawner[1];
+			spawns[0] = getRed(gEng, 1, 300, 600);
+			break;
+		default:
+			spawns = new ResourceSpawner[2];
+			spawns[0] = getBlue(gEng, 1, 200, 1000);
+			spawns[1] = getRed(gEng, 1, 250, 1000);
+			}
 		return spawns;
 	}
-
-	private static ResourceSpawner[] buildLevel1(GameEngine gEng) {
-		ResourceSpawner[] spawns = new ResourceSpawner[1];
-		spawns[0] = getBlue(gEng, 3, 200, 400);
-		return spawns;
-	}
-	private static ResourceSpawner[] buildLevel2(GameEngine gEng) {
-		ResourceSpawner[] spawns = new ResourceSpawner[1];
-		spawns[0] = getRed(gEng, 1, 300, 600);
-		return spawns;
-	}
+	
 	private static ResourceSpawner getRed(GameEngine gEng, int spawnRate, int spawnCost, int startingFill){
 		Paint ready = new Paint();
 		ready.setColor(Color.RED);
