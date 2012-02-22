@@ -14,5 +14,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/launch1"/>
+     <Button
+        android:id="@+id/launchButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/launch2"/>
 
 </LinearLayout>

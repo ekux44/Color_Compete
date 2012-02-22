@@ -38,8 +38,12 @@ public class LevelLoader {
 
 	public static ResourceSpawner[] loadSpawners(int level, GameEngine gEng) {
 		switch (level) {
+		case 0:
+			return buildLevel0(gEng);
 		case 1:
 			return buildLevel1(gEng);
+		case 2:
+			return buildLevel2(gEng);
 		default:
 			return buildLevel0(gEng);
 		}
@@ -50,7 +54,7 @@ public class LevelLoader {
 
 		Paint temp1 = new Paint();
 		temp1.setColor(Color.BLUE);
-		spawns[0] = new ResourceSpawner(gEng, temp1, 3, 200, 500) {
+		spawns[0] = new ResourceSpawner(gEng, temp1, 3, 200, 900) {
 			public GamePiece spawnResource(float x, float y) {
 				fill -= respawnCost;
 				return new BlueTower(x, y, gEng);
@@ -58,7 +62,7 @@ public class LevelLoader {
 		};
 		Paint temp2 = new Paint();
 		temp2.setColor(Color.RED);
-		spawns[1] = new ResourceSpawner(gEng, temp2, 1, 300, 600) {
+		spawns[1] = new ResourceSpawner(gEng, temp2, 1, 300, 900) {
 			public GamePiece spawnResource(float x, float y) {
 				fill -= respawnCost;
 				return new RedTower(x, y, gEng);
@@ -72,10 +76,23 @@ public class LevelLoader {
 
 		Paint temp1 = new Paint();
 		temp1.setColor(Color.BLUE);
-		spawns[0] = new ResourceSpawner(gEng, temp1, 3, 200, 500) {
+		spawns[0] = new ResourceSpawner(gEng, temp1, 3, 200, 400) {
 			public GamePiece spawnResource(float x, float y) {
 				fill -= respawnCost;
 				return new BlueTower(x, y, gEng);
+			}
+		};
+		return spawns;
+	}
+	private static ResourceSpawner[] buildLevel2(GameEngine gEng) {
+		ResourceSpawner[] spawns = new ResourceSpawner[1];
+
+		Paint temp2 = new Paint();
+		temp2.setColor(Color.RED);
+		spawns[0] = new ResourceSpawner(gEng, temp2, 1, 300, 600) {
+			public GamePiece spawnResource(float x, float y) {
+				fill -= respawnCost;
+				return new RedTower(x, y, gEng);
 			}
 		};
 		return spawns;

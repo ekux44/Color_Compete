@@ -25,6 +25,9 @@ public class LaunchScreen extends Activity implements OnClickListener {
 
 		View LaunchButton1 = this.findViewById(R.id.launchButton1);
 		LaunchButton1.setOnClickListener(this);
+		
+		View LaunchButton2 = this.findViewById(R.id.launchButton2);
+		LaunchButton2.setOnClickListener(this);
 	}
 
 	public void onClick(View v) {
@@ -36,6 +39,10 @@ public class LaunchScreen extends Activity implements OnClickListener {
 			break;
 		case R.id.launchButton1:
 			singlePlayerGame.putExtra("level", 1);
+			startActivity(singlePlayerGame);
+			break;
+		case R.id.launchButton2:
+			singlePlayerGame.putExtra("level", 2);
 			startActivity(singlePlayerGame);
 			break;
 
