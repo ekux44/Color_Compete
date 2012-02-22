@@ -37,7 +37,7 @@ public class GameEngine {
 	final static float enemyLeftEdgeFactor = .92f; // rightmost bounds of the play field
 	DashPathEffect[] pathEffects;
 	int phase;
-	
+
 	/* Gamestate */
 	LevelLoader load;
 	public ResourceSpawner[] spawns;
@@ -80,42 +80,40 @@ public class GameEngine {
 		towerMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
 		enemyMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
 		projectileMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
-		
+
 		load = new LevelLoader();
 		spawns = LevelLoader.loadSpawners(level, gEngine);
-		
-		
+
 		/* More UI */
 		pathEffects = new DashPathEffect[15];
-		for(int i = 0; i<pathEffects.length; i++)
-			pathEffects [i] =new DashPathEffect(new float[] {10, 5}, i);
+		for (int i = 0; i < pathEffects.length; i++)
+			pathEffects[i] = new DashPathEffect(new float[] { 10, 5 }, i);
 		pathPaint = new Paint();
 		pathPaint.setColor(Color.WHITE);
-		pathPaint.setPathEffect(pathEffects [0]);
+		pathPaint.setPathEffect(pathEffects[0]);
 		pathPaint.setStyle(Paint.Style.STROKE);
 		selectedPath = new Path();
-		selectedPath.moveTo(5,5);
-		selectedPath.lineTo(width * spawningRightEdgeFactor-5, 5);
-		selectedPath.lineTo(width * spawningRightEdgeFactor-5, 5+(height-10)/spawns.length);
-		selectedPath.lineTo(5, 5+(height-10)/spawns.length);
+		selectedPath.moveTo(5, 5);
+		selectedPath.lineTo(width * spawningRightEdgeFactor - 5, 5);
+		selectedPath.lineTo(width * spawningRightEdgeFactor - 5, 5 + (height - 10) / spawns.length);
+		selectedPath.lineTo(5, 5 + (height - 10) / spawns.length);
 		selectedPath.lineTo(5, 5);
-		
+
 	}
 
 	public void processInput() {
 		gView.getInputs(touches);
 		for (MotionEvent e : touches) {
-			if (e.getHistorySize() > 0 && e.getHistoricalX(0) < (width * spawningRightEdgeFactor)){
-				selectedPath.offset(0, -selectedSpawner*(height-10)/spawns.length);
+			if (e.getHistorySize() > 0 && e.getHistoricalX(0) < (width * spawningRightEdgeFactor)) {
+				selectedPath.offset(0, -selectedSpawner * (height - 10) / spawns.length);
 				selectedSpawner = whichResourceSpawner(e.getHistoricalY(0));
-				selectedPath.offset(0, selectedSpawner*(height-10)/spawns.length);
-			}
-			else if (e.getAction() == MotionEvent.ACTION_DOWN && e.getX() < (width * spawningRightEdgeFactor)){
-				selectedPath.offset(0, -selectedSpawner*(height-10)/spawns.length);
+				selectedPath.offset(0, selectedSpawner * (height - 10) / spawns.length);
+			} else if (e.getAction() == MotionEvent.ACTION_DOWN && e.getX() < (width * spawningRightEdgeFactor)) {
+				selectedPath.offset(0, -selectedSpawner * (height - 10) / spawns.length);
 				selectedSpawner = whichResourceSpawner(e.getY());
-				selectedPath.offset(0, selectedSpawner*(height-10)/spawns.length);
+				selectedPath.offset(0, selectedSpawner * (height - 10) / spawns.length);
 			}
-				if (e.getAction() == MotionEvent.ACTION_UP
+			if (e.getAction() == MotionEvent.ACTION_UP
 					&& (width * spawningRightEdgeFactor < e.getX() && e.getX() < width * enemyLeftEdgeFactor)
 					&& spawns[selectedSpawner].canSpawn())
 				towers.add(spawns[selectedSpawner].spawnResource(e.getX(), e.getY()));
@@ -144,12 +142,12 @@ public class GameEngine {
 			if (!projectiles.get(i).update())
 				i--;
 		}
-		
-		if(enemyBase.spawnsRemaining<=0 && enemies.size()<=0){
+
+		if (enemyBase.spawnsRemaining <= 0 && enemies.size() <= 0) {
 			gameEndDelayer++;
-			if(gameEndDelayer>=90)
+			if (gameEndDelayer >= 90)
 				endGame(true);
-			
+
 		}
 	}
 
@@ -177,9 +175,9 @@ public class GameEngine {
 			prj.draw(c);
 
 		phase++;
-		pathPaint.setPathEffect(pathEffects [phase%pathEffects.length]);
+		pathPaint.setPathEffect(pathEffects[phase % pathEffects.length]);
 		c.drawPath(selectedPath, pathPaint);
-		
+
 		// draw FPS counter
 		c.drawText("FPS:" + FPS, c.getWidth() - 180, 40, textP);
 	}

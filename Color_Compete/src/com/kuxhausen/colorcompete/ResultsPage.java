@@ -28,11 +28,10 @@ public class ResultsPage extends Activity implements OnClickListener {
 		else
 			ResultsText.setText("You Lost!");
 
-		
-		Button NextButton = (Button)this.findViewById(R.id.nextButton);
+		Button NextButton = (Button) this.findViewById(R.id.nextButton);
 		NextButton.setOnClickListener(this);
-		
-		Button MainButton = (Button)this.findViewById(R.id.mainButton);
+
+		Button MainButton = (Button) this.findViewById(R.id.mainButton);
 		MainButton.setOnClickListener(this);
 	}
 

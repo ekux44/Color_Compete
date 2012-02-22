@@ -37,7 +37,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
 	/** Pointer to the GameActivity */
 	private GameActivity parentActivity;
-	
+
 	/** initialization code */
 	public void initView(int level) {
 		// initialize screen holder
@@ -71,22 +71,22 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	public GameView(Context cont) {
 		super(cont);
 		context = cont;
-		
-		//InitView();
+
+		// InitView();
 	}
 
 	/** constructor **/
 	public GameView(Context cont, AttributeSet attrs) {
 		super(cont, attrs);
 		context = cont;
-		//InitView();
+		// InitView();
 	}
 
 	/** constructor **/
 	public GameView(Context cont, AttributeSet attrs, int defStyle) {
 		super(cont, attrs, defStyle);
 		context = cont;
-		//InitView();
+		// InitView();
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	public void setGameActivity(GameActivity parent) {
 		parentActivity = parent;
 	}
-	
+
 	@Override
 	public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
 	}
