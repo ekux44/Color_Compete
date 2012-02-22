@@ -51,50 +51,43 @@ public class LevelLoader {
 
 	private static ResourceSpawner[] buildLevel0(GameEngine gEng) {
 		ResourceSpawner[] spawns = new ResourceSpawner[2];
-
-		Paint temp1 = new Paint();
-		temp1.setColor(Color.BLUE);
-		spawns[0] = new ResourceSpawner(gEng, temp1, 3, 200, 900) {
-			public GamePiece spawnResource(float x, float y) {
-				fill -= respawnCost;
-				return new BlueTower(x, y, gEng);
-			}
-		};
-		Paint temp2 = new Paint();
-		temp2.setColor(Color.RED);
-		spawns[1] = new ResourceSpawner(gEng, temp2, 1, 300, 900) {
-			public GamePiece spawnResource(float x, float y) {
-				fill -= respawnCost;
-				return new RedTower(x, y, gEng);
-			}
-		};
+		spawns[0] = getBlue(gEng, 3, 200, 900);
+		spawns[1] = getRed(gEng, 1, 300, 900);
 		return spawns;
 	}
 
 	private static ResourceSpawner[] buildLevel1(GameEngine gEng) {
 		ResourceSpawner[] spawns = new ResourceSpawner[1];
-
-		Paint temp1 = new Paint();
-		temp1.setColor(Color.BLUE);
-		spawns[0] = new ResourceSpawner(gEng, temp1, 3, 200, 400) {
-			public GamePiece spawnResource(float x, float y) {
-				fill -= respawnCost;
-				return new BlueTower(x, y, gEng);
-			}
-		};
+		spawns[0] = getBlue(gEng, 3, 200, 400);
 		return spawns;
 	}
 	private static ResourceSpawner[] buildLevel2(GameEngine gEng) {
 		ResourceSpawner[] spawns = new ResourceSpawner[1];
-
-		Paint temp2 = new Paint();
-		temp2.setColor(Color.RED);
-		spawns[0] = new ResourceSpawner(gEng, temp2, 1, 300, 600) {
+		spawns[0] = getRed(gEng, 1, 300, 600);
+		return spawns;
+	}
+	private static ResourceSpawner getRed(GameEngine gEng, int spawnRate, int spawnCost, int startingFill){
+		Paint ready = new Paint();
+		ready.setColor(Color.RED);
+		Paint charging = new Paint();
+		charging.setARGB(0xFF, 0xFF, 0x80, 0x80);
+		return new ResourceSpawner(gEng, ready, charging, spawnRate, spawnCost, startingFill) {
 			public GamePiece spawnResource(float x, float y) {
 				fill -= respawnCost;
 				return new RedTower(x, y, gEng);
 			}
 		};
-		return spawns;
+	}
+	private static ResourceSpawner getBlue(GameEngine gEng, int spawnRate, int spawnCost, int startingFill){
+		Paint ready = new Paint();
+		ready.setColor(Color.BLUE);
+		Paint charging = new Paint();
+		charging.setARGB(0xFF, 0x80, 0x80, 0xFF);
+		return new ResourceSpawner(gEng, ready, charging, spawnRate, spawnCost, startingFill) {
+			public GamePiece spawnResource(float x, float y) {
+				fill -= respawnCost;
+				return new BlueTower(x, y, gEng);
+			}
+		};
 	}
 }

@@ -15,7 +15,7 @@ import android.util.Log;
  */
 public abstract class ResourceSpawner {
 
-	Paint p;
+	Paint readyP, chargingP, drawingP;
 	final static int maxFill = 1000;// can't be changed without rewriting draw
 	protected int fill, respawnRate, respawnCost;
 	int xIncrements;
@@ -25,9 +25,10 @@ public abstract class ResourceSpawner {
 	boolean dead;
 	protected GameEngine gEng;
 
-	public ResourceSpawner(GameEngine gEngine, Paint paint, int spawnRate, int spawnCost, int startingFill) {
+	public ResourceSpawner(GameEngine gEngine, Paint readyPaint, Paint chargingPaint, int spawnRate, int spawnCost, int startingFill) {
 		gEng = gEngine;
-		p = paint;
+		readyP = readyPaint;
+		chargingP = chargingPaint;
 		respawnRate = spawnRate;
 		respawnCost = spawnCost;
 		fill = startingFill;
@@ -43,11 +44,16 @@ public abstract class ResourceSpawner {
 		float incrementX = xIncrementCoefficient * (stopX - startX);
 		float incrementY = yIncrementCoefficient * (stopY - startY);
 
+		if(canSpawn())
+			drawingP = readyP;
+		else
+			drawingP = chargingP;
+		
 		c.drawRect(startX, startY, stopX, stopY, backgroundP);
-		c.drawRect(startX, startY + incrementY * (10 - fill / 100), stopX, stopY, p);
+		c.drawRect(startX, startY + incrementY * (10 - fill / 100), stopX, stopY, drawingP);
 		if (fill != 0)
 			c.drawRect(startX, startY + incrementY * (9 - fill / 100), startX + incrementX
-					* ((fill % 100) / respawnRate), startY + incrementY * (10 - fill / 100), p);
+					* ((fill % 100) / respawnRate), startY + incrementY * (10 - fill / 100), drawingP);
 		c.drawRect(startX, startY, stopX, startY + incrementY * (damage / 100), blackP);
 		if (damage != 0)
 			c.drawRect(stopX, startY + incrementY * (1 + damage / 100), stopX - incrementX
@@ -65,7 +71,7 @@ public abstract class ResourceSpawner {
 			dead = true;
 			gEng.checkPlayerAlive();
 		}
-		Log.i("damage", "damage " + damage + "  to spawner colored" + p.getColor());
+		Log.i("damage", "damage " + damage + "  to spawner colored" + readyP.getColor());
 	}
 
 	/** any implementation should decrement fill by respawnCost */
