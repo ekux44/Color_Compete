@@ -12,7 +12,7 @@ import com.kuxhausen.colorcompete.ResourceSpawner;
 /**
  * (c) 2012 Eric Kuxhausen
  * <p>
- * Loads level
+ * Holds all of the game piece paints, and generates the appropriate EnemySpawner and ResourceSpawner for a level
  * 
  * @author Eric Kuxhausen
  */
@@ -37,6 +37,7 @@ public class LevelLoader {
 		simpleProjectileP.setColor(Color.RED);
 	}
 
+	/** returns the appropriately configured EnemySpawner for that level */
 	public static EnemySpawner loadEnemySpawner(int level, GameEngine gEng) {
 		EnemySpawner enemy = new EnemySpawner(gEng, 1000, 2, 1000);
 		switch (level) {
@@ -50,6 +51,8 @@ public class LevelLoader {
 			}
 		return enemy;
 	}
+	
+	/** returns the appropriately configured ResourceSpawner[] for that level */
 	public static ResourceSpawner[] loadSpawners(int level, GameEngine gEng) {
 		ResourceSpawner[] spawns;
 		switch (level) {
@@ -74,6 +77,7 @@ public class LevelLoader {
 		return spawns;
 	}
 	
+	/** Returns a RedTower generating ResourceSpawner */
 	private static ResourceSpawner getRed(GameEngine gEng, int spawnRate, int spawnCost, int startingFill){
 		Paint ready = new Paint();
 		ready.setColor(Color.RED);
@@ -86,6 +90,8 @@ public class LevelLoader {
 			}
 		};
 	}
+	
+	/** Returns a BlueTower generating ResourceSpawner */
 	private static ResourceSpawner getBlue(GameEngine gEng, int spawnRate, int spawnCost, int startingFill){
 		Paint ready = new Paint();
 		ready.setColor(Color.BLUE);
