@@ -27,7 +27,10 @@ public class GameEngine {
 	/* Input */
 	GameView gView;
 	ArrayList<MotionEvent> touches = new ArrayList<MotionEvent>();
-
+	boolean fingerOnBoard= false;
+	float tx, ty;
+	
+	
 	/* Graphics */
 	Paint backgroundP;
 	public Paint blackP, textP, userInterfaceP, pathPaint;
@@ -37,6 +40,7 @@ public class GameEngine {
 	final static float enemyLeftEdgeFactor = .92f; // rightmost bounds of the play field
 	DashPathEffect[] pathEffects;
 	int phase;
+	
 
 	/* Gamestate */
 	LevelLoader load;
@@ -111,16 +115,27 @@ public class GameEngine {
 				selectedPath.offset(0, -selectedSpawner * (height - 10) / spawns.length);
 				selectedSpawner = whichResourceSpawner(e.getHistoricalY(0));
 				selectedPath.offset(0, selectedSpawner * (height - 10) / spawns.length);
-			} else if (e.getAction() == MotionEvent.ACTION_DOWN && e.getX() < (width * spawningRightEdgeFactor)) {
+			} 
+			else if (e.getAction() == MotionEvent.ACTION_DOWN && e.getX() < (width * spawningRightEdgeFactor)) {
 				selectedPath.offset(0, -selectedSpawner * (height - 10) / spawns.length);
 				selectedSpawner = whichResourceSpawner(e.getY());
 				selectedPath.offset(0, selectedSpawner * (height - 10) / spawns.length);
 			}
-			if (e.getAction() == MotionEvent.ACTION_UP
-					&& (width * spawningRightEdgeFactor < e.getX() && e.getX() < width * enemyLeftEdgeFactor)
-					&& spawns[selectedSpawner].canSpawn())
-				towers.add(spawns[selectedSpawner].spawnResource(e.getX(), e.getY()));
-
+			
+			if(spawns[selectedSpawner].canSpawn() && (width * spawningRightEdgeFactor < e.getX() && e.getX() < width * enemyLeftEdgeFactor)){
+				if (e.getAction() == MotionEvent.ACTION_UP
+						){
+					towers.add(spawns[selectedSpawner].spawnResource(e.getX(), e.getY()));
+				}
+				else{
+					tx = e.getX();
+					ty = e.getY();
+					fingerOnBoard = true;
+				}
+				
+			}
+			if (e.getAction() == MotionEvent.ACTION_UP)
+				fingerOnBoard = false;
 		}
 
 		/* IMPORTANT */
@@ -177,6 +192,11 @@ public class GameEngine {
 		for (GamePiece prj : projectiles)
 			prj.draw(c);
 
+		//finger tracking hover
+		if(fingerOnBoard)
+			spawns[selectedSpawner].drawTouch(c, tx, ty);
+		
+		// resource spawn selected indicator
 		phase++;
 		pathPaint.setPathEffect(pathEffects[phase % pathEffects.length]);
 		c.drawPath(selectedPath, pathPaint);

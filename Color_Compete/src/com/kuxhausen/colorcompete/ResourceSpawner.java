@@ -59,6 +59,10 @@ public abstract class ResourceSpawner {
 			c.drawRect(stopX, startY + incrementY * (1 + damage / 100), stopX - incrementX
 					* ((damage % 100) / respawnRate), startY + incrementY * (damage / 100), blackP);
 	}
+	
+	public void drawTouch(Canvas c, float tX, float tY) {
+		c.drawCircle(tX, tY, 50f, chargingP);
+	}
 
 	public boolean canSpawn() {
 		return fill >= respawnCost;

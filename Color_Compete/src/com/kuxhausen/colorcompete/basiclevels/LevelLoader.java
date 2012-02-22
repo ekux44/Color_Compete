@@ -2,6 +2,7 @@ package com.kuxhausen.colorcompete.basiclevels;
 
 import java.util.ArrayList;
 
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
@@ -39,7 +40,7 @@ public class LevelLoader {
 
 	/** returns the appropriately configured EnemySpawner for that level */
 	public static EnemySpawner loadEnemySpawner(int level, GameEngine gEng) {
-		EnemySpawner enemy = new EnemySpawner(gEng, 1000, 2, 1000);
+		EnemySpawner enemy = new EnemySpawner(gEng, 10000, 2, 1000);
 		switch (level) {
 		case 0:
 			break;
@@ -88,7 +89,11 @@ public class LevelLoader {
 				fill -= respawnCost;
 				return new RedTower(x, y, gEng);
 			}
-		};
+			//TODO add firing radius visualization		
+/*			public void drawTouch(Canvas c, float tX, float tY) {
+				c.drawCircle(tX, tY, 50f, charging);
+			}
+*/		};
 	}
 	
 	/** Returns a BlueTower generating ResourceSpawner */
