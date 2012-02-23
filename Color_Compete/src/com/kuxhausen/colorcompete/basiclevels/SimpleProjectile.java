@@ -17,21 +17,22 @@ import android.graphics.Paint;
 public class SimpleProjectile extends GamePiece {
 
 	float speed = 3f;
-	public static final int cost = 60;
-	private static final float sizeingFactor = .5f, healthCostRatio = .5f;
+	public static final int COST = 60;
+	private static final float RADIUS_HEALTH_RATIO = .5f, HEALTH_COST_RATIO = .5f;
 	GamePiece target;
 
 	public SimpleProjectile(float xCenter, float yCenter, GameEngine gEngine, GamePiece theTarget) {
 
 		p = LevelLoader.simpleProjectileP;
+		radiusHealthRatio = RADIUS_HEALTH_RATIO;
 		xc = xCenter;
 		yc = yCenter;
 		gEng = gEngine;
 		gb = gEng.projectileMap;
 		gList = gEng.projectiles;
 		gb.register(this);
-		health = cost * healthCostRatio;
-		radius = sizeingFactor * (float) Math.sqrt(health);
+		health = COST * HEALTH_COST_RATIO;
+		radius = radiusHealthRatio * (float) Math.sqrt(health);
 
 		target = theTarget;
 	}
@@ -73,17 +74,4 @@ public class SimpleProjectile extends GamePiece {
 		}
 		return true;
 	}
-
-	@Override
-	/** @return true still alive*/
-	public boolean reduceHealth(float damage) {
-		health -= damage;
-		if (health <= 0) {
-			die();
-			return false;
-		}
-		radius = sizeingFactor * (float) Math.sqrt(health);
-		return true;
-	}
-
 }

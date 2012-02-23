@@ -17,20 +17,21 @@ import android.graphics.Paint;
 public class MediumEnemy extends GamePiece {
 
 	float speed = 2f;
-	public static final int cost = 250;
-	private static final float sizeingFactor = 2, healthCostRatio = .5f;
+	public static final int COST = 250;
+	private static final float RADIUS_HEALTH_RATIO = 2, HEALTH_COST_RATIO = .5f;
 
 	public MediumEnemy(float xCenter, float yCenter, GameEngine gEngine) {
 
 		p = LevelLoader.mediumEnemyP;
+		radiusHealthRatio = RADIUS_HEALTH_RATIO;
 		xc = xCenter;
 		yc = yCenter;
 		gEng = gEngine;
 		gb = gEng.enemyMap;
 		gList = gEng.enemies;
 		gb.register(this);
-		health = cost * healthCostRatio;
-		radius = sizeingFactor * (float) Math.sqrt(health);
+		health = COST * HEALTH_COST_RATIO;
+		radius = radiusHealthRatio * (float) Math.sqrt(health);
 	}
 
 	@Override
@@ -69,13 +70,6 @@ public class MediumEnemy extends GamePiece {
 	/** @return true still alive*/
 	public boolean reduceHealth(float damage) {
 		gEng.playerScore+= Math.min(health, damage);
-		health -= damage;
-		if (health <= 0) {
-			health = 0;
-			die();
-			return false;
-		}
-		radius = sizeingFactor * (float) Math.sqrt(health);
-		return true;
+		return super.reduceHealth(damage);
 	}
 }

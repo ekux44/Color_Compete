@@ -16,21 +16,22 @@ import android.graphics.Paint;
  */
 public class RedTower extends GamePiece {
 
-	private static final int cost = 300, spawnRate = 2, spawnPoolMax = 65;
-	private static final float sizeingFactor = 2, firingRadius = 200f, healthCostRatio = .5f;
+	private static final int COST = 300, spawnRate = 2, spawnPoolMax = 65;
+	private static final float RADIUS_HEALTH_RATIO = 2, firingRadius = 200f, HEALTH_COST_RATIO = .5f;
 	private int spawnPool = 200;
 
 	public RedTower(float xCenter, float yCenter, GameEngine gEngine) {
 
 		p = LevelLoader.redTowerP;
+		radiusHealthRatio = RADIUS_HEALTH_RATIO;
 		xc = xCenter;
 		yc = yCenter;
 		gEng = gEngine;
 		gb = gEng.towerMap;
 		gList = gEng.towers;
 		gb.register(this);
-		health = cost * healthCostRatio;
-		radius = sizeingFactor * (float) Math.sqrt(health);
+		health = COST * HEALTH_COST_RATIO;
+		radius = radiusHealthRatio * (float) Math.sqrt(health);
 	}
 
 	@Override
@@ -42,23 +43,13 @@ public class RedTower extends GamePiece {
 		// check if tower should fire
 		GamePiece nearestEnemy = gEng.enemyMap.getNearestNeighbor(xc, yc);
 		if (nearestEnemy != null
-				&& spawnPool >= SimpleProjectile.cost
+				&& spawnPool >= SimpleProjectile.COST
 				&& (nearestEnemy.radius + firingRadius) > GameBoard.distanceBetween(xc, yc, nearestEnemy.xc,
 						nearestEnemy.yc)) {
 			gEng.projectiles.add(new SimpleProjectile(xc, yc, gEng, nearestEnemy));
-			spawnPool -= SimpleProjectile.cost;
+			spawnPool -= SimpleProjectile.COST;
 		}
 		return true;
 	}
 
-	@Override
-	public boolean reduceHealth(float damage) {
-		health -= damage;
-		if (health <= 0) {
-			die();
-			return false;
-		}
-		radius = sizeingFactor * (float) Math.sqrt(health);
-		return true;
-	}
 }

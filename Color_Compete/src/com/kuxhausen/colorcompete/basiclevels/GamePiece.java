@@ -21,7 +21,7 @@ public abstract class GamePiece {
 	protected GameBoard gb;
 	protected GameEngine gEng;
 	protected ArrayList<GamePiece> gList;
-	protected float health;
+	protected float health, radiusHealthRatio;
 	protected Paint p;
 
 	/** @return true if still alive */
@@ -50,7 +50,16 @@ public abstract class GamePiece {
 	 * @param damage
 	 *            amount to reduce health by
 	 */
-	public abstract boolean reduceHealth(float damage);
+	/** @return true still alive*/
+	public boolean reduceHealth(float damage) {
+		health -= damage;
+		if (health <= 0) {
+			die();
+			return false;
+		}
+		radius = radiusHealthRatio * (float) Math.sqrt(health);
+		return true;
+	}
 
 	/** @return health */
 	public float getHealth() {
