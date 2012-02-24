@@ -28,6 +28,9 @@ public class LaunchScreen extends Activity implements OnClickListener {
 
 		View LaunchButton2 = this.findViewById(R.id.launchButton2);
 		LaunchButton2.setOnClickListener(this);
+
+		View LaunchButton3 = this.findViewById(R.id.launchButton3);
+		LaunchButton3.setOnClickListener(this);
 	}
 
 	@Override
@@ -44,6 +47,10 @@ public class LaunchScreen extends Activity implements OnClickListener {
 			break;
 		case R.id.launchButton2:
 			singlePlayerGame.putExtra("level", 2);
+			startActivity(singlePlayerGame);
+			break;
+		case R.id.launchButton3:
+			singlePlayerGame.putExtra("level", 3);
 			startActivity(singlePlayerGame);
 			break;
 
