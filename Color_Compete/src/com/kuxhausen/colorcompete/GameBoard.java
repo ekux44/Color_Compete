@@ -57,17 +57,18 @@ public class GameBoard {
 		grid[(int) (grid.length * (o.xc - xOffset) / xSpan)][(int) (grid[0].length * (o.yc) / ySpan)].remove(o);
 	}
 
-	// public void move(GamePiece gp, float dx, float dy){
-	// if (willMoveZones(gp.xc, gp.yc, gp.xc + dx, gp.yc + dy)) {
-	// unregister(gp);
-	// gp.xc += dx;
-	// gp.yc += dy;
-	// register(gp);
-	// } else {
-	// gp.xc += dx;
-	// gp.yc += dy;
-	// }
-	// }
+	public void move(GamePiece gp, float dx, float dy){
+		if (willMoveZones(gp.xc, gp.yc, gp.xc + dx, gp.yc + dy)) {
+			unregister(gp);
+			gp.xc += dx;
+			gp.yc += dy;
+			register(gp);
+		} 
+		else {
+			gp.xc += dx;
+			gp.yc += dy;
+		}
+	}
 
 	/**
 	 * @param x

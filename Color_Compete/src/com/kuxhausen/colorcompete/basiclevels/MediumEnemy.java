@@ -53,12 +53,7 @@ public class MediumEnemy extends GamePiece {
 		}
 
 		// update location
-		if (gb.willMoveZones(xc, yc, xc - speed, yc)) {
-			gb.unregister(this);
-			xc -= speed;
-			gb.register(this);
-		} else
-			xc -= speed;
+		gb.move(this, -speed, 0);
 
 		return true;
 	}

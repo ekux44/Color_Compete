@@ -60,15 +60,8 @@ public class SimpleProjectile extends GamePiece {
 		float dy = target.yc - yc;
 		dx = (float) (dx * Math.min(1f, speed / Math.sqrt(dx * dx + dy * dy)));
 		dy = (float) (dy * Math.min(1f, speed / Math.sqrt(dx * dx + dy * dy)));
-		if (gb.willMoveZones(xc, yc, xc + dx, yc + dy)) {
-			gb.unregister(this);
-			xc += dx;
-			yc += dy;
-			gb.register(this);
-		} else {
-			xc += dx;
-			yc += dy;
-		}
+		gb.move(this, dx, dy);
+		
 		return true;
 	}
 }
