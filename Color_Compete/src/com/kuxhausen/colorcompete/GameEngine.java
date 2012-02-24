@@ -31,7 +31,7 @@ public class GameEngine {
 	private Path selectedPath;
 	public int width, height; // TODO create scaling factor
 	public final static float spawningRightEdgeFactor = .12f; // leftmost bounds of the play field
-	final static float enemyLeftEdgeFactor = .92f; // rightmost bounds of the play field
+	public final static float enemyLeftEdgeFactor = .92f; // rightmost bounds of the play field
 	DashPathEffect[] pathEffects;
 	int phase;
 
@@ -39,7 +39,7 @@ public class GameEngine {
 	LevelLoader load;
 	public ResourceSpawner[] spawns;
 	private int selectedSpawner = 0;
-	EnemySpawner enemyBase;
+	public EnemySpawner enemyBase;
 	public ArrayList<GamePiece> towers, enemies, projectiles;
 	public GameBoard towerMap, enemyMap, projectileMap;
 	public GameEngine gEngine = this;

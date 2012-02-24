@@ -59,4 +59,9 @@ public class EnemySpawner {
 
 		c.drawRect(c.getWidth() * (1f - .08f * spawnsRemaining / totalSpawns), 0, c.getWidth(), c.getHeight(), p);
 	}
+	
+	public void takeDamage(int d){
+		damage+=d;
+		gEng.playerScore+=d;
+	}
 }

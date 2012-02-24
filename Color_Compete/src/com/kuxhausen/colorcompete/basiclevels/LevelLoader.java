@@ -17,7 +17,7 @@ import com.kuxhausen.colorcompete.ResourceSpawner;
  */
 public class LevelLoader {
 
-	static Paint smallEnemyP, mediumEnemyP, blueTowerP, redTowerP, simpleProjectileP;
+	static Paint smallEnemyP, mediumEnemyP, blueTowerP, greenTowerP, redTowerP, simpleProjectileP;
 
 	public LevelLoader() {
 		smallEnemyP = new Paint();
@@ -29,6 +29,9 @@ public class LevelLoader {
 		blueTowerP = new Paint();
 		blueTowerP.setColor(Color.BLUE);
 
+		greenTowerP = new Paint();
+		greenTowerP.setColor(Color.GREEN);
+		
 		redTowerP = new Paint();
 		redTowerP.setColor(Color.RED);
 
@@ -56,9 +59,10 @@ public class LevelLoader {
 		ResourceSpawner[] spawns;
 		switch (level) {
 		case 0:
-			spawns = new ResourceSpawner[2];
-			spawns[0] = getBlue(gEng, 3, 200, 900);
-			spawns[1] = getRed(gEng, 1, 300, 900);
+			spawns = new ResourceSpawner[3];
+			spawns[0] = getRed(gEng, 1, 300, 500);
+			spawns[1] = getGreen(gEng, 2, 200, 500);
+			spawns[2] = getBlue(gEng, 3, 200, 500);
 			break;
 		case 1:
 			spawns = new ResourceSpawner[1];
@@ -67,6 +71,10 @@ public class LevelLoader {
 		case 2:
 			spawns = new ResourceSpawner[1];
 			spawns[0] = getRed(gEng, 1, 300, 600);
+			break;
+		case 3:
+			spawns = new ResourceSpawner[1];
+			spawns[0] = getGreen(gEng, 2, 200, 200);
 			break;
 		default:
 			spawns = new ResourceSpawner[2];
@@ -95,6 +103,21 @@ public class LevelLoader {
 		};
 	}
 
+	/** Returns a GreenTower generating ResourceSpawner */
+	private static ResourceSpawner getGreen(GameEngine gEng, int spawnRate, int spawnCost, int startingFill) {
+		Paint ready = new Paint();
+		ready.setColor(Color.GREEN);
+		Paint charging = new Paint();
+		charging.setARGB(0xFF, 0x80, 0xFF, 0x80);
+		return new ResourceSpawner(gEng, ready, charging, spawnRate, spawnCost, startingFill) {
+			@Override
+			public GamePiece spawnResource(float x, float y) {
+				fill -= respawnCost;
+				return new GreenTower(x, y, gEng);
+			}
+		};
+	}
+	
 	/** Returns a BlueTower generating ResourceSpawner */
 	private static ResourceSpawner getBlue(GameEngine gEng, int spawnRate, int spawnCost, int startingFill) {
 		Paint ready = new Paint();
