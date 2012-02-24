@@ -2,11 +2,11 @@ package com.kuxhausen.colorcompete;
 
 import java.util.Random;
 
-import com.kuxhausen.colorcompete.basiclevels.SmallEnemy;
-
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+
+import com.kuxhausen.colorcompete.basiclevels.SmallEnemy;
 
 /**
  * (c) 2012 Eric Kuxhausen
@@ -57,7 +57,6 @@ public class EnemySpawner {
 
 	public void draw(Canvas c) {
 
-		c.drawRect(c.getWidth() * (1f - .08f * spawnsRemaining / (float) totalSpawns), 0, c.getWidth(), c.getHeight(),
-				p);
+		c.drawRect(c.getWidth() * (1f - .08f * spawnsRemaining / totalSpawns), 0, c.getWidth(), c.getHeight(), p);
 	}
 }

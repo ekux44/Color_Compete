@@ -1,7 +1,5 @@
 package com.kuxhausen.colorcompete;
 
-import com.kuxhausen.colorcompete.basiclevels.GamePiece;
-
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.Log;
@@ -25,7 +23,8 @@ public abstract class ResourceSpawner {
 	boolean dead;
 	protected GameEngine gEng;
 
-	public ResourceSpawner(GameEngine gEngine, Paint readyPaint, Paint chargingPaint, int spawnRate, int spawnCost, int startingFill) {
+	public ResourceSpawner(GameEngine gEngine, Paint readyPaint, Paint chargingPaint, int spawnRate, int spawnCost,
+			int startingFill) {
 		gEng = gEngine;
 		readyP = readyPaint;
 		chargingP = chargingPaint;
@@ -44,11 +43,11 @@ public abstract class ResourceSpawner {
 		float incrementX = xIncrementCoefficient * (stopX - startX);
 		float incrementY = yIncrementCoefficient * (stopY - startY);
 
-		if(canSpawn())
+		if (canSpawn())
 			drawingP = readyP;
 		else
 			drawingP = chargingP;
-		
+
 		c.drawRect(startX, startY, stopX, stopY, backgroundP);
 		c.drawRect(startX, startY + incrementY * (10 - fill / 100), stopX, stopY, drawingP);
 		if (fill != 0)
@@ -59,7 +58,7 @@ public abstract class ResourceSpawner {
 			c.drawRect(stopX, startY + incrementY * (1 + damage / 100), stopX - incrementX
 					* ((damage % 100) / respawnRate), startY + incrementY * (damage / 100), blackP);
 	}
-	
+
 	public void drawTouch(Canvas c, float tX, float tY) {
 		c.drawCircle(tX, tY, 50f, chargingP);
 	}

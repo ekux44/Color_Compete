@@ -1,9 +1,6 @@
-package com.kuxhausen.colorcompete.basiclevels;
+package com.kuxhausen.colorcompete;
 
 import java.util.ArrayList;
-
-import com.kuxhausen.colorcompete.GameBoard;
-import com.kuxhausen.colorcompete.GameEngine;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -50,7 +47,7 @@ public abstract class GamePiece {
 	 * @param damage
 	 *            amount to reduce health by
 	 */
-	/** @return true still alive*/
+	/** @return true still alive */
 	public boolean reduceHealth(float damage) {
 		health -= damage;
 		if (health <= 0) {

@@ -2,10 +2,7 @@ package com.kuxhausen.colorcompete.basiclevels;
 
 import com.kuxhausen.colorcompete.GameBoard;
 import com.kuxhausen.colorcompete.GameEngine;
-
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
+import com.kuxhausen.colorcompete.GamePiece;
 
 /**
  * (c) 2012 Eric Kuxhausen

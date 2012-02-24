@@ -5,14 +5,9 @@ import java.util.logging.Logger;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
-import android.view.View;
-import android.widget.Button;
 
 /**
  * (c) 2012 Eric Kuxhausen
