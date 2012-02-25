@@ -61,6 +61,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		Intent resultsScreen = new Intent(context, ResultsPage.class);
 		resultsScreen.putExtra("PLAYER_WON", playerWon);
 		resultsScreen.putExtra("SCORE", score);
+		resultsScreen.putExtra("LEVEL", gEngine.level);
 		context.startActivity(resultsScreen);
 		parentActivity.die();
 	}

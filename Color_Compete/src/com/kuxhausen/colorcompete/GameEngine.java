@@ -36,6 +36,7 @@ public class GameEngine {
 	int phase;
 
 	/* Gamestate */
+	int level;
 	LevelLoader load;
 	public ResourceSpawner[] spawns;
 	private int selectedSpawner = 0;
@@ -48,11 +49,13 @@ public class GameEngine {
 	/* Stats */
 	public float playerScore;
 
-	public void Init(GameView g, Resources resource, int level) {
+	public void Init(GameView g, Resources resource, int lvl) {
 
 		height = resource.getDisplayMetrics().heightPixels;
 		width = resource.getDisplayMetrics().widthPixels;
 
+		level = lvl;
+		
 		/* Graphics */
 
 		// painter to clear the screen before the game is rendered
