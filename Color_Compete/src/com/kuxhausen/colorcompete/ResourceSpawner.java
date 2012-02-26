@@ -39,7 +39,7 @@ public abstract class ResourceSpawner {
 		fill = Math.min(fill, maxFill - damage);
 	}
 
-	public void draw(Canvas c, Paint backgroundP, Paint blackP, float startX, float startY, float stopX, float stopY) {
+	public void draw(Canvas c, Paint backgroundP, Paint enemyP, float startX, float startY, float stopX, float stopY) {
 		float incrementX = xIncrementCoefficient * (stopX - startX);
 		float incrementY = yIncrementCoefficient * (stopY - startY);
 
@@ -53,10 +53,10 @@ public abstract class ResourceSpawner {
 		if (fill != 0)
 			c.drawRect(startX, startY + incrementY * (9 - fill / 100), startX + incrementX
 					* ((fill % 100) / respawnRate), startY + incrementY * (10 - fill / 100), drawingP);
-		c.drawRect(startX, startY, stopX, startY + incrementY * (damage / 100), blackP);
+		c.drawRect(startX, startY, stopX, startY + incrementY * (damage / 100), enemyP);
 		if (damage != 0)
 			c.drawRect(stopX, startY + incrementY * (1 + damage / 100), stopX - incrementX
-					* ((damage % 100) / respawnRate), startY + incrementY * (damage / 100), blackP);
+					* ((damage % 100) / respawnRate), startY + incrementY * (damage / 100), enemyP);
 	}
 
 	public void drawTouch(Canvas c, float tX, float tY) {

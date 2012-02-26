@@ -3,6 +3,7 @@ package com.kuxhausen.colorcompete;
 import java.util.ArrayList;
 
 import android.content.res.Resources;
+import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
@@ -27,7 +28,7 @@ public class GameEngine {
 
 	/* Graphics */
 	Paint backgroundP;
-	public Paint blackP, textP, userInterfaceP, pathPaint;
+	public Paint enemyP, textP, userInterfaceP, pathPaint;
 	private Path selectedPath;
 	public int width, height; // TODO create scaling factor
 	public final static float spawningRightEdgeFactor = .12f; // leftmost bounds of the play field
@@ -62,8 +63,9 @@ public class GameEngine {
 		backgroundP = new Paint();
 		backgroundP.setARGB(255, 255, 255, 255);
 
-		blackP = new Paint();
-		blackP.setColor(Color.BLACK);
+		enemyP = new Paint();
+		enemyP.setColor(Color.BLACK);
+		enemyP.setMaskFilter(new BlurMaskFilter(8,BlurMaskFilter.Blur.SOLID));
 
 		int userInterfaceColor = Color.parseColor("#FF603311");
 
@@ -173,7 +175,7 @@ public class GameEngine {
 		// user interface & resource spawns
 		c.drawRect(0, 0, maxX * spawningRightEdgeFactor, maxY, userInterfaceP);
 		for (int i = 0; i < spawns.length; i++)
-			spawns[i].draw(c, backgroundP, blackP, 10, i * maxY / spawns.length + (5 + (i == 0 ? 5 : 0)), maxX
+			spawns[i].draw(c, backgroundP, enemyP, 10, i * maxY / spawns.length + (5 + (i == 0 ? 5 : 0)), maxX
 					* spawningRightEdgeFactor - 10, (1 + i) * maxY / spawns.length
 					- (5 + (i == (spawns.length - 1) ? 5 : 0)));
 

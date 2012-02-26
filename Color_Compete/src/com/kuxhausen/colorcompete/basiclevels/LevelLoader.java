@@ -1,5 +1,6 @@
 package com.kuxhausen.colorcompete.basiclevels;
 
+import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
 import android.graphics.Paint;
 
@@ -22,10 +23,12 @@ public class LevelLoader {
 	public LevelLoader() {
 		smallEnemyP = new Paint();
 		smallEnemyP.setColor(Color.BLACK);
+		smallEnemyP.setMaskFilter(new BlurMaskFilter(6,BlurMaskFilter.Blur.NORMAL));
 
 		mediumEnemyP = new Paint();
 		mediumEnemyP.setColor(Color.BLACK);
-
+		mediumEnemyP.setMaskFilter(new BlurMaskFilter(6,BlurMaskFilter.Blur.NORMAL));
+		
 		blueTowerP = new Paint();
 		blueTowerP.setColor(Color.BLUE);
 
