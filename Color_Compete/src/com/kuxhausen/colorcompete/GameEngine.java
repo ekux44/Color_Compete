@@ -81,9 +81,9 @@ public class GameEngine {
 		towers = new ArrayList<GamePiece>();
 		enemies = new ArrayList<GamePiece>();
 		projectiles = new ArrayList<GamePiece>();
-		towerMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
-		enemyMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
-		projectileMap = new GameBoard(width * spawningRightEdgeFactor, width * enemyLeftEdgeFactor, height);
+		towerMap = new GameBoard(width * spawningRightEdgeFactor, width, height);
+		enemyMap = new GameBoard(width * spawningRightEdgeFactor, width, height);
+		projectileMap = new GameBoard(width * spawningRightEdgeFactor, width, height);
 
 		load = new LevelLoader();
 		spawns = LevelLoader.loadSpawners(level, gEngine);
@@ -171,14 +171,7 @@ public class GameEngine {
 
 		// clear the screen with the background painter.
 		c.drawRect(0, 0, maxX, maxY, backgroundP);
-
-		// user interface & resource spawns
-		c.drawRect(0, 0, maxX * spawningRightEdgeFactor, maxY, userInterfaceP);
-		for (int i = 0; i < spawns.length; i++)
-			spawns[i].draw(c, backgroundP, enemyP, 10, i * maxY / spawns.length + (5 + (i == 0 ? 5 : 0)), maxX
-					* spawningRightEdgeFactor - 10, (1 + i) * maxY / spawns.length
-					- (5 + (i == (spawns.length - 1) ? 5 : 0)));
-
+		
 		// GameBoard
 		enemyBase.draw(c);
 		for (GamePiece twr : towers)
@@ -191,6 +184,13 @@ public class GameEngine {
 		// finger tracking hover
 		if (fingerOnBoard)
 			spawns[selectedSpawner].drawTouch(c, tx, ty);
+
+		// user interface & resource spawns
+		c.drawRect(0, 0, maxX * spawningRightEdgeFactor, maxY, userInterfaceP);
+		for (int i = 0; i < spawns.length; i++)
+			spawns[i].draw(c, backgroundP, enemyP, 10, i * maxY / spawns.length + (5 + (i == 0 ? 5 : 0)), maxX
+					* spawningRightEdgeFactor - 10, (1 + i) * maxY / spawns.length
+					- (5 + (i == (spawns.length - 1) ? 5 : 0)));
 
 		// resource spawn selected indicator
 		phase++;

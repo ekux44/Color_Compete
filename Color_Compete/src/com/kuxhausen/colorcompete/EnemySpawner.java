@@ -24,6 +24,7 @@ public class EnemySpawner {
 	public EnemySpawner(GameEngine gEngine, int toSpawn, int rateToSpawn, int spawnAccelerationInterval) {
 		p = new Paint();
 		p.setShadowLayer(10, 0, 0, Color.GRAY);
+		p.setColor(Color.DKGRAY);
 		gEng = gEngine;
 		totalSpawns = toSpawn;
 		spawnsRemaining = totalSpawns;
@@ -46,8 +47,7 @@ public class EnemySpawner {
 			int maybeSpawn = r.nextInt(pendingSpawnUnits);
 
 			if (maybeSpawn > SmallEnemy.COST) {
-				gEng.enemies
-						.add(new SmallEnemy(gEng.width * gEng.enemyLeftEdgeFactor - 1, r.nextInt(gEng.height), gEng));
+				gEng.enemies.add(new SmallEnemy(gEng.width - 1, r.nextInt(gEng.height), gEng));
 				maybeSpawn -= SmallEnemy.COST;
 				pendingSpawnUnits -= SmallEnemy.COST;
 			}
@@ -58,10 +58,11 @@ public class EnemySpawner {
 	public void draw(Canvas c) {
 
 		c.drawRect(c.getWidth() * (1f - .08f * spawnsRemaining / totalSpawns), 0, c.getWidth(), c.getHeight(), p);
+
 	}
-	
-	public void takeDamage(int d){
-		damage+=d;
-		gEng.playerScore+=d;
+
+	public void takeDamage(int d) {
+		damage += d;
+		gEng.playerScore += d;
 	}
 }
