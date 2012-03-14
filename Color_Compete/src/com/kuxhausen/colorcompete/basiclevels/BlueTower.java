@@ -34,4 +34,9 @@ public class BlueTower extends GamePiece {
 	public boolean update() {
 		return true;
 	}
+	
+	public boolean merge(BlueTower b){
+		//TODO implement logic to merge or move towers that get dropped on eachother 
+		return false;
+	}
 }
