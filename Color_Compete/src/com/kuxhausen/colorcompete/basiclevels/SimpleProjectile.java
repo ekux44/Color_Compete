@@ -61,7 +61,7 @@ public class SimpleProjectile extends GamePiece {
 		dx = (float) (dx * Math.min(1f, speed / Math.sqrt(dx * dx + dy * dy)));
 		dy = (float) (dy * Math.min(1f, speed / Math.sqrt(dx * dx + dy * dy)));
 		gb.move(this, dx, dy);
-		
+
 		return true;
 	}
 }

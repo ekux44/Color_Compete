@@ -18,9 +18,9 @@ import android.widget.TextView;
  * @author Eric Kuxhausen
  */
 public class ResultsPage extends Activity implements OnClickListener {
-	
+
 	int level;
-	
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class ResultsPage extends Activity implements OnClickListener {
 			ResultsText.setText("You Lost!");
 
 		level = this.getIntent().getExtras().getInt("LEVEL");
-		
+
 		TextView ScoreText = (TextView) this.findViewById(R.id.scoreText);
 		ScoreText.setText("Score: " + this.getIntent().getExtras().getInt("SCORE"));
 
@@ -59,7 +59,7 @@ public class ResultsPage extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.nextButton:
 			Intent iNextGame = new Intent(this, GameActivity.class);
-			iNextGame.putExtra("level", level+1);
+			iNextGame.putExtra("level", level + 1);
 			startActivity(iNextGame);
 			break;
 		case R.id.mainButton:

@@ -36,6 +36,10 @@ public class GameEngine {
 	DashPathEffect[] pathEffects;
 	int phase;
 
+	/* Camera */
+	float cameraOffset = 0f;
+	float cameraVelocity;
+
 	/* Gamestate */
 	int level;
 	LevelLoader load;
@@ -56,7 +60,7 @@ public class GameEngine {
 		width = resource.getDisplayMetrics().widthPixels;
 
 		level = lvl;
-		
+
 		/* Graphics */
 
 		// painter to clear the screen before the game is rendered
@@ -65,7 +69,7 @@ public class GameEngine {
 
 		enemyP = new Paint();
 		enemyP.setColor(Color.BLACK);
-		enemyP.setMaskFilter(new BlurMaskFilter(8,BlurMaskFilter.Blur.SOLID));
+		enemyP.setMaskFilter(new BlurMaskFilter(8, BlurMaskFilter.Blur.SOLID));
 
 		int userInterfaceColor = Color.parseColor("#FF603311");
 
@@ -75,6 +79,9 @@ public class GameEngine {
 
 		userInterfaceP = new Paint();
 		userInterfaceP.setColor(userInterfaceColor);
+
+		/* Camera */
+		cameraVelocity = LevelLoader.loadCameraVelocity(level, gEngine);
 
 		/* GameState */
 		gView = g;
@@ -122,7 +129,7 @@ public class GameEngine {
 			if (spawns[selectedSpawner].canSpawn()
 					&& (width * spawningRightEdgeFactor < e.getX() && e.getX() < width * enemyLeftEdgeFactor)) {
 				if (e.getAction() == MotionEvent.ACTION_UP) {
-					towers.add(spawns[selectedSpawner].spawnResource(e.getX(), e.getY()));
+					towers.add(spawns[selectedSpawner].spawnResource(e.getX() + cameraOffset, e.getY()));
 				} else {
 					tx = e.getX();
 					ty = e.getY();
@@ -163,6 +170,8 @@ public class GameEngine {
 				endGame(true);
 
 		}
+
+		cameraOffset += cameraVelocity;
 	}
 
 	public void Draw(Canvas c, int FPS) {
@@ -171,15 +180,15 @@ public class GameEngine {
 
 		// clear the screen with the background painter.
 		c.drawRect(0, 0, maxX, maxY, backgroundP);
-		
+
 		// GameBoard
 		enemyBase.draw(c);
 		for (GamePiece twr : towers)
-			twr.draw(c);
+			twr.draw(c, -cameraOffset);
 		for (GamePiece enm : enemies)
-			enm.draw(c);
+			enm.draw(c, -cameraOffset);
 		for (GamePiece prj : projectiles)
-			prj.draw(c);
+			prj.draw(c, -cameraOffset);
 
 		// finger tracking hover
 		if (fingerOnBoard)

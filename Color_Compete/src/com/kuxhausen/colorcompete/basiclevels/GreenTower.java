@@ -34,27 +34,27 @@ public class GreenTower extends GamePiece {
 	@Override
 	/** returns false if the piece dies */
 	public boolean update() {
-			//check to see if reached enemy spawner
-			if ((xc + speed) >= (gEng.width * gEng.enemyLeftEdgeFactor)) {
-					gEng.enemyBase.takeDamage((int)health);
-					die();
-					return false;
-				}
-		
-			// check for collisions
-			GamePiece maybeCollision = gEng.enemyMap.getNearestNeighbor(xc, yc);
-			if (maybeCollision != null
-					&& (maybeCollision.radius + this.radius) > GameBoard.distanceBetween(xc, yc, maybeCollision.xc,
-							maybeCollision.yc)) {
-				float damage = Math.min(health, maybeCollision.getHealth());
-				maybeCollision.reduceHealth(damage);
-				if (this.reduceHealth(damage))
-					return false;
-			}
+		// check to see if reached enemy spawner
+		if ((xc + speed) >= (gEng.width * gEng.enemyLeftEdgeFactor)) {
+			gEng.enemyBase.takeDamage((int) health);
+			die();
+			return false;
+		}
 
-			// update location
-			gb.move(this, speed, 0);
+		// check for collisions
+		GamePiece maybeCollision = gEng.enemyMap.getNearestNeighbor(xc, yc);
+		if (maybeCollision != null
+				&& (maybeCollision.radius + this.radius) > GameBoard.distanceBetween(xc, yc, maybeCollision.xc,
+						maybeCollision.yc)) {
+			float damage = Math.min(health, maybeCollision.getHealth());
+			maybeCollision.reduceHealth(damage);
+			if (this.reduceHealth(damage))
+				return false;
+		}
 
-			return true;
+		// update location
+		gb.move(this, speed, 0);
+
+		return true;
 	}
 }

@@ -14,60 +14,26 @@ import android.util.Log;
  */
 public class GameBoard {
 
-	// may switch data structures in the future, need to minimize cost of
-	// combining neighboring cells
-	ArrayList<GamePiece>[][] grid;
+	// may switch data structures in the future, need to minimize cost of interacting with neighbors and drawing
+	// everthing in view
+	ArrayList<GamePiece> all; // temp
 	ArrayList<GamePiece> neighbors;
 	float xOffset, xSpan, ySpan;
 	final static int xTiles = 4, yTiles = 4;
 
 	/* Temporary helper until getNeighbors is properly implemented */
-	ArrayList<GamePiece> all; // temp
 
 	public GameBoard(float xMin, float xMax, float y) {
 		xOffset = xMin;
 		xSpan = xMax - xMin;
 		ySpan = y;
 		neighbors = new ArrayList<GamePiece>();
-		grid = new ArrayList[xTiles][yTiles];
-		for (int r = 0; r < xTiles; r++)
-			for (int c = 0; c < yTiles; c++)
-				grid[r][c] = new ArrayList<GamePiece>();
-
 		all = new ArrayList<GamePiece>();
 	}
 
-	public GamePiece register(GamePiece o) {
-		all.add(o);
-
-		Log.i("grid)", "registered in" + (int) (grid.length * (o.xc - xOffset) / xSpan) + " , "
-				+ (int) (grid[0].length * (o.yc) / ySpan));
-		grid[(int) (grid.length * (o.xc - xOffset) / xSpan)][(int) (grid[0].length * (o.yc) / ySpan)].add(o);
-		return o;
-	}
-
-	public boolean willMoveZones(float x1, float y1, float x2, float y2) {
-		return ((int) (grid.length * (x1 - xOffset) / xSpan) != (int) (grid.length * (x2 - xOffset) / xSpan) || ((int) (grid[0].length
-				* (y1) / ySpan) != (int) (grid[0].length * (y2) / ySpan)));
-	}
-
-	public void unregister(GamePiece o) {
-		all.remove(o);
-
-		grid[(int) (grid.length * (o.xc - xOffset) / xSpan)][(int) (grid[0].length * (o.yc) / ySpan)].remove(o);
-	}
-
-	public void move(GamePiece gp, float dx, float dy){
-		if (willMoveZones(gp.xc, gp.yc, gp.xc + dx, gp.yc + dy)) {
-			unregister(gp);
-			gp.xc += dx;
-			gp.yc += dy;
-			register(gp);
-		} 
-		else {
-			gp.xc += dx;
-			gp.yc += dy;
-		}
+	public void move(GamePiece gp, float dx, float dy) {
+		gp.xc += dx;
+		gp.yc += dy;
 	}
 
 	/**
@@ -81,10 +47,7 @@ public class GameBoard {
 	 *         well
 	 */
 	public ArrayList<GamePiece> getNeighbors(float x, float y, float radius) {
-		// neighbors.clear();
-		// neighbors.addAll(grid[(int) (grid.length * (y - xOffset) / xSpan)][(int) (grid[0].length * (y) / ySpan)]);
-		// TODO check next level neighboring
-		// return neighbors;
+		// TODO
 		return all;
 	}
 
@@ -106,5 +69,15 @@ public class GameBoard {
 	/** performs simple calculation of geometric distance between two points */
 	public static float distanceBetween(float x1, float y1, float x2, float y2) {
 		return (float) Math.sqrt(((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2)));
+	}
+
+	public void unregister(GamePiece thing) {
+		all.remove(thing);
+
+	}
+
+	public void register(GamePiece thing) {
+		all.add(thing);
+
 	}
 }

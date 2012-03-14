@@ -7,18 +7,18 @@ import android.graphics.Paint;
 /**
  * (c) 2012 Eric Kuxhausen
  * <p>
- * Hold an a barrier that cannot be crossed by game piece 
+ * Hold an a barrier that cannot be crossed by game piece
  * 
  * @author Eric Kuxhausen
  */
 public class Terrain {
-	
+
 	float x1, y1, x2, y2;
 	static Paint p;
 	protected GameEngine gEng;
 
-	public Terrain(float startX, float startY, float stopX, float stopY, GameEngine gEngine){
-		if(p!=null){
+	public Terrain(float startX, float startY, float stopX, float stopY, GameEngine gEngine) {
+		if (p != null) {
 			p = new Paint();
 			p.setColor(Color.parseColor("#FF603311"));
 			p.setStrokeWidth(4);
@@ -29,6 +29,7 @@ public class Terrain {
 		y2 = stopY;
 		gEng = gEngine;
 	}
+
 	/**
 	 * @param c
 	 *            Canvas onto which GamePiece will draw itself

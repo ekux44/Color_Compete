@@ -2,9 +2,11 @@
 <resources>
     <string name="app_name">Color_Compete</string>
 	<string name="launch0">Level 0 (developer sandbox)</string>
-	<string name="launch1">Level 1</string>
-	<string name="launch2">Level 2</string>	
-	<string name="launch3">Level 3</string>
+	<string name="launch1">Blue Only</string>
+	<string name="launch2">Red Only</string>	
+	<string name="launch3">Green Only</string>
+	<string name="launch4">Moving Camera</string>	
+	<string name="launch5">Moving Backwards</string>
 	<string name="text">This should not be visible</string>
 	<string name="next">Next Level!</string>
 	<string name="main">Main Menu</string>

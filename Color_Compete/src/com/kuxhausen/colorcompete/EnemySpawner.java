@@ -47,7 +47,7 @@ public class EnemySpawner {
 			int maybeSpawn = r.nextInt(pendingSpawnUnits);
 
 			if (maybeSpawn > SmallEnemy.COST) {
-				gEng.enemies.add(new SmallEnemy(gEng.width - 1, r.nextInt(gEng.height), gEng));
+				gEng.enemies.add(new SmallEnemy(gEng.width + gEng.cameraOffset, r.nextInt(gEng.height), gEng));
 				maybeSpawn -= SmallEnemy.COST;
 				pendingSpawnUnits -= SmallEnemy.COST;
 			}

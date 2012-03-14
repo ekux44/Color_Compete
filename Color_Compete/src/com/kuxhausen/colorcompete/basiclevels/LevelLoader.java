@@ -23,23 +23,33 @@ public class LevelLoader {
 	public LevelLoader() {
 		smallEnemyP = new Paint();
 		smallEnemyP.setColor(Color.BLACK);
-		smallEnemyP.setMaskFilter(new BlurMaskFilter(6,BlurMaskFilter.Blur.NORMAL));
+		smallEnemyP.setMaskFilter(new BlurMaskFilter(6, BlurMaskFilter.Blur.NORMAL));
 
 		mediumEnemyP = new Paint();
 		mediumEnemyP.setColor(Color.BLACK);
-		mediumEnemyP.setMaskFilter(new BlurMaskFilter(6,BlurMaskFilter.Blur.NORMAL));
-		
+		mediumEnemyP.setMaskFilter(new BlurMaskFilter(6, BlurMaskFilter.Blur.NORMAL));
+
 		blueTowerP = new Paint();
 		blueTowerP.setColor(Color.BLUE);
 
 		greenTowerP = new Paint();
 		greenTowerP.setColor(Color.GREEN);
-		
+
 		redTowerP = new Paint();
 		redTowerP.setColor(Color.RED);
 
 		simpleProjectileP = new Paint();
 		simpleProjectileP.setColor(Color.RED);
+	}
+
+	public static float loadCameraVelocity(int level, GameEngine gEng) {
+		switch (level) {
+		case 4:
+			return .2f;
+		case 5:
+			return -.1f;
+		}
+		return 0f;
 	}
 
 	/** returns the appropriately configured EnemySpawner for that level */
@@ -52,6 +62,10 @@ public class LevelLoader {
 			break;
 		case 2:
 			break;
+		case 4:
+			break;
+		case 5:
+			break;
 		default:
 		}
 		return enemy;
@@ -61,12 +75,6 @@ public class LevelLoader {
 	public static ResourceSpawner[] loadSpawners(int level, GameEngine gEng) {
 		ResourceSpawner[] spawns;
 		switch (level) {
-		case 0:
-			spawns = new ResourceSpawner[3];
-			spawns[0] = getRed(gEng, 1, 300, 500);
-			spawns[1] = getGreen(gEng, 2, 200, 500);
-			spawns[2] = getBlue(gEng, 3, 200, 500);
-			break;
 		case 1:
 			spawns = new ResourceSpawner[1];
 			spawns[0] = getBlue(gEng, 3, 200, 400);
@@ -80,9 +88,11 @@ public class LevelLoader {
 			spawns[0] = getGreen(gEng, 2, 200, 200);
 			break;
 		default:
-			spawns = new ResourceSpawner[2];
-			spawns[0] = getBlue(gEng, 1, 200, 1000);
-			spawns[1] = getRed(gEng, 1, 250, 1000);
+			spawns = new ResourceSpawner[3];
+			spawns[0] = getBlue(gEng, 1, 200, 500);
+			spawns[1] = getRed(gEng, 1, 250, 500);
+			spawns[2] = getGreen(gEng, 2, 200, 500);
+
 		}
 		return spawns;
 	}
@@ -120,7 +130,7 @@ public class LevelLoader {
 			}
 		};
 	}
-	
+
 	/** Returns a BlueTower generating ResourceSpawner */
 	private static ResourceSpawner getBlue(GameEngine gEng, int spawnRate, int spawnCost, int startingFill) {
 		Paint ready = new Paint();

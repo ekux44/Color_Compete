@@ -38,8 +38,8 @@ public abstract class GamePiece {
 	 * @param c
 	 *            Canvas onto which GamePiece will draw itself
 	 */
-	public void draw(Canvas c) {
-		c.drawCircle(xc, yc, radius, p);
+	public void draw(Canvas c, float xOffset) {
+		c.drawCircle(xc + xOffset, yc, radius, p);
 	}
 
 	/**
