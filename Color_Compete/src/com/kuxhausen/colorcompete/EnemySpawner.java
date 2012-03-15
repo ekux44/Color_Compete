@@ -5,6 +5,7 @@ import java.util.Random;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 
 import com.kuxhausen.colorcompete.basiclevels.SmallEnemy;
 
@@ -20,19 +21,43 @@ public class EnemySpawner {
 	int totalSpawns, spawnsRemaining, damage, spawnRate, pendingSpawnUnits, spawnAccelInterval, spawnAccelerationCount;
 	Random r = new Random();
 	GameEngine gEng;
+	Class[] enemyTypes;
+	float[] probabilities;
+	Class nextType;
+	int nextCost;
 
-	public EnemySpawner(GameEngine gEngine, int toSpawn, int rateToSpawn, int spawnAccelerationInterval) {
+	public EnemySpawner(GameEngine gEngine, Class[] enemies, float[] probWeights, int toSpawn, int rateToSpawn,
+			int spawnAccelerationInterval) {
 		p = new Paint();
 		p.setShadowLayer(10, 0, 0, Color.GRAY);
 		p.setColor(Color.DKGRAY);
 		gEng = gEngine;
+		enemyTypes = enemies;
+		probabilities = probWeights;
 		totalSpawns = toSpawn;
 		spawnsRemaining = totalSpawns;
 		spawnRate = rateToSpawn;
 		spawnAccelInterval += spawnAccelerationInterval;
+		updateNext();
+	}
+
+	private void updateNext() {
+		try {
+			float selectionValue = r.nextFloat();
+			selector: for (int i = 0; i < enemyTypes.length; i++) {
+				if (selectionValue < probabilities[i]) {
+					nextType = enemyTypes[i];
+					break selector;
+				}
+			}
+			nextCost = (Integer) nextType.getDeclaredMethod("getCost").invoke(null);
+			// nextType.getDeclaredField("COST").
+		} catch (Exception e) {
+		}
 	}
 
 	public void update() {
+
 		if (spawnsRemaining <= 0) {
 
 		} else {
@@ -46,10 +71,17 @@ public class EnemySpawner {
 
 			int maybeSpawn = r.nextInt(pendingSpawnUnits);
 
-			if (maybeSpawn > SmallEnemy.COST) {
-				gEng.enemies.add(new SmallEnemy(gEng.width + gEng.cameraOffset, r.nextInt(gEng.height), gEng));
-				maybeSpawn -= SmallEnemy.COST;
-				pendingSpawnUnits -= SmallEnemy.COST;
+			if (maybeSpawn > nextCost) {
+				try {
+
+					gEng.enemies.add((GamePiece) nextType.getConstructor(float.class, float.class, GameEngine.class)
+							.newInstance(gEng.width + gEng.cameraOffset, r.nextInt(gEng.height), gEng));
+					maybeSpawn -= nextCost;
+					pendingSpawnUnits -= nextCost;
+				} catch (Exception e) {
+				}
+
+				updateNext();
 			}
 
 		}

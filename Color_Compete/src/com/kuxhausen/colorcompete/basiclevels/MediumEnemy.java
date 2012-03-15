@@ -64,4 +64,8 @@ public class MediumEnemy extends GamePiece {
 		gEng.playerScore += Math.min(health, damage);
 		return super.reduceHealth(damage);
 	}
+
+	public static int getCost() {
+		return COST;
+	}
 }

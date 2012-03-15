@@ -19,6 +19,7 @@ public abstract class GamePiece {
 	protected GameEngine gEng;
 	protected ArrayList<GamePiece> gList;
 	protected float health, radiusHealthRatio;
+	protected int cost;
 	protected Paint p;
 
 	/** @return true if still alive */

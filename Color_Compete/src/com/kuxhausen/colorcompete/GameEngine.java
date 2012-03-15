@@ -81,7 +81,7 @@ public class GameEngine {
 		userInterfaceP.setColor(userInterfaceColor);
 
 		/* Camera */
-		cameraOffset = width*RIGHT_EDGE_OF_SPAWNER_FACTOR;
+		cameraOffset = width * RIGHT_EDGE_OF_SPAWNER_FACTOR;
 		cameraVelocity = LevelLoader.loadCameraVelocity(level, gEngine);
 
 		/* GameState */
@@ -128,7 +128,8 @@ public class GameEngine {
 			}
 
 			if (spawns[selectedSpawner].canSpawn()
-					&& (width * RIGHT_EDGE_OF_SPAWNER_FACTOR < e.getX() && e.getX() < width * LEFT_EDGE_OF_ENEMY_SPAWNER_FACTOR)) {
+					&& (width * RIGHT_EDGE_OF_SPAWNER_FACTOR < e.getX() && e.getX() < width
+							* LEFT_EDGE_OF_ENEMY_SPAWNER_FACTOR)) {
 				if (e.getAction() == MotionEvent.ACTION_UP) {
 					towers.add(spawns[selectedSpawner].spawnResource(e.getX() + cameraOffset, e.getY()));
 				} else {
@@ -147,6 +148,7 @@ public class GameEngine {
 	}
 
 	public void update() {
+
 		for (ResourceSpawner rs : spawns) {
 			rs.update();
 		}
@@ -198,8 +200,8 @@ public class GameEngine {
 		// user interface & resource spawns
 		c.drawRect(0, 0, maxX * RIGHT_EDGE_OF_SPAWNER_FACTOR, maxY, userInterfaceP);
 		for (int i = 0; i < spawns.length; i++)
-			spawns[i].draw(c, backgroundP, enemyP, 10, i * maxY / spawns.length + (5 + (i == 0 ? 5 : 0)), 
-					maxX * RIGHT_EDGE_OF_SPAWNER_FACTOR - 10, (1 + i) * maxY / spawns.length
+			spawns[i].draw(c, backgroundP, enemyP, 10, i * maxY / spawns.length + (5 + (i == 0 ? 5 : 0)), maxX
+					* RIGHT_EDGE_OF_SPAWNER_FACTOR - 10, (1 + i) * maxY / spawns.length
 					- (5 + (i == (spawns.length - 1) ? 5 : 0)));
 
 		// resource spawn selected indicator

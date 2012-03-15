@@ -3,6 +3,7 @@ package com.kuxhausen.colorcompete.basiclevels;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 
 import com.kuxhausen.colorcompete.EnemySpawner;
 import com.kuxhausen.colorcompete.GameEngine;
@@ -54,7 +55,15 @@ public class LevelLoader {
 
 	/** returns the appropriately configured EnemySpawner for that level */
 	public static EnemySpawner loadEnemySpawner(int level, GameEngine gEng) {
-		EnemySpawner enemy = new EnemySpawner(gEng, 10000, 2, 1000);
+		Class[] enemeyTypes = new Class[2];
+
+		try {
+			enemeyTypes[0] = SmallEnemy.class;
+			enemeyTypes[1] = MediumEnemy.class;
+		} catch (LinkageError e) {
+		}
+		float[] probabilities = { .5f, 1f };// cumulative mass function
+		EnemySpawner enemy = new EnemySpawner(gEng, enemeyTypes, probabilities, 10000, 2, 1000);
 		switch (level) {
 		case 0:
 			break;

@@ -64,4 +64,8 @@ public class SmallEnemy extends GamePiece {
 		gEng.playerScore += Math.min(health, damage);
 		return super.reduceHealth(damage);
 	}
+
+	public static int getCost() {
+		return COST;
+	}
 }
