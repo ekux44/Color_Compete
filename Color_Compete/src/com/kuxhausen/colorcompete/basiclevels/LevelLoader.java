@@ -55,14 +55,15 @@ public class LevelLoader {
 
 	/** returns the appropriately configured EnemySpawner for that level */
 	public static EnemySpawner loadEnemySpawner(int level, GameEngine gEng) {
-		Class[] enemeyTypes = new Class[2];
+		Class[] enemeyTypes = new Class[3];
 
 		try {
 			enemeyTypes[0] = SmallEnemy.class;
 			enemeyTypes[1] = MediumEnemy.class;
+			enemeyTypes[2] = LargeEnemy.class;
 		} catch (LinkageError e) {
 		}
-		float[] probabilities = { .5f, 1f };// cumulative mass function
+		float[] probabilities = { .5f, .9f, 1f};// cumulative mass function
 		EnemySpawner enemy = new EnemySpawner(gEng, enemeyTypes, probabilities, 10000, 2, 1000);
 		switch (level) {
 		case 0:
