@@ -35,7 +35,7 @@ public class SmallEnemy extends GamePiece {
 	/** returns false if the piece dies */
 	public boolean update() {
 		// check to see if reach resource spawner
-		if ((xc - speed) <= (gEng.width * gEng.spawningRightEdgeFactor)) {
+		if ((xc - speed) <= gEng.cameraOffset) {
 			gEng.spawns[gEng.whichResourceSpawner(yc)].takeDamage((int) health);
 			die();
 			return false;

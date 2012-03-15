@@ -35,7 +35,7 @@ public class GreenTower extends GamePiece {
 	/** returns false if the piece dies */
 	public boolean update() {
 		// check to see if reached enemy spawner
-		if ((xc + speed) >= (gEng.width * gEng.enemyLeftEdgeFactor)) {
+		if ((xc + speed) >= (gEng.width * gEng.LEFT_EDGE_OF_ENEMY_SPAWNER_FACTOR)) {
 			gEng.enemyBase.takeDamage((int) health);
 			die();
 			return false;

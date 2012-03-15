@@ -31,13 +31,13 @@ public class GameEngine {
 	public Paint enemyP, textP, userInterfaceP, pathPaint;
 	private Path selectedPath;
 	public int width, height; // TODO create scaling factor
-	public final static float spawningRightEdgeFactor = .12f; // leftmost bounds of the play field
-	public final static float enemyLeftEdgeFactor = .92f; // rightmost bounds of the play field
+	private final static float RIGHT_EDGE_OF_SPAWNER_FACTOR = .12f; // leftmost bounds of the play field
+	public final static float LEFT_EDGE_OF_ENEMY_SPAWNER_FACTOR = .92f; // rightmost bounds of the play field
 	DashPathEffect[] pathEffects;
 	int phase;
 
 	/* Camera */
-	float cameraOffset = 0f;
+	public float cameraOffset;
 	float cameraVelocity;
 
 	/* Gamestate */
@@ -81,6 +81,7 @@ public class GameEngine {
 		userInterfaceP.setColor(userInterfaceColor);
 
 		/* Camera */
+		cameraOffset = width*RIGHT_EDGE_OF_SPAWNER_FACTOR;
 		cameraVelocity = LevelLoader.loadCameraVelocity(level, gEngine);
 
 		/* GameState */
@@ -88,9 +89,9 @@ public class GameEngine {
 		towers = new ArrayList<GamePiece>();
 		enemies = new ArrayList<GamePiece>();
 		projectiles = new ArrayList<GamePiece>();
-		towerMap = new GameBoard(width * spawningRightEdgeFactor, width, height);
-		enemyMap = new GameBoard(width * spawningRightEdgeFactor, width, height);
-		projectileMap = new GameBoard(width * spawningRightEdgeFactor, width, height);
+		towerMap = new GameBoard(width * RIGHT_EDGE_OF_SPAWNER_FACTOR, width, height);
+		enemyMap = new GameBoard(width * RIGHT_EDGE_OF_SPAWNER_FACTOR, width, height);
+		projectileMap = new GameBoard(width * RIGHT_EDGE_OF_SPAWNER_FACTOR, width, height);
 
 		load = new LevelLoader();
 		spawns = LevelLoader.loadSpawners(level, gEngine);
@@ -106,8 +107,8 @@ public class GameEngine {
 		pathPaint.setStyle(Paint.Style.STROKE);
 		selectedPath = new Path();
 		selectedPath.moveTo(5, 5);
-		selectedPath.lineTo(width * spawningRightEdgeFactor - 5, 5);
-		selectedPath.lineTo(width * spawningRightEdgeFactor - 5, 5 + (height - 10) / spawns.length);
+		selectedPath.lineTo(width * RIGHT_EDGE_OF_SPAWNER_FACTOR - 5, 5);
+		selectedPath.lineTo(width * RIGHT_EDGE_OF_SPAWNER_FACTOR - 5, 5 + (height - 10) / spawns.length);
 		selectedPath.lineTo(5, 5 + (height - 10) / spawns.length);
 		selectedPath.lineTo(5, 5);
 
@@ -116,18 +117,18 @@ public class GameEngine {
 	public void processInput() {
 		gView.getInputs(touches);
 		for (MotionEvent e : touches) {
-			if (e.getHistorySize() > 0 && e.getHistoricalX(0) < (width * spawningRightEdgeFactor)) {
+			if (e.getHistorySize() > 0 && e.getHistoricalX(0) < (width * RIGHT_EDGE_OF_SPAWNER_FACTOR)) {
 				selectedPath.offset(0, -selectedSpawner * (height - 10) / spawns.length);
 				selectedSpawner = whichResourceSpawner(e.getHistoricalY(0));
 				selectedPath.offset(0, selectedSpawner * (height - 10) / spawns.length);
-			} else if (e.getAction() == MotionEvent.ACTION_DOWN && e.getX() < (width * spawningRightEdgeFactor)) {
+			} else if (e.getAction() == MotionEvent.ACTION_DOWN && e.getX() < (width * RIGHT_EDGE_OF_SPAWNER_FACTOR)) {
 				selectedPath.offset(0, -selectedSpawner * (height - 10) / spawns.length);
 				selectedSpawner = whichResourceSpawner(e.getY());
 				selectedPath.offset(0, selectedSpawner * (height - 10) / spawns.length);
 			}
 
 			if (spawns[selectedSpawner].canSpawn()
-					&& (width * spawningRightEdgeFactor < e.getX() && e.getX() < width * enemyLeftEdgeFactor)) {
+					&& (width * RIGHT_EDGE_OF_SPAWNER_FACTOR < e.getX() && e.getX() < width * LEFT_EDGE_OF_ENEMY_SPAWNER_FACTOR)) {
 				if (e.getAction() == MotionEvent.ACTION_UP) {
 					towers.add(spawns[selectedSpawner].spawnResource(e.getX() + cameraOffset, e.getY()));
 				} else {
@@ -195,10 +196,10 @@ public class GameEngine {
 			spawns[selectedSpawner].drawTouch(c, tx, ty);
 
 		// user interface & resource spawns
-		c.drawRect(0, 0, maxX * spawningRightEdgeFactor, maxY, userInterfaceP);
+		c.drawRect(0, 0, maxX * RIGHT_EDGE_OF_SPAWNER_FACTOR, maxY, userInterfaceP);
 		for (int i = 0; i < spawns.length; i++)
-			spawns[i].draw(c, backgroundP, enemyP, 10, i * maxY / spawns.length + (5 + (i == 0 ? 5 : 0)), maxX
-					* spawningRightEdgeFactor - 10, (1 + i) * maxY / spawns.length
+			spawns[i].draw(c, backgroundP, enemyP, 10, i * maxY / spawns.length + (5 + (i == 0 ? 5 : 0)), 
+					maxX * RIGHT_EDGE_OF_SPAWNER_FACTOR - 10, (1 + i) * maxY / spawns.length
 					- (5 + (i == (spawns.length - 1) ? 5 : 0)));
 
 		// resource spawn selected indicator
