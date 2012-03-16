@@ -7,7 +7,7 @@ import com.kuxhausen.colorcompete.GamePiece;
 /**
  * (c) 2012 Eric Kuxhausen
  * <p>
- * Basic enemy that chargers as player spanners
+ * Medium sized enemy that chargers at player spanners
  * 
  * @author Eric Kuxhausen
  */

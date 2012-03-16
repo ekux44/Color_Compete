@@ -19,7 +19,7 @@ import com.kuxhausen.colorcompete.ResourceSpawner;
  */
 public class LevelLoader {
 
-	static Paint smallEnemyP, mediumEnemyP, blueTowerP, greenTowerP, redTowerP, simpleProjectileP;
+	static Paint smallEnemyP, mediumEnemyP, largeEnemyP, redEnemyP, enemyProjectileP, blueTowerP, greenTowerP, redTowerP, simpleProjectileP;
 
 	public LevelLoader() {
 		smallEnemyP = new Paint();
@@ -29,6 +29,17 @@ public class LevelLoader {
 		mediumEnemyP = new Paint();
 		mediumEnemyP.setColor(Color.BLACK);
 		mediumEnemyP.setMaskFilter(new BlurMaskFilter(6, BlurMaskFilter.Blur.NORMAL));
+		
+		largeEnemyP = new Paint();
+		largeEnemyP.setColor(Color.BLACK);
+		largeEnemyP.setMaskFilter(new BlurMaskFilter(6, BlurMaskFilter.Blur.NORMAL));
+		
+		redEnemyP = new Paint();
+		redEnemyP.setColor(Color.BLACK);
+		redEnemyP.setMaskFilter(new BlurMaskFilter(6, BlurMaskFilter.Blur.NORMAL));
+		
+		enemyProjectileP = new Paint();
+		enemyProjectileP.setColor(Color.BLACK);
 
 		blueTowerP = new Paint();
 		blueTowerP.setColor(Color.BLUE);
@@ -55,15 +66,16 @@ public class LevelLoader {
 
 	/** returns the appropriately configured EnemySpawner for that level */
 	public static EnemySpawner loadEnemySpawner(int level, GameEngine gEng) {
-		Class[] enemeyTypes = new Class[3];
+		Class[] enemeyTypes = new Class[4];
 
 		try {
 			enemeyTypes[0] = SmallEnemy.class;
 			enemeyTypes[1] = MediumEnemy.class;
 			enemeyTypes[2] = LargeEnemy.class;
+			enemeyTypes[3] = RedEnemy.class;
 		} catch (LinkageError e) {
 		}
-		float[] probabilities = { .5f, .9f, 1f};// cumulative mass function
+		float[] probabilities = { .5f, .8f, .9f, 1f};// cumulative mass function
 		EnemySpawner enemy = new EnemySpawner(gEng, enemeyTypes, probabilities, 10000, 2, 1000);
 		switch (level) {
 		case 0:
