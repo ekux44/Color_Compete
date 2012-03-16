@@ -3,8 +3,6 @@ package com.kuxhausen.colorcompete.basiclevels;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
-
 import com.kuxhausen.colorcompete.EnemySpawner;
 import com.kuxhausen.colorcompete.GameEngine;
 import com.kuxhausen.colorcompete.GamePiece;
@@ -19,7 +17,8 @@ import com.kuxhausen.colorcompete.ResourceSpawner;
  */
 public class LevelLoader {
 
-	static Paint smallEnemyP, mediumEnemyP, largeEnemyP, redEnemyP, greenEnemyP, enemyProjectileP, blueTowerP, greenTowerP, redTowerP, simpleProjectileP;
+	static Paint smallEnemyP, mediumEnemyP, largeEnemyP, redEnemyP, greenEnemyP, enemyProjectileP, blueTowerP,
+			greenTowerP, redTowerP, simpleProjectileP;
 
 	public LevelLoader() {
 		smallEnemyP = new Paint();
@@ -29,19 +28,19 @@ public class LevelLoader {
 		mediumEnemyP = new Paint();
 		mediumEnemyP.setColor(Color.BLACK);
 		mediumEnemyP.setMaskFilter(new BlurMaskFilter(6, BlurMaskFilter.Blur.NORMAL));
-		
+
 		largeEnemyP = new Paint();
 		largeEnemyP.setColor(Color.BLACK);
 		largeEnemyP.setMaskFilter(new BlurMaskFilter(6, BlurMaskFilter.Blur.NORMAL));
-		
+
 		redEnemyP = new Paint();
 		redEnemyP.setColor(Color.BLACK);
 		redEnemyP.setMaskFilter(new BlurMaskFilter(6, BlurMaskFilter.Blur.NORMAL));
-		
+
 		greenEnemyP = new Paint();
 		greenEnemyP.setColor(Color.BLACK);
-		greenEnemyP.setMaskFilter(new BlurMaskFilter(6, BlurMaskFilter.Blur.NORMAL));		
-		
+		greenEnemyP.setMaskFilter(new BlurMaskFilter(6, BlurMaskFilter.Blur.NORMAL));
+
 		enemyProjectileP = new Paint();
 		enemyProjectileP.setColor(Color.BLACK);
 
@@ -70,7 +69,7 @@ public class LevelLoader {
 
 	/** returns the appropriately configured EnemySpawner for that level */
 	public static EnemySpawner loadEnemySpawner(int level, GameEngine gEng) {
-		Class[] enemeyTypes = new Class[5];
+		Class<?>[] enemeyTypes = new Class[5];
 
 		try {
 			enemeyTypes[0] = SmallEnemy.class;
@@ -80,7 +79,7 @@ public class LevelLoader {
 			enemeyTypes[4] = RedEnemy.class;
 		} catch (LinkageError e) {
 		}
-		float[] probabilities = { .5f, .7f, .8f, .9f, 1f};// cumulative mass function
+		float[] probabilities = { .5f, .7f, .8f, .9f, 1f };// cumulative mass function
 		EnemySpawner enemy = new EnemySpawner(gEng, enemeyTypes, probabilities, 10000, 2, 1000);
 		switch (level) {
 		case 0:

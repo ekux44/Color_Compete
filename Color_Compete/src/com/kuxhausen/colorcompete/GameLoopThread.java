@@ -91,7 +91,7 @@ public class GameLoopThread extends Thread {
 			try {
 				// sleep
 				if (sleepTime > 0) {
-					this.sleep(sleepTime);
+					Thread.sleep(sleepTime);
 				}
 			} catch (InterruptedException ex) {
 				Logger.getLogger(GameLoopThread.class.getName()).log(Level.SEVERE, null, ex);

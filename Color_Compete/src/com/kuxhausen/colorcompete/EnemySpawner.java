@@ -5,9 +5,6 @@ import java.util.Random;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
-
-import com.kuxhausen.colorcompete.basiclevels.SmallEnemy;
 
 /**
  * (c) 2012 Eric Kuxhausen
@@ -21,12 +18,12 @@ public class EnemySpawner {
 	int totalSpawns, spawnsRemaining, damage, spawnRate, pendingSpawnUnits, spawnAccelInterval, spawnAccelerationCount;
 	Random r = new Random();
 	GameEngine gEng;
-	Class[] enemyTypes;
+	Class<?>[] enemyTypes;
 	float[] probabilities;
-	Class nextType;
+	Class<?> nextType;
 	int nextCost;
 
-	public EnemySpawner(GameEngine gEngine, Class[] enemies, float[] probWeights, int toSpawn, int rateToSpawn,
+	public EnemySpawner(GameEngine gEngine, Class<?>[] enemies, float[] probWeights, int toSpawn, int rateToSpawn,
 			int spawnAccelerationInterval) {
 		p = new Paint();
 		p.setShadowLayer(10, 0, 0, Color.GRAY);

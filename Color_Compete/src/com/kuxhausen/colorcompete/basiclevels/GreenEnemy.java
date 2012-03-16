@@ -73,9 +73,10 @@ public class GreenEnemy extends GamePiece {
 	public static int getCost() {
 		return COST;
 	}
+
 	@Override
 	public void draw(Canvas c, float xOffset) {
 		super.draw(c, xOffset);
-		c.drawCircle(xc + xOffset, yc, radius/3, pInner);
+		c.drawCircle(xc + xOffset, yc, radius / 3, pInner);
 	}
 }

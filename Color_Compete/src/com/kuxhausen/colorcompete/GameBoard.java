@@ -2,8 +2,6 @@ package com.kuxhausen.colorcompete;
 
 import java.util.ArrayList;
 
-import android.util.Log;
-
 /**
  * (c) 2012 Eric Kuxhausen
  * <p>

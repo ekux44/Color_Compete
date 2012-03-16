@@ -48,16 +48,15 @@ public class RedEnemy extends GamePiece {
 		}
 
 		// check if tower should fire
-			GamePiece nearestTower = gEng.towerMap.getNearestNeighbor(xc, yc);
-			if (nearestTower != null
-					&& spawnPool >= EnemyProjectile.COST
-					&& (nearestTower.radius + firingRadius) > GameBoard.distanceBetween(xc, yc, nearestTower.xc,
-							nearestTower.yc)) {
-				gEng.projectiles.add(new EnemyProjectile(xc, yc, gEng, nearestTower));
-				spawnPool -= EnemyProjectile.COST;
-			}
-	
-		
+		GamePiece nearestTower = gEng.towerMap.getNearestNeighbor(xc, yc);
+		if (nearestTower != null
+				&& spawnPool >= EnemyProjectile.COST
+				&& (nearestTower.radius + firingRadius) > GameBoard.distanceBetween(xc, yc, nearestTower.xc,
+						nearestTower.yc)) {
+			gEng.projectiles.add(new EnemyProjectile(xc, yc, gEng, nearestTower));
+			spawnPool -= EnemyProjectile.COST;
+		}
+
 		// check for collisions
 		GamePiece maybeCollision = gEng.towerMap.getNearestNeighbor(xc, yc);
 		if (maybeCollision != null
@@ -85,9 +84,10 @@ public class RedEnemy extends GamePiece {
 	public static int getCost() {
 		return COST;
 	}
+
 	@Override
 	public void draw(Canvas c, float xOffset) {
 		super.draw(c, xOffset);
-		c.drawCircle(xc + xOffset, yc, radius/3, pInner);
+		c.drawCircle(xc + xOffset, yc, radius / 3, pInner);
 	}
 }
