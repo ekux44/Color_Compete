@@ -1,7 +1,9 @@
 package com.kuxhausen.colorcompete;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 public class GameActivity extends Activity {
 
 	private GameView gameView;
+	private Vibrator vibrator; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,10 @@ public class GameActivity extends Activity {
 		// give the GameView a the level it should be loading
 		gameView.initView(this.getIntent().getExtras().getInt("level"));
 
+		
+		// initialize vibrator 
+		vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+		
 		// TODO allow for actually resuming from previous game
 		if (savedInstanceState == null) {
 			// we were just launched: set up a new game
@@ -83,5 +90,9 @@ public class GameActivity extends Activity {
 	protected void onStart() {
 		super.onStart();
 		Log.i("state", "onStarted");
+	}
+	
+	public void vibrate(){
+        vibrator.vibrate(45);
 	}
 }

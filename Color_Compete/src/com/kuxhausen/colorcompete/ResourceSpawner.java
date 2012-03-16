@@ -68,6 +68,8 @@ public abstract class ResourceSpawner {
 	}
 
 	public void takeDamage(int dam) {
+		gEng.gView.parentActivity.vibrate();
+		
 		damage += dam;
 		if (damage >= maxFill) {
 			damage = maxFill;

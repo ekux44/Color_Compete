@@ -2,6 +2,7 @@ package com.kuxhausen.colorcompete;
 
 import java.util.ArrayList;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
@@ -9,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.os.Vibrator;
 import android.view.MotionEvent;
 
 import com.kuxhausen.colorcompete.basiclevels.LevelLoader;
@@ -31,7 +33,7 @@ public class GameEngine {
 	public Paint enemyP, textP, userInterfaceP, pathPaint;
 	private Path selectedPath;
 	public int width, height; // TODO create scaling factor
-	private final static float RIGHT_EDGE_OF_SPAWNER_FACTOR = .12f; // leftmost bounds of the play field
+	public final static float RIGHT_EDGE_OF_SPAWNER_FACTOR = .12f; // leftmost bounds of the play field
 	public final static float LEFT_EDGE_OF_ENEMY_SPAWNER_FACTOR = .92f; // rightmost bounds of the play field
 	DashPathEffect[] pathEffects;
 	int phase;

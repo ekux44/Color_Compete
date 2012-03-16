@@ -13,7 +13,7 @@ import com.kuxhausen.colorcompete.GamePiece;
  */
 public class SimpleProjectile extends GamePiece {
 
-	float speed = 3f;
+	float speed = 4f;
 	public static final int COST = 60;
 	private static final float RADIUS_HEALTH_RATIO = .5f, HEALTH_COST_RATIO = .5f;
 	GamePiece target;

@@ -41,7 +41,7 @@ public class RedEnemy extends GamePiece {
 	/** returns false if the piece dies */
 	public boolean update() {
 		// check to see if reach resource spawner
-		if ((xc - speed) <= gEng.cameraOffset) {
+		if ((xc - speed) <= gEng.cameraOffset+ GameEngine.RIGHT_EDGE_OF_SPAWNER_FACTOR*gEng.width) {
 			gEng.spawns[gEng.whichResourceSpawner(yc)].takeDamage((int) health);
 			die();
 			return false;

@@ -33,7 +33,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	private TextView statusText;
 
 	/** Pointer to the GameActivity */
-	private GameActivity parentActivity;
+	protected GameActivity parentActivity;
 
 	/** initialization code */
 	public void initView(int level) {
