@@ -33,6 +33,10 @@ public class GameBoard {
 		gp.xc += dx;
 		gp.yc += dy;
 	}
+	public void move(GamePiece gp, Pair p) {
+		gp.xc += p.x;
+		gp.yc += p.y;
+	}
 
 	/**
 	 * @param x

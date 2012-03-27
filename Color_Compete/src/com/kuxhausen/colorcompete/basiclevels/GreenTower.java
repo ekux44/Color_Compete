@@ -3,6 +3,7 @@ package com.kuxhausen.colorcompete.basiclevels;
 import com.kuxhausen.colorcompete.GameBoard;
 import com.kuxhausen.colorcompete.GameEngine;
 import com.kuxhausen.colorcompete.GamePiece;
+import com.kuxhausen.colorcompete.Route;
 
 /**
  * (c) 2012 Eric Kuxhausen
@@ -13,16 +14,17 @@ import com.kuxhausen.colorcompete.GamePiece;
  */
 public class GreenTower extends GamePiece {
 
-	float speed = 3f;
+	float speed = 3f; boolean fowards;
 	private static final int COST = 200;
 	private static final float RADIUS_HEALTH_RATIO = 2, HEALTH_COST_RATIO = 1f;
 
-	public GreenTower(float xCenter, float yCenter, GameEngine gEngine) {
+	public GreenTower(float xCenter, float yCenter, GameEngine gEngine, Route route) {
 
 		p = LevelLoader.greenTowerP;
 		radiusHealthRatio = RADIUS_HEALTH_RATIO;
 		xc = xCenter;
 		yc = yCenter;
+		r = route;
 		gEng = gEngine;
 		gb = gEng.towerMap;
 		gList = gEng.towers;
@@ -51,9 +53,12 @@ public class GreenTower extends GamePiece {
 			if (this.reduceHealth(damage))
 				return false;
 		}
-
+		
+		
+		
+		
 		// update location
-		gb.move(this, speed, 0);
+		gb.move(this, r.moveAlongRouter(speed, fowards));
 
 		return true;
 	}

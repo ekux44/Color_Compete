@@ -153,7 +153,7 @@ public class LevelLoader {
 			@Override
 			public GamePiece spawnResource(float x, float y, Route r) {
 				fill -= respawnCost;
-				return new RedTower(x, y, gEng);
+				return new RedTower(x, y, gEng, r);
 			}
 
 			// TODO add firing radius visualization
@@ -178,7 +178,7 @@ public class LevelLoader {
 			@Override
 			public GamePiece spawnResource(float x, float y, Route r) {
 				fill -= respawnCost;
-				return new GreenTower(x, y, gEng);
+				return new GreenTower(x, y, gEng, r);
 			}
 
 			@Override
@@ -198,7 +198,7 @@ public class LevelLoader {
 			@Override
 			public GamePiece spawnResource(float x, float y, Route r) {
 				fill -= respawnCost;
-				return new BlueTower(x, y, gEng);
+				return new BlueTower(x, y, gEng, r);
 			}
 
 			@Override

@@ -10,13 +10,13 @@ import android.graphics.Path;
 
 public class Route {
 
-	public ArrayList<Float> points;
+	public ArrayList<Pair> points;
 	private Path visualPath;
 	private Paint p;
 
 	public Route(Paint paint) {
 
-		points = new ArrayList<Float>();
+		points = new ArrayList<Pair>();
 
 		visualPath = new Path();
 
@@ -30,8 +30,12 @@ public class Route {
 		else
 			visualPath.lineTo(x, y);
 
-		points.add(x);
-		points.add(y);
+		Pair point = new Pair(x,y);
+		points.add(point);
+	}
+	
+	public Pair moveAlongRouter(float speed, boolean foward){
+		return new Pair(speed,0);
 	}
 
 	public void clear() {

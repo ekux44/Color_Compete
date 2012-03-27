@@ -3,6 +3,7 @@ package com.kuxhausen.colorcompete.basiclevels;
 import com.kuxhausen.colorcompete.GameBoard;
 import com.kuxhausen.colorcompete.GameEngine;
 import com.kuxhausen.colorcompete.GamePiece;
+import com.kuxhausen.colorcompete.Route;
 
 /**
  * (c) 2012 Eric Kuxhausen
@@ -17,12 +18,13 @@ public class RedTower extends GamePiece {
 	private static final float RADIUS_HEALTH_RATIO = 2, firingRadius = 200f, HEALTH_COST_RATIO = .5f;
 	private int spawnPool = 200;
 
-	public RedTower(float xCenter, float yCenter, GameEngine gEngine) {
+	public RedTower(float xCenter, float yCenter, GameEngine gEngine, Route route) {
 
 		p = LevelLoader.redTowerP;
 		radiusHealthRatio = RADIUS_HEALTH_RATIO;
 		xc = xCenter;
 		yc = yCenter;
+		r = route;
 		gEng = gEngine;
 		gb = gEng.towerMap;
 		gList = gEng.towers;
