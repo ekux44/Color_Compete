@@ -80,6 +80,9 @@ public abstract class ResourceSpawner {
 	}
 
 	/** any implementation should decrement fill by respawnCost */
-	public abstract GamePiece spawnResource(float xCenter, float yCenter);
+	public abstract GamePiece spawnResource(float xCenter, float yCenter, Route r);
+	
+	/** */
+	public abstract Route spawnRoute();
 
 }

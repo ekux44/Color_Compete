@@ -2,11 +2,13 @@ package com.kuxhausen.colorcompete.basiclevels;
 
 import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import com.kuxhausen.colorcompete.EnemySpawner;
 import com.kuxhausen.colorcompete.GameEngine;
 import com.kuxhausen.colorcompete.GamePiece;
 import com.kuxhausen.colorcompete.ResourceSpawner;
+import com.kuxhausen.colorcompete.Route;
 
 /**
  * (c) 2012 Eric Kuxhausen
@@ -18,7 +20,7 @@ import com.kuxhausen.colorcompete.ResourceSpawner;
 public class LevelLoader {
 
 	static Paint smallEnemyP, mediumEnemyP, largeEnemyP, redEnemyP, greenEnemyP, enemyProjectileP, blueTowerP,
-			greenTowerP, redTowerP, simpleProjectileP;
+			greenTowerP, redTowerP, simpleProjectileP, redRouteP, greenRouteP, blueRouteP;
 
 	public LevelLoader() {
 		smallEnemyP = new Paint();
@@ -55,6 +57,24 @@ public class LevelLoader {
 
 		simpleProjectileP = new Paint();
 		simpleProjectileP.setColor(Color.RED);
+		
+		redRouteP = new Paint();
+		redRouteP.setColor(0xAFFF0000);
+		redRouteP.setPathEffect(new DashPathEffect(new float[] { 8, 5 }, 0));
+		redRouteP.setStyle(Paint.Style.STROKE);
+		redRouteP.setStrokeWidth(20);
+		
+		greenRouteP = new Paint();
+		greenRouteP.setColor(0xAF00FF00);
+		greenRouteP.setPathEffect(new DashPathEffect(new float[] { 8, 5 }, 0));
+		greenRouteP.setStyle(Paint.Style.STROKE);
+		greenRouteP.setStrokeWidth(20);
+		
+		blueRouteP = new Paint();
+		blueRouteP.setColor(0xAF0000FF);
+		blueRouteP.setPathEffect(new DashPathEffect(new float[] { 8, 5 }, 0));
+		blueRouteP.setStyle(Paint.Style.STROKE);
+		blueRouteP.setStrokeWidth(20);
 	}
 
 	public static float loadCameraVelocity(int level, GameEngine gEng) {
@@ -131,7 +151,7 @@ public class LevelLoader {
 		charging.setARGB(0xFF, 0xFF, 0x80, 0x80);
 		return new ResourceSpawner(gEng, ready, charging, spawnRate, spawnCost, startingFill) {
 			@Override
-			public GamePiece spawnResource(float x, float y) {
+			public GamePiece spawnResource(float x, float y, Route r) {
 				fill -= respawnCost;
 				return new RedTower(x, y, gEng);
 			}
@@ -139,6 +159,11 @@ public class LevelLoader {
 			/*
 			 * public void drawTouch(Canvas c, float tX, float tY) { c.drawCircle(tX, tY, 50f, charging); }
 			 */
+
+			@Override
+			public Route spawnRoute() {
+				return new Route(redRouteP);
+			}
 		};
 	}
 
@@ -150,9 +175,13 @@ public class LevelLoader {
 		charging.setARGB(0xFF, 0x80, 0xFF, 0x80);
 		return new ResourceSpawner(gEng, ready, charging, spawnRate, spawnCost, startingFill) {
 			@Override
-			public GamePiece spawnResource(float x, float y) {
+			public GamePiece spawnResource(float x, float y, Route r) {
 				fill -= respawnCost;
 				return new GreenTower(x, y, gEng);
+			}
+			@Override
+			public Route spawnRoute() {
+				return new Route(greenRouteP);
 			}
 		};
 	}
@@ -165,9 +194,13 @@ public class LevelLoader {
 		charging.setARGB(0xFF, 0x80, 0x80, 0xFF);
 		return new ResourceSpawner(gEng, ready, charging, spawnRate, spawnCost, startingFill) {
 			@Override
-			public GamePiece spawnResource(float x, float y) {
+			public GamePiece spawnResource(float x, float y, Route r) {
 				fill -= respawnCost;
 				return new BlueTower(x, y, gEng);
+			}
+			@Override
+			public Route spawnRoute() {
+				return new Route(blueRouteP);
 			}
 		};
 	}

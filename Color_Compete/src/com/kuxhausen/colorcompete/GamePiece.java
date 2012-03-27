@@ -21,6 +21,7 @@ public abstract class GamePiece {
 	protected float health, radiusHealthRatio;
 	protected int cost;
 	protected Paint p;
+	public Route path;
 
 	/** @return true if still alive */
 	public abstract boolean update();

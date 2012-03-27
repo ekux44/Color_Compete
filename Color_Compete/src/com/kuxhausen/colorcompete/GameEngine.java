@@ -27,6 +27,7 @@ public class GameEngine {
 	ArrayList<MotionEvent> touches = new ArrayList<MotionEvent>();
 	boolean fingerOnBoard = false;
 	float tx, ty;
+	Route inProgress;
 
 	/* Graphics */
 	Paint backgroundP;
@@ -113,36 +114,46 @@ public class GameEngine {
 		selectedPath.lineTo(width * RIGHT_EDGE_OF_SPAWNER_FACTOR - 5, 5 + (height - 10) / spawns.length);
 		selectedPath.lineTo(5, 5 + (height - 10) / spawns.length);
 		selectedPath.lineTo(5, 5);
+		
+		inProgress = spawns[selectedSpawner].spawnRoute();
 
 	}
 
 	public void processInput() {
 		gView.getInputs(touches);
 		for (MotionEvent e : touches) {
+			//update spawner selection if touch was in that area
 			if (e.getHistorySize() > 0 && e.getHistoricalX(0) < (width * RIGHT_EDGE_OF_SPAWNER_FACTOR)) {
 				selectedPath.offset(0, -selectedSpawner * (height - 10) / spawns.length);
 				selectedSpawner = whichResourceSpawner(e.getHistoricalY(0));
 				selectedPath.offset(0, selectedSpawner * (height - 10) / spawns.length);
+				inProgress = spawns[selectedSpawner].spawnRoute();
 			} else if (e.getAction() == MotionEvent.ACTION_DOWN && e.getX() < (width * RIGHT_EDGE_OF_SPAWNER_FACTOR)) {
 				selectedPath.offset(0, -selectedSpawner * (height - 10) / spawns.length);
 				selectedSpawner = whichResourceSpawner(e.getY());
 				selectedPath.offset(0, selectedSpawner * (height - 10) / spawns.length);
+				inProgress = spawns[selectedSpawner].spawnRoute();
 			}
 
+			//otherwise 
 			if (spawns[selectedSpawner].canSpawn()
 					&& (width * RIGHT_EDGE_OF_SPAWNER_FACTOR < e.getX() && e.getX() < width
 							* LEFT_EDGE_OF_ENEMY_SPAWNER_FACTOR)) {
 				if (e.getAction() == MotionEvent.ACTION_UP) {
-					towers.add(spawns[selectedSpawner].spawnResource(e.getX() + cameraOffset, e.getY()));
+					towers.add(spawns[selectedSpawner].spawnResource(e.getX() + cameraOffset, e.getY(), inProgress));
+					inProgress = spawns[selectedSpawner].spawnRoute();
 				} else {
 					tx = e.getX();
 					ty = e.getY();
 					fingerOnBoard = true;
+					inProgress.addPoint(tx,ty);
 				}
 
 			}
-			if (e.getAction() == MotionEvent.ACTION_UP)
+			if (e.getAction() == MotionEvent.ACTION_UP){
 				fingerOnBoard = false;
+				inProgress.clear();
+			}	
 		}
 
 		/* IMPORTANT */
@@ -186,6 +197,11 @@ public class GameEngine {
 		// clear the screen with the background painter.
 		c.drawRect(0, 0, maxX, maxY, backgroundP);
 
+		// Routes
+		inProgress.draw(c, -cameraOffset);
+		
+		
+		
 		// GameBoard
 		enemyBase.draw(c);
 		for (GamePiece twr : towers)
