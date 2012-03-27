@@ -40,7 +40,7 @@ public class RedTower extends GamePiece {
 		spawnPool = Math.min(spawnPool + spawnRate, spawnPoolMax);
 
 		// check if tower should fire
-		GamePiece nearestEnemy = gEng.enemyMap.getNearestNeighbor(xc, yc);
+		GamePiece nearestEnemy = gEng.enemyMap.getNearest(xc, yc);
 		if (nearestEnemy != null
 				&& spawnPool >= SimpleProjectile.COST
 				&& (nearestEnemy.radius + firingRadius) > GameBoard.distanceBetween(xc, yc, nearestEnemy.xc,

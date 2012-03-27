@@ -44,7 +44,7 @@ public class GreenTower extends GamePiece {
 		}
 
 		// check for collisions
-		GamePiece maybeCollision = gEng.enemyMap.getNearestNeighbor(xc, yc);
+		GamePiece maybeCollision = gEng.enemyMap.getNearest(xc, yc);
 		if (maybeCollision != null
 				&& (maybeCollision.radius + this.radius) > GameBoard.distanceBetween(xc, yc, maybeCollision.xc,
 						maybeCollision.yc)) {
@@ -58,7 +58,7 @@ public class GreenTower extends GamePiece {
 		
 		
 		// update location
-		gb.move(this, r.moveAlongRouter(speed, fowards));
+		gb.move(this, r.moveAlongRoute(speed, fowards));
 
 		return true;
 	}

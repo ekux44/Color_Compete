@@ -34,7 +34,7 @@ public class Route {
 		points.add(point);
 	}
 	
-	public Pair moveAlongRouter(float speed, boolean foward){
+	public Pair moveAlongRoute(float speed, boolean foward){
 		return new Pair(speed,0);
 	}
 

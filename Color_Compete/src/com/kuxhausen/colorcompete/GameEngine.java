@@ -138,10 +138,11 @@ public class GameEngine {
 			// otherwise
 			if (spawns[selectedSpawner].canSpawn()
 					&& (width * RIGHT_EDGE_OF_SPAWNER_FACTOR < e.getX() && e.getX() < width
-							* LEFT_EDGE_OF_ENEMY_SPAWNER_FACTOR)) {
+							* LEFT_EDGE_OF_ENEMY_SPAWNER_FACTOR) && !towerMap.conflicts(e.getX() + cameraOffset, e.getY(), 1, null)) {
 				if (e.getAction() == MotionEvent.ACTION_UP) {
 					towers.add(spawns[selectedSpawner].spawnResource(e.getX() + cameraOffset, e.getY(), inProgress));
 					inProgress = spawns[selectedSpawner].spawnRoute();
+					fingerOnBoard = false;
 				} else {
 					tx = e.getX();
 					ty = e.getY();
@@ -150,7 +151,7 @@ public class GameEngine {
 				}
 
 			}
-			if (e.getAction() == MotionEvent.ACTION_UP) {
+			else /*if (e.getAction() == MotionEvent.ACTION_UP)*/{
 				fingerOnBoard = false;
 				inProgress.clear();
 			}

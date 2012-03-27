@@ -39,7 +39,7 @@ public class SimpleProjectile extends GamePiece {
 	public boolean update() {
 
 		// check for collisions
-		GamePiece maybeCollision = gEng.enemyMap.getNearestNeighbor(xc, yc);
+		GamePiece maybeCollision = gEng.enemyMap.getNearest(xc, yc);
 		if (maybeCollision != null
 				&& (maybeCollision.radius + this.radius) > GameBoard.distanceBetween(xc, yc, maybeCollision.xc,
 						maybeCollision.yc)) {

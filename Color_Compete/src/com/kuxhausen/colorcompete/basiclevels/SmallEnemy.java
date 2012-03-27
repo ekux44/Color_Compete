@@ -42,7 +42,7 @@ public class SmallEnemy extends GamePiece {
 		}
 
 		// check for collisions
-		GamePiece maybeCollision = gEng.towerMap.getNearestNeighbor(xc, yc);
+		GamePiece maybeCollision = gEng.towerMap.getNearest(xc, yc);
 		if (maybeCollision != null
 				&& (maybeCollision.radius + this.radius) > GameBoard.distanceBetween(xc, yc, maybeCollision.xc,
 						maybeCollision.yc)) {
