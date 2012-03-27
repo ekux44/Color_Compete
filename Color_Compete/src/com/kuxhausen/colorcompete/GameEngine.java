@@ -114,7 +114,7 @@ public class GameEngine {
 		selectedPath.lineTo(width * RIGHT_EDGE_OF_SPAWNER_FACTOR - 5, 5 + (height - 10) / spawns.length);
 		selectedPath.lineTo(5, 5 + (height - 10) / spawns.length);
 		selectedPath.lineTo(5, 5);
-		
+
 		inProgress = spawns[selectedSpawner].spawnRoute();
 
 	}
@@ -122,7 +122,7 @@ public class GameEngine {
 	public void processInput() {
 		gView.getInputs(touches);
 		for (MotionEvent e : touches) {
-			//update spawner selection if touch was in that area
+			// update spawner selection if touch was in that area
 			if (e.getHistorySize() > 0 && e.getHistoricalX(0) < (width * RIGHT_EDGE_OF_SPAWNER_FACTOR)) {
 				selectedPath.offset(0, -selectedSpawner * (height - 10) / spawns.length);
 				selectedSpawner = whichResourceSpawner(e.getHistoricalY(0));
@@ -135,7 +135,7 @@ public class GameEngine {
 				inProgress = spawns[selectedSpawner].spawnRoute();
 			}
 
-			//otherwise 
+			// otherwise
 			if (spawns[selectedSpawner].canSpawn()
 					&& (width * RIGHT_EDGE_OF_SPAWNER_FACTOR < e.getX() && e.getX() < width
 							* LEFT_EDGE_OF_ENEMY_SPAWNER_FACTOR)) {
@@ -146,14 +146,14 @@ public class GameEngine {
 					tx = e.getX();
 					ty = e.getY();
 					fingerOnBoard = true;
-					inProgress.addPoint(tx,ty);
+					inProgress.addPoint(tx, ty);
 				}
 
 			}
-			if (e.getAction() == MotionEvent.ACTION_UP){
+			if (e.getAction() == MotionEvent.ACTION_UP) {
 				fingerOnBoard = false;
 				inProgress.clear();
-			}	
+			}
 		}
 
 		/* IMPORTANT */
@@ -199,9 +199,7 @@ public class GameEngine {
 
 		// Routes
 		inProgress.draw(c, -cameraOffset);
-		
-		
-		
+
 		// GameBoard
 		enemyBase.draw(c);
 		for (GamePiece twr : towers)

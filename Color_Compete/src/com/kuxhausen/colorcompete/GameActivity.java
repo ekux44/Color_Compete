@@ -19,7 +19,7 @@ import android.widget.TextView;
 public class GameActivity extends Activity {
 
 	private GameView gameView;
-	private Vibrator vibrator; 
+	private Vibrator vibrator;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +44,9 @@ public class GameActivity extends Activity {
 		// give the GameView a the level it should be loading
 		gameView.initView(this.getIntent().getExtras().getInt("level"));
 
-		
-		// initialize vibrator 
-		vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
-		
+		// initialize vibrator
+		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
 		// TODO allow for actually resuming from previous game
 		if (savedInstanceState == null) {
 			// we were just launched: set up a new game
@@ -91,8 +90,8 @@ public class GameActivity extends Activity {
 		super.onStart();
 		Log.i("state", "onStarted");
 	}
-	
-	public void vibrate(){
-        vibrator.vibrate(45);
+
+	public void vibrate() {
+		vibrator.vibrate(45);
 	}
 }

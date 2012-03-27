@@ -12,39 +12,39 @@ public class Route {
 
 	public ArrayList<Float> points;
 	private Path visualPath;
-	private Paint p; 
-	
-	public Route(Paint paint){
-		
+	private Paint p;
+
+	public Route(Paint paint) {
+
 		points = new ArrayList<Float>();
-		
+
 		visualPath = new Path();
-		
+
 		p = paint;
-		
+
 	}
-	
-	public void addPoint(float x, float y){
-		if(points.size()<3)
+
+	public void addPoint(float x, float y) {
+		if (points.size() < 3)
 			visualPath.moveTo(x, y);
 		else
 			visualPath.lineTo(x, y);
-		
+
 		points.add(x);
 		points.add(y);
 	}
-	
-	public void clear(){
+
+	public void clear() {
 		points.clear();
 		visualPath.reset();
 	}
-	
+
 	/**
 	 * @param c
 	 *            Canvas onto which GamePiece will draw itself
 	 */
 	public void draw(Canvas c, float xOffset) {
 		c.drawPath(visualPath, p);
-		//TODO incorporate xOffset
+		// TODO incorporate xOffset
 	}
 }

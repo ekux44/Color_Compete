@@ -69,7 +69,7 @@ public abstract class ResourceSpawner {
 
 	public void takeDamage(int dam) {
 		gEng.gView.parentActivity.vibrate();
-		
+
 		damage += dam;
 		if (damage >= maxFill) {
 			damage = maxFill;
@@ -81,7 +81,7 @@ public abstract class ResourceSpawner {
 
 	/** any implementation should decrement fill by respawnCost */
 	public abstract GamePiece spawnResource(float xCenter, float yCenter, Route r);
-	
+
 	/** */
 	public abstract Route spawnRoute();
 
