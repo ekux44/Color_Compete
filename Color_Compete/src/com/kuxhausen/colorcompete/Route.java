@@ -26,7 +26,7 @@ public class Route {
 	}
 
 	public void addPoint(float x, float y) {
-		if (points.size() < 3)
+		if (points.size() < 1)
 			visualPath.moveTo(x, y);
 		else
 			visualPath.lineTo(x, y);
