@@ -1,75 +1,112 @@
 package com.kuxhausen.colorcompete;
 
-import java.util.ArrayList;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
 
 public class Route {
 
-	public ArrayList<Pair> points;
+	private Pair first, last, current;
 	private Path visualPath;
 	private Paint p;
 	public boolean loopMode;
+	public boolean foward;
 
 	public Route(Paint paint) {
 
-		points = new ArrayList<Pair>();
-
 		visualPath = new Path();
-
 		p = paint;
+		current = first;
 
 	}
 
 	public void addPoint(float x, float y) {
-		if (points.size() < 1)
+		Pair toAdd = new Pair(x,y);
+		if(first==null){
+			first = toAdd;
+			last = toAdd;
+			current = toAdd;
 			visualPath.moveTo(x, y);
-		else
+		}
+		else {
+			toAdd.previous = last;
+			last.next = toAdd;
+			last = toAdd;
 			visualPath.lineTo(x, y);
-
-		Pair point = new Pair(x,y);
-		points.add(point);
+		}
+	}
+	/** returns the new front Pair */
+	public Pair removeFront(){
+		if(first!=null){
+			if(current == first)
+				current = first.next;
+			first = first.next;
+			
+			//rebuild the visualization
+			visualPath.reset();
+			Pair iterate = first;
+			visualPath.moveTo(iterate.x, iterate.y);
+			while(iterate.next!=null){
+				iterate = iterate.next;
+				visualPath.lineTo(iterate.x, iterate.y);		
+			}
+			
+		}
+		return first;
 	}
 	
-	public void moveAlongRoute(float xc, float yc, float speed, boolean foward, GamePiece gp){
-
-		Pair target = foward ? points.get((gp.routePosition+1+points.size())%points.size()): points.get((gp.routePosition-1+points.size())%points.size());
-		Pair delta = new Pair(target.x-xc,target.y-yc);
+	public void moveAlongRoute(float xc, float yc, float speed, GamePiece gp){
+		
+		if(current == null)
+			return;
+		
+		// calculate distance to current target
+		Pair delta = new Pair(current.x-xc,current.y-yc);
 		
 		
 		//normalize and scale to speed
-		float scale = speed/delta.getMagnitude();
-		if(Float.isNaN(scale) || Float.isInfinite(scale))
-			scale =0;
-		Pair movement = new Pair(delta.x*scale,delta.y*scale);
-		
-		
-		int nextPair=gp.routePosition;
-		// if arrived at the target
-		if(movement.getMagnitude()>=delta.getMagnitude()){
-			movement=delta;
-			nextPair = foward ? (nextPair + 1 + points.size()) % points.size() : (nextPair - 1 + points.size()) % points.size();
+		Pair movement = delta;
+		if(delta.getMagnitude()>speed){
+			float scale = speed/delta.getMagnitude();
+			if(Float.isNaN(scale) || Float.isInfinite(scale))
+				scale = 0;
+			movement = new Pair(delta.x*scale,delta.y*scale);
 		}
 		
-		if(gp.gb.move(gp, movement))
-			gp.routePosition=nextPair;
-		else
-			foward = !foward;
-			//gp.gb.move(gp, new Pair(-movement.x,-movement.y));
-		if(gp.routePosition==0)
-			foward = false;
-		if(gp.routePosition==points.size()-1)
-			foward = true;
-		//TODO fix foward
+		//if succeeded in moving, 
+		if(gp.gb.move(gp, movement)){
+			//if target reached, re-target to next
+			if(movement.getMagnitude()<.9*speed){//TODO move more this turn
+				Pair target = foward ? current.next : current.previous;
+				//if nothing in that direction, reverse direction
+				if(target==null){
+					foward = !foward;
+					target = (foward) ? current.next : current.previous;
+					
+					//if still nothing, return to original direction
+					if(target==null){
+						foward = !foward;
+					}
+				}
+				//update current target
+				if(target!=null)
+					current = target;
+			}
+		}
+	}
+	
+	public void moveToEnd(){
+		current = last;
+	}
+	public void moveToStart(){
+		current = first;
 	}
 
 	public void clear() {
-		points.clear();
+		first = last = current = null;
 		visualPath.reset();
+		
 	}
 
 	/**

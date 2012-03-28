@@ -14,7 +14,7 @@ import com.kuxhausen.colorcompete.Route;
  */
 public class GreenTower extends GamePiece {
 
-	float speed = 3f; boolean fowards;
+	float speed = 3f;
 	private static final int COST = 200;
 	private static final float RADIUS_HEALTH_RATIO = 2, HEALTH_COST_RATIO = 1f;
 
@@ -34,8 +34,8 @@ public class GreenTower extends GamePiece {
 		
 		//register route
 		gEngine.activeRoutes.add(route);
-		routePosition = -1;
 		route.loopMode=true;
+		route.moveToEnd();
 	}
 
 	@Override
@@ -60,10 +60,8 @@ public class GreenTower extends GamePiece {
 		}
 		
 		
-		
-		
 		// update location
-		r.moveAlongRoute(xc, yc, speed, fowards, this);
+		r.moveAlongRoute(xc, yc, speed, this);
 
 		return true;
 	}

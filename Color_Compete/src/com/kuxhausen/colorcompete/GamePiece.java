@@ -22,7 +22,6 @@ public abstract class GamePiece {
 	protected int cost;
 	protected Paint p;
 	protected Route r;
-	public int routePosition;
 
 	/** @return true if still alive */
 	public abstract boolean update();

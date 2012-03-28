@@ -36,7 +36,6 @@ public class RedTower extends GamePiece {
 		//register route
 		route.clear();
 		gEngine.activeRoutes.add(route);
-		routePosition = -1;
 		route.loopMode=false;
 	}
 
