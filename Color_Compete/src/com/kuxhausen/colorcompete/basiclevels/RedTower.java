@@ -16,6 +16,7 @@ public class RedTower extends GamePiece {
 
 	private static final int COST = 300, spawnRate = 2, spawnPoolMax = 65;
 	private static final float RADIUS_HEALTH_RATIO = 2, firingRadius = 200f, HEALTH_COST_RATIO = .5f;
+	public static final float RED_RADIUS = 300;//cost * healthcost * radiushealth
 	private int spawnPool = 200;
 
 	public RedTower(float xCenter, float yCenter, GameEngine gEngine, Route route) {

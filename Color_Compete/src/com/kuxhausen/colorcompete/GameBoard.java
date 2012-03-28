@@ -75,14 +75,14 @@ public class GameBoard {
 	/** @param exclude
 	 *            the gamepice to search around; it will be excluded from the considered pieces
 	 */
-	public GamePiece getNearestNeighbor(float x, float y, GamePiece exclude) {
+	public GamePiece getNearestNeighbor(float x, float y, float maxRadius, GamePiece exclude) {
 		GamePiece nearest = null;
-		float nearness = Float.MAX_VALUE;
+		float nearness = maxRadius;
 		for (int i = 0; i < all.size(); i++) {
-			if (all.get(i)!=exclude && i == 0) {
+			/*if (all.get(i)!=exclude && i == 0) {
 				nearest = all.get(i);
 				nearness = distanceBetween(nearest.xc, nearest.yc, x, y) - nearest.radius;
-			} else if (all.get(i)!=exclude && distanceBetween(all.get(i).xc, all.get(i).yc, x, y) - all.get(i).radius < nearness) {
+			} else*/ if (all.get(i)!=exclude && distanceBetween(all.get(i).xc, all.get(i).yc, x, y) - all.get(i).radius < nearness) {
 				nearest = all.get(i);
 				nearness = distanceBetween(nearest.xc, nearest.yc, x, y) - nearest.radius;
 			}
@@ -91,9 +91,16 @@ public class GameBoard {
 	}
 	
 	public GamePiece getNearest(float x, float y) {
-		return getNearestNeighbor(x,y,null);
+		return getNearestNeighbor(x,y,Float.MAX_VALUE, null);
 	}
-				
+	
+	public GamePiece getNearest(float x, float y, float maxRadius) {
+		return getNearestNeighbor(x,y,maxRadius, null);
+	}
+	public GamePiece getNearestNeighbor(float x, float y, GamePiece exclude) {
+		return getNearestNeighbor(x,y,Float.MAX_VALUE, exclude);
+	}
+	
 	/** performs simple calculation of geometric distance between two points */
 	public static float distanceBetween(float x1, float y1, float x2, float y2) {
 		return (float) Math.sqrt(((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2)));

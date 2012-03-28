@@ -14,6 +14,7 @@ import android.os.Vibrator;
 import android.view.MotionEvent;
 
 import com.kuxhausen.colorcompete.basiclevels.LevelLoader;
+import com.kuxhausen.colorcompete.basiclevels.RedTower;
 
 /**
  * (c) 2012 Eric Kuxhausen
@@ -136,9 +137,12 @@ public class GameEngine {
 				selectedPath.offset(0, selectedSpawner * (height - 10) / spawns.length);
 				inProgress = spawns[selectedSpawner].spawnRoute();
 			}
-
+			//check if a red tower on the board was interacted with
+			else if(towerMap.getNearest(e.getX(), e.getY(), 1.2f*RedTower.RED_RADIUS) instanceof RedTower){
+				//TODO select red tower, make draggable
+			}
 			// otherwise
-			if (spawns[selectedSpawner].canSpawn()
+			else if (spawns[selectedSpawner].canSpawn()
 					&& (width * RIGHT_EDGE_OF_SPAWNER_FACTOR < e.getX() && e.getX() < width
 							* LEFT_EDGE_OF_ENEMY_SPAWNER_FACTOR) && !towerMap.conflicts(e.getX() + cameraOffset, e.getY(), 1/*TODO change*/, null)) {
 				if (e.getAction() == MotionEvent.ACTION_UP) {
