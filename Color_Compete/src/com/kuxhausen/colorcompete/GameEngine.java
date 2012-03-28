@@ -51,6 +51,7 @@ public class GameEngine {
 	public EnemySpawner enemyBase;
 	public ArrayList<GamePiece> towers, enemies, projectiles;
 	public GameBoard towerMap, enemyMap, projectileMap;
+	public ArrayList<Route> activeRoutes;
 	public GameEngine gEngine = this;
 	private int gameEndDelayer = 0;
 
@@ -95,6 +96,7 @@ public class GameEngine {
 		towerMap = new GameBoard(width * RIGHT_EDGE_OF_SPAWNER_FACTOR, width, height);
 		enemyMap = new GameBoard(width * RIGHT_EDGE_OF_SPAWNER_FACTOR, width, height);
 		projectileMap = new GameBoard(width * RIGHT_EDGE_OF_SPAWNER_FACTOR, width, height);
+		activeRoutes = new ArrayList<Route>();
 
 		load = new LevelLoader();
 		spawns = LevelLoader.loadSpawners(level, gEngine);
@@ -138,7 +140,7 @@ public class GameEngine {
 			// otherwise
 			if (spawns[selectedSpawner].canSpawn()
 					&& (width * RIGHT_EDGE_OF_SPAWNER_FACTOR < e.getX() && e.getX() < width
-							* LEFT_EDGE_OF_ENEMY_SPAWNER_FACTOR) && !towerMap.conflicts(e.getX() + cameraOffset, e.getY(), 1, null)) {
+							* LEFT_EDGE_OF_ENEMY_SPAWNER_FACTOR) && !towerMap.conflicts(e.getX() + cameraOffset, e.getY(), 1/*TODO change*/, null)) {
 				if (e.getAction() == MotionEvent.ACTION_UP) {
 					towers.add(spawns[selectedSpawner].spawnResource(e.getX() + cameraOffset, e.getY(), inProgress));
 					inProgress = spawns[selectedSpawner].spawnRoute();
@@ -147,7 +149,7 @@ public class GameEngine {
 					tx = e.getX();
 					ty = e.getY();
 					fingerOnBoard = true;
-					inProgress.addPoint(tx, ty);
+					inProgress.addPoint(tx + cameraOffset, ty);
 				}
 
 			}
@@ -200,6 +202,8 @@ public class GameEngine {
 
 		// Routes
 		inProgress.draw(c, -cameraOffset);
+		for (Route rt : activeRoutes)
+				rt.draw(c, -cameraOffset);
 
 		// GameBoard
 		enemyBase.draw(c);

@@ -58,8 +58,8 @@ public class SimpleProjectile extends GamePiece {
 		// update location tracking target
 		float dx = target.xc - xc;
 		float dy = target.yc - yc;
-		dx = (float) (dx * Math.min(1f, speed / Math.sqrt(dx * dx + dy * dy)));
-		dy = (float) (dy * Math.min(1f, speed / Math.sqrt(dx * dx + dy * dy)));
+		dx = (float) (speed * Math.min(1f, dx / Math.sqrt(dx * dx + dy * dy)));
+		dy = (float) (speed * Math.min(1f, dy / Math.sqrt(dx * dx + dy * dy)));
 		gb.move(this, dx, dy);
 
 		return true;

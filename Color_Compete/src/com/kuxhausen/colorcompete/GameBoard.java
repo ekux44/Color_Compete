@@ -45,12 +45,14 @@ public class GameBoard {
 			gp.yc += dy;
 		}
 	}
-	public void move(GamePiece gp, Pair delta) {
+	public boolean move(GamePiece gp, Pair delta) {
 		if(!conflicts(gp.xc+delta.x, gp.yc+delta.y, gp.radius, gp))
 		{	
 			gp.xc += delta.x;
 			gp.yc += delta.y;
+			return true;
 		}
+		return false;
 	}
 
 	/**

@@ -8,4 +8,7 @@ public class Pair {
 		x=X;
 		y=Y;
 	}
+	public float getMagnitude(){
+		return (float) Math.sqrt(x*x + y*y);
+	}
 }

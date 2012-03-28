@@ -21,7 +21,8 @@ public abstract class GamePiece {
 	protected float health, radiusHealthRatio;
 	protected int cost;
 	protected Paint p;
-	public Route r;
+	protected Route r;
+	public int routePosition;
 
 	/** @return true if still alive */
 	public abstract boolean update();
@@ -34,6 +35,7 @@ public abstract class GamePiece {
 		health = 0;
 		gb.unregister(this);
 		gList.remove(this);
+		gEng.activeRoutes.remove(r);
 	}
 
 	/**
