@@ -12,15 +12,14 @@ import java.util.ArrayList;
  */
 public class GameBoard {
 
-	// may switch data structures in the future, need to minimize cost of interacting with neighbors and drawing
-	// everthing in view
+	// may switch data structures in the future, need to minimize cost of interacting with neighbors
 	ArrayList<GamePiece> all; // temp
 	ArrayList<GamePiece> neighbors;
 	float xOffset, xSpan, ySpan;
 	final static int xTiles = 4, yTiles = 4;
 	private static float ACCEPTABLE_NEARNESS = .8f;
 	
-	/* Temporary helper until getNeighbors is properly implemented */
+
 
 	public GameBoard(float xMin, float xMax, float y) {
 		xOffset = xMin;
@@ -38,13 +37,16 @@ public class GameBoard {
 		return false;
 	}
 	
-	public void move(GamePiece gp, float dx, float dy) {
-		//if(!conflicts(gp.xc+dx, gp.yc+dy, gp.radius))
+	public boolean move(GamePiece gp, float dx, float dy) {
+		//if(!conflicts(gp.xc+dx, gp.yc+dy, gp.radius, gp))
 		{	
 			gp.xc += dx;
 			gp.yc += dy;
+			return true;
 		}
+		//return false;
 	}
+	
 	public boolean move(GamePiece gp, Pair delta) {
 		if(!conflicts(gp.xc+delta.x, gp.yc+delta.y, gp.radius, gp))
 		{	
