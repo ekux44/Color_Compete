@@ -32,6 +32,12 @@ public class RedTower extends GamePiece {
 		gb.register(this);
 		health = COST * HEALTH_COST_RATIO;
 		radius = radiusHealthRatio * (float) Math.sqrt(health);
+		
+		//register route
+		route.clear();
+		gEngine.activeRoutes.add(route);
+		routePosition = -1;
+		route.loopMode=false;
 	}
 
 	@Override

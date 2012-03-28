@@ -35,6 +35,7 @@ public class GreenTower extends GamePiece {
 		//register route
 		gEngine.activeRoutes.add(route);
 		routePosition = -1;
+		route.loopMode=true;
 	}
 
 	@Override

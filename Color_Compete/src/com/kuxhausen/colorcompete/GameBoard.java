@@ -82,7 +82,7 @@ public class GameBoard {
 			/*if (all.get(i)!=exclude && i == 0) {
 				nearest = all.get(i);
 				nearness = distanceBetween(nearest.xc, nearest.yc, x, y) - nearest.radius;
-			} else*/ if (all.get(i)!=exclude && distanceBetween(all.get(i).xc, all.get(i).yc, x, y) - all.get(i).radius < nearness) {
+			} else*/ if (all.get(i)!=exclude && (distanceBetween(all.get(i).xc, all.get(i).yc, x, y) - all.get(i).radius) <= nearness) {
 				nearest = all.get(i);
 				nearness = distanceBetween(nearest.xc, nearest.yc, x, y) - nearest.radius;
 			}
@@ -90,15 +90,14 @@ public class GameBoard {
 		return nearest;
 	}
 	
-	public GamePiece getNearest(float x, float y) {
-		return getNearestNeighbor(x,y,Float.MAX_VALUE, null);
+	public GamePiece getNearestNeighbor(float x, float y, GamePiece exclude) {
+		return getNearestNeighbor(x,y,Float.MAX_VALUE, exclude);
 	}
-	
 	public GamePiece getNearest(float x, float y, float maxRadius) {
 		return getNearestNeighbor(x,y,maxRadius, null);
 	}
-	public GamePiece getNearestNeighbor(float x, float y, GamePiece exclude) {
-		return getNearestNeighbor(x,y,Float.MAX_VALUE, exclude);
+	public GamePiece getNearest(float x, float y) {
+		return getNearestNeighbor(x,y,Float.MAX_VALUE, null);
 	}
 	
 	/** performs simple calculation of geometric distance between two points */

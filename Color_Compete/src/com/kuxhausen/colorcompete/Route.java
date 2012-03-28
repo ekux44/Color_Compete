@@ -13,6 +13,7 @@ public class Route {
 	public ArrayList<Pair> points;
 	private Path visualPath;
 	private Paint p;
+	public boolean loopMode;
 
 	public Route(Paint paint) {
 

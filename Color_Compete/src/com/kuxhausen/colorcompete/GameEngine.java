@@ -125,6 +125,8 @@ public class GameEngine {
 	public void processInput() {
 		gView.getInputs(touches);
 		for (MotionEvent e : touches) {
+			if(e==null)
+				return;
 			// update spawner selection if touch was in that area
 			if (e.getHistorySize() > 0 && e.getHistoricalX(0) < (width * RIGHT_EDGE_OF_SPAWNER_FACTOR)) {
 				selectedPath.offset(0, -selectedSpawner * (height - 10) / spawns.length);
@@ -138,13 +140,13 @@ public class GameEngine {
 				inProgress = spawns[selectedSpawner].spawnRoute();
 			}
 			//check if a red tower on the board was interacted with
-			else if(towerMap.getNearest(e.getX(), e.getY(), 1.2f*RedTower.RED_RADIUS) instanceof RedTower){
+			else if(!fingerOnBoard&&towerMap.getNearest(e.getX(), e.getY(), .1f) instanceof RedTower){
 				//TODO select red tower, make draggable
 			}
 			// otherwise
 			else if (spawns[selectedSpawner].canSpawn()
 					&& (width * RIGHT_EDGE_OF_SPAWNER_FACTOR < e.getX() && e.getX() < width
-							* LEFT_EDGE_OF_ENEMY_SPAWNER_FACTOR) && !towerMap.conflicts(e.getX() + cameraOffset, e.getY(), 1/*TODO change*/, null)) {
+							* LEFT_EDGE_OF_ENEMY_SPAWNER_FACTOR) && !towerMap.conflicts(e.getX() + cameraOffset, e.getY(), 25/*TODO change*/, null)) {
 				if (e.getAction() == MotionEvent.ACTION_UP) {
 					towers.add(spawns[selectedSpawner].spawnResource(e.getX() + cameraOffset, e.getY(), inProgress));
 					inProgress = spawns[selectedSpawner].spawnRoute();
