@@ -15,7 +15,7 @@ import com.kuxhausen.colorcompete.Route;
 public class RedTower extends GamePiece {
 
 	float speed = 1f;
-	private static final int COST = 300, spawnRate = 2, spawnPoolMax = 65;
+	private static final int COST = 500, spawnRate = 2, spawnPoolMax = 65;
 	private static final float RADIUS_HEALTH_RATIO = 2, firingRadius = 200f, HEALTH_COST_RATIO = .5f;
 	public static final float RED_RADIUS = 300;//cost * healthcost * radiushealth
 	private int spawnPool = 200;
@@ -37,7 +37,7 @@ public class RedTower extends GamePiece {
 		//register route
 		route.clear();
 		gEngine.activeRoutes.add(route);
-		route.loopMode=false;
+		route.mode=Route.CHASE_MODE;
 	}
 
 	@Override

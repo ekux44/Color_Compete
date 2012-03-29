@@ -1,6 +1,5 @@
 package com.kuxhausen.colorcompete;
 
-
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -10,15 +9,16 @@ public class Route {
 	private Pair first, last, current;
 	private Path visualPath;
 	private Paint p;
-	public boolean loopMode;
+	public int mode;
 	public boolean foward;
-
+	public final static int PATROL_MODE = 0, CHASE_MODE = 1;
+	public GamePiece gp;
+	
 	public Route(Paint paint) {
 
 		visualPath = new Path();
 		p = paint;
 		current = first;
-
 	}
 
 	public void addPoint(float x, float y) {
@@ -36,25 +36,17 @@ public class Route {
 			visualPath.lineTo(x, y);
 		}
 	}
-	/** returns the new front Pair */
-	public Pair removeFront(){
+	///** returns the new front Pair */
+	/*public Pair removeFront(){
 		if(first!=null){
 			if(current == first)
 				current = first.next;
 			first = first.next;
 			
-			//rebuild the visualization
-			visualPath.reset();
-			Pair iterate = first;
-			visualPath.moveTo(iterate.x, iterate.y);
-			while(iterate.next!=null){
-				iterate = iterate.next;
-				visualPath.lineTo(iterate.x, iterate.y);		
-			}
-			
+			rebuildVisualization(front.x,front.y);		
 		}
 		return first;
-	}
+	}*/
 	
 	public void moveAlongRoute(float xc, float yc, float speed, GamePiece gp){
 		
@@ -63,7 +55,6 @@ public class Route {
 		
 		// calculate distance to current target
 		Pair delta = new Pair(current.x-xc,current.y-yc);
-		
 		
 		//normalize and scale to speed
 		Pair movement = delta;
@@ -89,6 +80,12 @@ public class Route {
 						foward = !foward;
 					}
 				}
+				// if in chase mode, remove node 
+				if(mode == CHASE_MODE){
+					remove(current);
+					current = null;
+					rebuildVisualization(xc,yc);
+				}					
 				//update current target
 				if(target!=null)
 					current = target;
@@ -106,9 +103,37 @@ public class Route {
 	public void clear() {
 		first = last = current = null;
 		visualPath.reset();
-		
 	}
-
+	
+	public void remove(Pair c){
+		if(c==null)
+			return;
+		Pair left = c.previous;
+		Pair right = c.next;
+		if(first==c)
+			first = right;
+		if(last==c)
+			last = left;
+		if(left!=null)
+			left.next=right;
+		if(right!=null)
+			right.previous=left;
+	}
+	public void rebuildVisualization(float xc, float yc){
+		visualPath.reset();
+		Pair iterate = first;
+		//visualPath.moveTo(xc, yc);
+		if(first==null)
+			return;
+		//visualPath.lineTo(iterate.x, iterate.y);
+		visualPath.moveTo(iterate.x, iterate.y);
+		
+		while(iterate.next!=null){
+			iterate = iterate.next;
+			visualPath.lineTo(iterate.x, iterate.y);		
+		}
+	}
+	
 	/**
 	 * @param c
 	 *            Canvas onto which GamePiece will draw itself

@@ -103,7 +103,7 @@ public class LevelLoader {
 		EnemySpawner enemy = new EnemySpawner(gEng, enemeyTypes, probabilities, 10000, 2, 1000);
 		switch (level) {
 		case 0:
-			break;
+			enemy = new EnemySpawner(gEng, enemeyTypes, probabilities, 100000, 1, 100000); break;
 		case 1:
 			break;
 		case 2:

@@ -142,12 +142,12 @@ public class GameEngine {
 			}
 			//if red tower on the board is in the middle of being interacted with
 			else if(!fingerOnBoard && draggingTower!=null && (width * RIGHT_EDGE_OF_SPAWNER_FACTOR < e.getX() && e.getX() < width
-					* LEFT_EDGE_OF_ENEMY_SPAWNER_FACTOR) && !towerMap.conflicts(e.getX() + cameraOffset, e.getY(), 25/*TODO change*/, null)){
+					* LEFT_EDGE_OF_ENEMY_SPAWNER_FACTOR)){
 				draggingTower.r.addPoint(e.getX() + cameraOffset, e.getY());
 			}
 			//check if a red tower on the board was newly interacted with
-			else if(!fingerOnBoard&&towerMap.getNearest(e.getX(), e.getY(), .1f) instanceof RedTower){
-				draggingTower = (RedTower) towerMap.getNearest(e.getX(), e.getY(), .1f);
+			else if(!fingerOnBoard&&towerMap.getNearest(e.getX() + cameraOffset, e.getY(), 25/*TODO change*/) instanceof RedTower){
+				draggingTower = (RedTower) towerMap.getNearest(e.getX() + cameraOffset, e.getY(), 25/*TODO change*/);
 			}
 			// otherwise
 			else if (spawns[selectedSpawner].canSpawn()
