@@ -20,7 +20,7 @@ import com.kuxhausen.colorcompete.Route;
 public class LevelLoader {
 
 	static Paint smallEnemyP, mediumEnemyP, largeEnemyP, redEnemyP, greenEnemyP, enemyProjectileP, blueTowerP,
-			greenTowerP, redTowerP, simpleProjectileP, redRouteP, greenRouteP, blueRouteP;
+			greenTowerP, redTowerP, simpleProjectileP, redRouteP, greenRouteP, blueRouteP, selectedP;
 
 	public LevelLoader() {
 		smallEnemyP = new Paint();
@@ -75,6 +75,11 @@ public class LevelLoader {
 		blueRouteP.setPathEffect(new DashPathEffect(new float[] { 8, 5 }, 0));
 		blueRouteP.setStyle(Paint.Style.STROKE);
 		blueRouteP.setStrokeWidth(20);
+		
+		selectedP = new Paint();
+		selectedP.setColor(Color.WHITE);
+
+		selectedP.setStyle(Paint.Style.STROKE);
 	}
 
 	public void prepBoards(int level, GameEngine gEng) {

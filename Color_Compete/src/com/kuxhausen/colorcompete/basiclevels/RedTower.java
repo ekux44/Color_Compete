@@ -1,5 +1,11 @@
 package com.kuxhausen.colorcompete.basiclevels;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.DashPathEffect;
+import android.graphics.Paint;
+import android.graphics.Path;
+
 import com.kuxhausen.colorcompete.GameBoard;
 import com.kuxhausen.colorcompete.GameEngine;
 import com.kuxhausen.colorcompete.GamePiece;
@@ -19,6 +25,11 @@ public class RedTower extends GamePiece {
 	private static final float RADIUS_HEALTH_RATIO = 2, firingRadius = 200f, HEALTH_COST_RATIO = .5f;
 	public static final float RED_RADIUS = 300;//cost * healthcost * radiushealth
 	private int spawnPool = 200;
+	public boolean selected;
+	Paint selectedP;
+	Path selectedPath;
+	DashPathEffect[] pathEffects;
+	int phase;
 
 	public RedTower(float xCenter, float yCenter, GameEngine gEngine, Route route) {
 
@@ -38,6 +49,16 @@ public class RedTower extends GamePiece {
 		route.clear();
 		gEngine.activeRoutes.add(route);
 		route.mode=Route.CHASE_MODE;
+		
+		//build selected indicator
+		selectedP = LevelLoader.selectedP;
+		pathEffects = new DashPathEffect[15];
+		for (int i = 0; i < pathEffects.length; i++)
+			pathEffects[i] = new DashPathEffect(new float[] { 10, 5 }, i);
+		
+		selectedP.setPathEffect(pathEffects[0]);
+		selectedPath = new Path();
+		selectedPath.addCircle(0, 0, .8f*radius, Path.Direction.CW);
 	}
 
 	@Override
@@ -62,5 +83,25 @@ public class RedTower extends GamePiece {
 		return true;
 	}
 	
-
+	@Override
+	public void draw(Canvas c, float xOffset) {
+		super.draw(c, xOffset);
+		if(selected){
+			phase++;
+			selectedP.setPathEffect(pathEffects[phase % pathEffects.length]);
+			selectedPath.offset(xc+xOffset, yc);
+			c.drawPath(selectedPath, selectedP);
+			selectedPath.offset(-(xc+xOffset), -yc);
+		}
+	}
+	@Override
+	public boolean reduceHealth(float damage) {
+		boolean result = super.reduceHealth(damage);
+		if(result){
+			selectedPath.rewind();
+			selectedPath.addCircle(0, 0, .8f*radius, Path.Direction.CW);	
+		}	
+		return result;
+	}
+	
 }
