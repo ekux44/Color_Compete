@@ -90,6 +90,10 @@ public class Route {
 				if(target!=null)
 					current = target;
 			}
+		}else{//movement failed, probably because of a collision
+			if(mode==PATROL_MODE)
+				foward = !foward;
+				current = foward ? current.next : current.previous;
 		}
 	}
 	
