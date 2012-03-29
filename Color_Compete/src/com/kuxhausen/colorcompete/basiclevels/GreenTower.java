@@ -15,7 +15,7 @@ import com.kuxhausen.colorcompete.Route;
 public class GreenTower extends GamePiece {
 
 	float speed = 3f;
-	private static final int COST = 200;
+	private static final int COST = 400;
 	private static final float RADIUS_HEALTH_RATIO = 2, HEALTH_COST_RATIO = 1f;
 
 	public GreenTower(float xCenter, float yCenter, GameEngine gEngine, Route route) {

@@ -14,6 +14,7 @@ import com.kuxhausen.colorcompete.Route;
  */
 public class RedTower extends GamePiece {
 
+	float speed = 1f;
 	private static final int COST = 300, spawnRate = 2, spawnPoolMax = 65;
 	private static final float RADIUS_HEALTH_RATIO = 2, firingRadius = 200f, HEALTH_COST_RATIO = .5f;
 	public static final float RED_RADIUS = 300;//cost * healthcost * radiushealth
@@ -54,7 +55,12 @@ public class RedTower extends GamePiece {
 			gEng.projectiles.add(new SimpleProjectile(xc, yc, gEng, nearestEnemy));
 			spawnPool -= SimpleProjectile.COST;
 		}
+		
+		// update location
+		r.moveAlongRoute(xc, yc, speed, this);
+		
 		return true;
 	}
+	
 
 }

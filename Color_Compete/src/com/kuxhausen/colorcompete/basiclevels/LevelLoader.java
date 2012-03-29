@@ -59,19 +59,19 @@ public class LevelLoader {
 		simpleProjectileP.setColor(Color.RED);
 
 		redRouteP = new Paint();
-		redRouteP.setColor(0xAFFF0000);
+		redRouteP.setColor(0x5FFF0000);
 		redRouteP.setPathEffect(new DashPathEffect(new float[] { 8, 5 }, 0));
 		redRouteP.setStyle(Paint.Style.STROKE);
 		redRouteP.setStrokeWidth(20);
 
 		greenRouteP = new Paint();
-		greenRouteP.setColor(0xAF00FF00);
+		greenRouteP.setColor(0x5F00FF00);
 		greenRouteP.setPathEffect(new DashPathEffect(new float[] { 8, 5 }, 0));
 		greenRouteP.setStyle(Paint.Style.STROKE);
 		greenRouteP.setStrokeWidth(20);
 
 		blueRouteP = new Paint();
-		blueRouteP.setColor(0xAF0000FF);
+		blueRouteP.setColor(0x5F0000FF);
 		blueRouteP.setPathEffect(new DashPathEffect(new float[] { 8, 5 }, 0));
 		blueRouteP.setStyle(Paint.Style.STROKE);
 		blueRouteP.setStrokeWidth(20);
