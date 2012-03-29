@@ -16,15 +16,24 @@
         android:layout_height="wrap_content"
         android:text="@string/text"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
-    <Button
-        android:id="@+id/nextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/next"/>
-    <Button
-        android:id="@+id/mainButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/main"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:gravity="center" android:layout_marginTop="20dp">
+
+        <Button
+            android:id="@+id/mainButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main" android:layout_margin="10dp" android:padding="25dp"/>
+
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next" android:layout_margin="10dp" android:padding="25dp"/>
+
+    </LinearLayout>
 
 </LinearLayout>  
