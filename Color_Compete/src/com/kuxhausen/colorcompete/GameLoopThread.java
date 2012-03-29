@@ -32,7 +32,7 @@ public class GameLoopThread extends Thread {
 	private long FPS_intervalStartTime;
 	private int FPS_framesCounted = 0; // number of frames since was this
 										// tracking interval started
-	private final static int FPS_framesPerInterval = 10; // number of frames in each
+	private final static int FPS_framesPerInterval = 5; // number of frames in each
 	// FPS tracking interval
 	private int FPS = -1; // frames per second
 
