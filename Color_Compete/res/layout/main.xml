@@ -19,16 +19,17 @@
             android:layout_gravity="center_horizontal" >
 
             <Button
-                android:id="@+id/launchButton0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/launch0" />
-
-            <Button
                 android:id="@+id/launchButton1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/launch1" />
+
+            <Button
+                android:id="@+id/launchButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/launch2" />
+
         </TableRow>
 
         <TableRow
@@ -38,35 +39,17 @@
             android:layout_gravity="center_horizontal" >
 
             <Button
-                android:id="@+id/launchButton2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/launch2" />
-
-            <Button
                 android:id="@+id/launchButton3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/launch3" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" >
-
-            <Button
-                android:id="@+id/launchButton5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/launch5" />
 
             <Button
                 android:id="@+id/launchButton4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/launch4" />
+
         </TableRow>
     </TableLayout>
 

@@ -27,8 +27,6 @@ public class LaunchScreen extends Activity implements OnClickListener {
 		
 		setContentView(R.layout.main);
 
-		View LaunchButton0 = this.findViewById(R.id.launchButton0);
-		LaunchButton0.setOnClickListener(this);
 
 		View LaunchButton1 = this.findViewById(R.id.launchButton1);
 		LaunchButton1.setOnClickListener(this);
@@ -42,18 +40,14 @@ public class LaunchScreen extends Activity implements OnClickListener {
 		View LaunchButton4 = this.findViewById(R.id.launchButton4);
 		LaunchButton4.setOnClickListener(this);
 
-		View LaunchButton5 = this.findViewById(R.id.launchButton5);
-		LaunchButton5.setOnClickListener(this);
+
 	}
 
 	@Override
 	public void onClick(View v) {
 		Intent singlePlayerGame = new Intent(this, GameActivity.class);
 		switch (v.getId()) {
-		case R.id.launchButton0:
-			singlePlayerGame.putExtra("level", 0);
-			startActivity(singlePlayerGame);
-			break;
+
 		case R.id.launchButton1:
 			singlePlayerGame.putExtra("level", 1);
 			startActivity(singlePlayerGame);
@@ -72,10 +66,6 @@ public class LaunchScreen extends Activity implements OnClickListener {
 			startActivity(singlePlayerGame);
 			break;
 
-		case R.id.launchButton5:
-			singlePlayerGame.putExtra("level", 5);
-			startActivity(singlePlayerGame);
-			break;
 		}
 	}
 }

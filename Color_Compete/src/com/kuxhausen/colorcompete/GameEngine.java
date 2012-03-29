@@ -101,6 +101,7 @@ public class GameEngine {
 		activeRoutes = new ArrayList<Route>();
 
 		load = new LevelLoader();
+		load.prepBoards(level,gEngine);
 		spawns = LevelLoader.loadSpawners(level, gEngine);
 		enemyBase = LevelLoader.loadEnemySpawner(level, gEngine);
 
@@ -147,7 +148,10 @@ public class GameEngine {
 			}
 			//check if a red tower on the board was newly interacted with
 			else if(!fingerOnBoard&&towerMap.getNearest(e.getX() + cameraOffset, e.getY(), 25/*TODO change*/) instanceof RedTower){
-				draggingTower = (RedTower) towerMap.getNearest(e.getX() + cameraOffset, e.getY(), 25/*TODO change*/);
+				if(draggingTower == null)
+					draggingTower = (RedTower) towerMap.getNearest(e.getX() + cameraOffset, e.getY(), 25/*TODO change*/);
+				else
+					draggingTower = null;
 			}
 			// otherwise
 			else if (spawns[selectedSpawner].canSpawn()

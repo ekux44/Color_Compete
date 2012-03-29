@@ -77,42 +77,64 @@ public class LevelLoader {
 		blueRouteP.setStrokeWidth(20);
 	}
 
+	public void prepBoards(int level, GameEngine gEng) {
+		switch (level) {
+		case 1:
+			RedTower starter = new RedTower(gEng.width/2,gEng.height/2, gEng, new Route(redRouteP));
+			gEng.towers.add(starter);
+			gEng.towerMap.register(starter);
+			break;
+		default:
+			return;
+		}
+	}
+
 	public static float loadCameraVelocity(int level, GameEngine gEng) {
 		switch (level) {
-		case 4:
-			return .2f;
-		case 5:
-			return -.1f;
 		}
 		return 0f;
 	}
 
 	/** returns the appropriately configured EnemySpawner for that level */
 	public static EnemySpawner loadEnemySpawner(int level, GameEngine gEng) {
-		Class<?>[] enemeyTypes = new Class[5];
+		Class<?>[] enemyTypes = new Class[5];
 
 		try {
-			enemeyTypes[0] = SmallEnemy.class;
-			enemeyTypes[1] = MediumEnemy.class;
-			enemeyTypes[2] = LargeEnemy.class;
-			enemeyTypes[3] = RedEnemy.class;
-			enemeyTypes[4] = RedEnemy.class;
+			enemyTypes[0] = SmallEnemy.class;
+			enemyTypes[1] = MediumEnemy.class;
+			enemyTypes[2] = LargeEnemy.class;
+			enemyTypes[3] = RedEnemy.class;
+			enemyTypes[4] = GreenEnemy.class;
 		} catch (LinkageError e) {
 		}
-		float[] probabilities = { .5f, .7f, .8f, .9f, 1f };// cumulative mass function
-		EnemySpawner enemy = new EnemySpawner(gEng, enemeyTypes, probabilities, 10000, 2, 1000);
+		float[] probabilities = { .5f, .65f, .75f, .9f, 1f };// cumulative mass function
+		EnemySpawner enemy = null;
+		Class<?>[] enemies;
 		switch (level) {
-		case 0:
-			enemy = new EnemySpawner(gEng, enemeyTypes, probabilities, 100000, 1, 100000); break;
-		case 1:
+		case 1: 
+			enemies = new Class[2];
+			enemies[0] = enemyTypes[0];
+			enemies[1] = enemyTypes[1];
+			float[] probs = {.75f,1f};
+			enemy = new EnemySpawner(gEng, enemies, probs, 5000, 1, 4000); 
 			break;
 		case 2:
+			enemies = new Class[3];
+			enemies[0] = enemyTypes[0];
+			enemies[1] = enemyTypes[1];
+			enemies[2] = enemyTypes[2];
+			float[] probs2 = {.75f,.9f,1f};
+			enemy = new EnemySpawner(gEng, enemies, probs2, 10000, 1, 1000); 
 			break;
-		case 4:
+		case 3:
+			enemies = new Class[3];
+			enemies[0] = enemyTypes[0];
+			enemies[1] = enemyTypes[1];
+			enemies[2] = enemyTypes[2];
+			float[] probs3 = {.75f,.9f,1f};
+			enemy = new EnemySpawner(gEng, enemies, probs3, 20000, 2, 1000); 
 			break;
-		case 5:
-			break;
-		default:
+		default: enemy = new EnemySpawner(gEng, enemyTypes, probabilities, 100000, 2, 2000);
 		}
 		return enemy;
 	}
@@ -123,21 +145,22 @@ public class LevelLoader {
 		switch (level) {
 		case 1:
 			spawns = new ResourceSpawner[1];
-			spawns[0] = getBlue(gEng, 3, 200, 400);
+			spawns[0] = getRed(gEng, 0, 200, 0);
 			break;
 		case 2:
 			spawns = new ResourceSpawner[1];
-			spawns[0] = getRed(gEng, 1, 300, 600);
+			spawns[0] = getRed(gEng, 2, 500, 1000);
 			break;
 		case 3:
-			spawns = new ResourceSpawner[1];
-			spawns[0] = getGreen(gEng, 2, 200, 200);
+			spawns = new ResourceSpawner[2];
+			spawns[0] = getRed(gEng, 1, 500, 200);
+			spawns[1] = getGreen(gEng, 2, 300, 600);
 			break;
 		default:
 			spawns = new ResourceSpawner[3];
-			spawns[0] = getBlue(gEng, 1, 200, 500);
-			spawns[1] = getRed(gEng, 1, 250, 500);
-			spawns[2] = getGreen(gEng, 2, 200, 500);
+			spawns[0] = getBlue(gEng, 1, 500, 500);
+			spawns[1] = getRed(gEng, 1, 500, 500);
+			spawns[2] = getGreen(gEng, 1, 500, 500);
 
 		}
 		return spawns;
