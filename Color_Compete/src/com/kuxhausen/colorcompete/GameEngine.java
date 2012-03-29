@@ -49,7 +49,7 @@ public class GameEngine {
 	int level;
 	LevelLoader load;
 	public ResourceSpawner[] spawns;
-	private int selectedSpawner = 0;
+	private int selectedSpawner = -1;//
 	public EnemySpawner enemyBase;
 	public ArrayList<GamePiece> towers, enemies, projectiles;
 	public GameBoard towerMap, enemyMap, projectileMap;
@@ -120,7 +120,7 @@ public class GameEngine {
 		selectedPath.lineTo(5, 5 + (height - 10) / spawns.length);
 		selectedPath.lineTo(5, 5);
 
-		inProgress = spawns[selectedSpawner].spawnRoute();
+		inProgress = new Route(enemyP);//spawns[selectedSpawner].spawnRoute();
 
 	}
 
@@ -131,12 +131,14 @@ public class GameEngine {
 				return;
 			// update spawner selection if touch was in that area
 			if (e.getHistorySize() > 0 && e.getHistoricalX(0) < (width * RIGHT_EDGE_OF_SPAWNER_FACTOR)) {
-				selectedPath.offset(0, -selectedSpawner * (height - 10) / spawns.length);
+				if(selectedSpawner>0)
+					selectedPath.offset(0, -selectedSpawner * (height - 10) / spawns.length);
 				selectedSpawner = whichResourceSpawner(e.getHistoricalY(0));
 				selectedPath.offset(0, selectedSpawner * (height - 10) / spawns.length);
 				inProgress = spawns[selectedSpawner].spawnRoute();
 			} else if (e.getAction() == MotionEvent.ACTION_DOWN && e.getX() < (width * RIGHT_EDGE_OF_SPAWNER_FACTOR)) {
-				selectedPath.offset(0, -selectedSpawner * (height - 10) / spawns.length);
+				if(selectedSpawner>0)
+					selectedPath.offset(0, -selectedSpawner * (height - 10) / spawns.length);
 				selectedSpawner = whichResourceSpawner(e.getY());
 				selectedPath.offset(0, selectedSpawner * (height - 10) / spawns.length);
 				inProgress = spawns[selectedSpawner].spawnRoute();
@@ -148,13 +150,11 @@ public class GameEngine {
 			}
 			//check if a red tower on the board was newly interacted with
 			else if(!fingerOnBoard&&towerMap.getNearest(e.getX() + cameraOffset, e.getY(), 25/*TODO change*/) instanceof RedTower){
-				if(draggingTower == null)
-					draggingTower = (RedTower) towerMap.getNearest(e.getX() + cameraOffset, e.getY(), 25/*TODO change*/);
-				else
-					draggingTower = null;
+				draggingTower = (RedTower) towerMap.getNearest(e.getX() + cameraOffset, e.getY(), 25/*TODO change*/);
+				selectedSpawner = -1;
 			}
 			// otherwise
-			else if (spawns[selectedSpawner].canSpawn()
+			else if (selectedSpawner>-1 && spawns[selectedSpawner].canSpawn()
 					&& (width * RIGHT_EDGE_OF_SPAWNER_FACTOR < e.getX() && e.getX() < width
 							* LEFT_EDGE_OF_ENEMY_SPAWNER_FACTOR) && !towerMap.conflicts(e.getX() + cameraOffset, e.getY(), 25/*TODO change*/, null)) {
 				if (e.getAction() == MotionEvent.ACTION_UP) {
@@ -232,21 +232,23 @@ public class GameEngine {
 			prj.draw(c, -cameraOffset);
 
 		// finger tracking hover
-		if (fingerOnBoard)
+		if (fingerOnBoard && selectedSpawner>-1)
 			spawns[selectedSpawner].drawTouch(c, tx, ty);
 
 		// user interface & resource spawns
 		c.drawRect(0, 0, maxX * RIGHT_EDGE_OF_SPAWNER_FACTOR, maxY, userInterfaceP);
+		
 		for (int i = 0; i < spawns.length; i++)
 			spawns[i].draw(c, backgroundP, enemyP, 10, i * maxY / spawns.length + (5 + (i == 0 ? 5 : 0)), maxX
 					* RIGHT_EDGE_OF_SPAWNER_FACTOR - 10, (1 + i) * maxY / spawns.length
 					- (5 + (i == (spawns.length - 1) ? 5 : 0)));
 
 		// resource spawn selected indicator
-		phase++;
-		pathPaint.setPathEffect(pathEffects[phase % pathEffects.length]);
-		c.drawPath(selectedPath, pathPaint);
-
+		if(selectedSpawner>-1){
+			phase++;
+			pathPaint.setPathEffect(pathEffects[phase % pathEffects.length]);
+			c.drawPath(selectedPath, pathPaint);
+		}
 		// draw FPS counter
 		c.drawText("FPS:" + FPS, c.getWidth() - 180, 40, textP);
 	}
