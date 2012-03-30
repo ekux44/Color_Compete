@@ -10,7 +10,7 @@ import com.kuxhausen.colorcompete.GamePiece;
 /**
  * (c) 2012 Eric Kuxhausen
  * <p>
- * Medium sized enemy that chargers at player spanners
+ * Medium sized enemy that rapidly chargers at player spanners
  * 
  * @author Eric Kuxhausen
  */

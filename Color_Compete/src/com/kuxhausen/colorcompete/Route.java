@@ -4,6 +4,13 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 
+/**
+ * (c) 2012 Eric Kuxhausen
+ * <p>
+ * Stores a List of connected Pair objects each representing a point on the route
+ * 
+ * @author Eric Kuxhausen
+ */
 public class Route {
 
 	private Pair first, last, current;
