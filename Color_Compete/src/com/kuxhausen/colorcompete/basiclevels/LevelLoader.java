@@ -78,7 +78,7 @@ public class LevelLoader {
 
 		selectedP = new Paint();
 		selectedP.setColor(Color.WHITE);
-
+		selectedP.setStrokeWidth(5);
 		selectedP.setStyle(Paint.Style.STROKE);
 	}
 

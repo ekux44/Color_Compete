@@ -106,6 +106,7 @@ public class GameEngine {
 		pathPaint = new Paint();
 		pathPaint.setColor(Color.WHITE);
 		pathPaint.setPathEffect(pathEffects[0]);
+		pathPaint.setStrokeWidth(5);
 		pathPaint.setStyle(Paint.Style.STROKE);
 		selectedPath = new Path();
 		selectedPath.moveTo(5, 5);
