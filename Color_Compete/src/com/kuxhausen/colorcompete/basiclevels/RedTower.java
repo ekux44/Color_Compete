@@ -19,16 +19,15 @@ import com.kuxhausen.colorcompete.Route;
  */
 public class RedTower extends GamePiece {
 
-	float speed = 1f;
+	float speed = 2f;
 	private static final int COST = 500, spawnRate = 2, spawnPoolMax = 65;
 	private static final float RADIUS_HEALTH_RATIO = 2, firingRadius = 200f, HEALTH_COST_RATIO = .5f;
-	public static final float RED_RADIUS = 300;// cost * healthcost * radiushealth
 	private int spawnPool = 200;
 	public boolean selected;
-	Paint selectedP;
-	Path selectedPath;
-	DashPathEffect[] pathEffects;
-	int phase;
+	private Paint selectedP;
+	private Path selectedPath;
+	private DashPathEffect[] pathEffects;
+	private int phase;
 
 	public RedTower(float xCenter, float yCenter, GameEngine gEngine, Route route) {
 		p = LevelLoader.redTowerP;
@@ -55,7 +54,7 @@ public class RedTower extends GamePiece {
 
 		selectedP.setPathEffect(pathEffects[0]);
 		selectedPath = new Path();
-		selectedPath.addCircle(0, 0, .8f * radius, Path.Direction.CW);
+		selectedPath.addCircle(0, 0, .75f * radius, Path.Direction.CW);
 
 	}
 
@@ -98,7 +97,7 @@ public class RedTower extends GamePiece {
 		boolean result = super.reduceHealth(damage);
 		if (result) {
 			selectedPath.rewind();
-			selectedPath.addCircle(0, 0, .8f * radius, Path.Direction.CW);
+			selectedPath.addCircle(0, 0, .75f * radius, Path.Direction.CW);
 		}
 		return result;
 	}
