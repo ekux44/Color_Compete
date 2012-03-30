@@ -65,6 +65,19 @@
 
         </TableRow>
 
+        <TableRow
+            android:id="@+id/tableRow5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/launchButton5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/launch5" />
+
+        </TableRow>
+        
     </TableLayout>
 
 </LinearLayout>

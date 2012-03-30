@@ -87,6 +87,12 @@ public class LevelLoader {
 		case 1:
 			new RedTower(gEng.width / 2, gEng.height / 2, gEng, new Route(redRouteP));
 			break;
+		case 3:
+			Route rt = new Route(greenRouteP);
+			rt.addPoint(gEng.width / 2, gEng.height / 2 + 50);
+			rt.addPoint(gEng.width / 2, gEng.height / 2 - 50);
+			new GreenTower(gEng.width / 2, gEng.height / 2, gEng, rt);
+			break;
 		default:
 			return;
 		}
@@ -130,12 +136,19 @@ public class LevelLoader {
 			enemy = new EnemySpawner(gEng, enemies, probs2, 10000, 1, 1000);
 			break;
 		case 3:
+			enemies = new Class[2];
+			enemies[0] = enemyTypes[0];
+			enemies[1] = enemyTypes[1];
+			float[] probs3 = { .75f, 1f };
+			enemy = new EnemySpawner(gEng, enemies, probs3, 5000, 1, 4000);
+			break;
+		case 4:
 			enemies = new Class[3];
 			enemies[0] = enemyTypes[0];
 			enemies[1] = enemyTypes[1];
 			enemies[2] = enemyTypes[2];
-			float[] probs3 = { .75f, .9f, 1f };
-			enemy = new EnemySpawner(gEng, enemies, probs3, 20000, 2, 1000);
+			float[] probs4 = { .75f, .9f, 1f };
+			enemy = new EnemySpawner(gEng, enemies, probs4, 20000, 2, 1000);
 			break;
 		default:
 			enemy = new EnemySpawner(gEng, enemyTypes, probabilities, 100000, 2, 2000);
@@ -156,6 +169,10 @@ public class LevelLoader {
 			spawns[0] = getRed(gEng, 2, 500, 1000);
 			break;
 		case 3:
+			spawns = new ResourceSpawner[1];
+			spawns[0] = getGreen(gEng, 2, 500, 1000);
+			break;
+		case 4:
 			spawns = new ResourceSpawner[2];
 			spawns[0] = getRed(gEng, 1, 500, 200);
 			spawns[1] = getGreen(gEng, 2, 300, 600);

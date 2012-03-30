@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Color_Compete</string>
-	
+    <string name="app_name">Color Compete : Concept</string>
 	<string name="launch1">Introduction</string>
-	<string name="launch2">Red Level</string>	
-	<string name="launch3">Red and Green</string><string name="launch4">Everything</string>
+	<string name="launch2">Red</string>
+	<string name="launch3">Green</string>	
+	<string name="launch4">Red &#038; Green</string>
+	<string name="launch5">Everything</string>
 	<string name="text">This should not be visible</string>
 	<string name="next">Next Level!</string>
 	<string name="main">Main Menu</string>
