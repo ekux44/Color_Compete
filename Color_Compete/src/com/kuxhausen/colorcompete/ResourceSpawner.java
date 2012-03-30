@@ -51,12 +51,14 @@ public abstract class ResourceSpawner {
 		c.drawRect(startX, startY, stopX, stopY, backgroundP);
 		c.drawRect(startX, startY + incrementY * (10 - fill / 100), stopX, stopY, drawingP);
 		if (fill != 0)
-			c.drawRect(startX, startY + incrementY * (9 - fill / 100), startX + incrementX
-					* ((fill % 100) / Math.max(1,respawnRate)), startY + incrementY * (10 - fill / 100), drawingP);
+			c.drawRect(startX, startY + incrementY * (9 - fill / 100),
+					startX + incrementX * ((fill % 100) / Math.max(1, respawnRate)), startY + incrementY
+							* (10 - fill / 100), drawingP);
 		c.drawRect(startX, startY, stopX, startY + incrementY * (damage / 100), enemyP);
 		if (damage != 0)
-			c.drawRect(stopX, startY + incrementY * (1 + damage / 100), stopX - incrementX
-					* ((damage % 100) / Math.max(1,respawnRate)), startY + incrementY * (damage / 100), enemyP);
+			c.drawRect(stopX, startY + incrementY * (1 + damage / 100),
+					stopX - incrementX * ((damage % 100) / Math.max(1, respawnRate)), startY + incrementY
+							* (damage / 100), enemyP);
 	}
 
 	public void drawTouch(Canvas c, float tX, float tY) {

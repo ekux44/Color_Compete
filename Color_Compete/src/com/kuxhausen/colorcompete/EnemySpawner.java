@@ -71,8 +71,8 @@ public class EnemySpawner {
 			if (maybeSpawn > nextCost) {
 				try {
 
-					gEng.enemies.add((GamePiece) nextType.getConstructor(float.class, float.class, GameEngine.class)
-							.newInstance(gEng.width + gEng.cameraOffset, r.nextInt(gEng.height), gEng));
+					nextType.getConstructor(float.class, float.class, GameEngine.class).newInstance(
+							gEng.width + gEng.cameraOffset, r.nextInt(gEng.height), gEng);
 					maybeSpawn -= nextCost;
 					pendingSpawnUnits -= nextCost;
 				} catch (Exception e) {

@@ -1,7 +1,5 @@
 package com.kuxhausen.colorcompete;
 
-import java.util.ArrayList;
-
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
@@ -21,7 +19,7 @@ public abstract class GamePiece {
 	protected int cost;
 	protected Paint p;
 	protected Route r;
-	
+
 	/** @return true if still alive */
 	public abstract boolean update();
 

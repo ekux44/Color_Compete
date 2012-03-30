@@ -30,10 +30,10 @@ public class GreenTower extends GamePiece {
 		gb.register(this);
 		health = COST * HEALTH_COST_RATIO;
 		radius = radiusHealthRatio * (float) Math.sqrt(health);
-		
-		//register route
+
+		// register route
 		gEngine.activeRoutes.add(route);
-		route.mode=Route.PATROL_MODE;
+		route.mode = Route.PATROL_MODE;
 		route.moveToEnd();
 	}
 
@@ -57,8 +57,7 @@ public class GreenTower extends GamePiece {
 			if (this.reduceHealth(damage))
 				return false;
 		}
-		
-		
+
 		// update location
 		r.moveAlongRoute(xc, yc, speed, this);
 

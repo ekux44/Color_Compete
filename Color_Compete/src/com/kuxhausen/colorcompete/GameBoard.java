@@ -13,43 +13,39 @@ import java.util.ArrayList;
 public class GameBoard {
 
 	// may switch data structures in the future, need to minimize cost of interacting with neighbors
-	private ArrayList<GamePiece> all; 
-	//ArrayList<GamePiece> neighbors;
+	private ArrayList<GamePiece> all;
+	// ArrayList<GamePiece> neighbors;
 	float xOffset, xSpan, ySpan;
 	final static int xTiles = 4, yTiles = 4;
 	private static float ACCEPTABLE_NEARNESS = .8f;
-	
-
 
 	public GameBoard(float xMin, float xMax, float y) {
 		xOffset = xMin;
 		xSpan = xMax - xMin;
 		ySpan = y;
-		//neighbors = new ArrayList<GamePiece>();
+		// neighbors = new ArrayList<GamePiece>();
 		all = new ArrayList<GamePiece>();
 	}
 
-	public boolean conflicts(float x, float y, float radius, GamePiece gp)
-	{
-		GamePiece near = getNearestNeighbor(x,y, gp);
-		if(near!=null && distanceBetween(x,y,near.xc,near.yc) < ACCEPTABLE_NEARNESS*(radius+near.radius))
+	public boolean conflicts(float x, float y, float radius, GamePiece gp) {
+		GamePiece near = getNearestNeighbor(x, y, gp);
+		if (near != null && distanceBetween(x, y, near.xc, near.yc) < ACCEPTABLE_NEARNESS * (radius + near.radius))
 			return true;
 		return false;
 	}
-	
+
 	public boolean move(GamePiece gp, float dx, float dy) {
-		//if(!conflicts(gp.xc+dx, gp.yc+dy, gp.radius, gp))
-		{	
+		// if(!conflicts(gp.xc+dx, gp.yc+dy, gp.radius, gp))
+		{
 			gp.xc += dx;
 			gp.yc += dy;
 			return true;
 		}
-		//return false;
+		// return false;
 	}
-	
+
 	public boolean move(GamePiece gp, Pair delta) {
-		if(!conflicts(gp.xc+delta.x, gp.yc+delta.y, gp.radius, gp))
-		{	
+		if (!conflicts(gp.xc + delta.x, gp.yc + delta.y, gp.radius, gp)) {
 			gp.xc += delta.x;
 			gp.yc += delta.y;
 			return true;
@@ -72,34 +68,38 @@ public class GameBoard {
 		return all;
 	}
 
-	/** @param exclude
+	/**
+	 * @param exclude
 	 *            the gamepice to search around; it will be excluded from the considered pieces
 	 */
 	public GamePiece getNearestNeighbor(float x, float y, float maxRadius, GamePiece exclude) {
 		GamePiece nearest = null;
 		float nearness = maxRadius;
 		for (int i = 0; i < all.size(); i++) {
-			/*if (all.get(i)!=exclude && i == 0) {
-				nearest = all.get(i);
-				nearness = distanceBetween(nearest.xc, nearest.yc, x, y) - nearest.radius;
-			} else*/ if (all.get(i)!=exclude && (distanceBetween(all.get(i).xc, all.get(i).yc, x, y) - all.get(i).radius) <= nearness) {
+			/*
+			 * if (all.get(i)!=exclude && i == 0) { nearest = all.get(i); nearness = distanceBetween(nearest.xc,
+			 * nearest.yc, x, y) - nearest.radius; } else
+			 */if (all.get(i) != exclude
+					&& (distanceBetween(all.get(i).xc, all.get(i).yc, x, y) - all.get(i).radius) <= nearness) {
 				nearest = all.get(i);
 				nearness = distanceBetween(nearest.xc, nearest.yc, x, y) - nearest.radius;
 			}
 		}
 		return nearest;
 	}
-	
+
 	public GamePiece getNearestNeighbor(float x, float y, GamePiece exclude) {
-		return getNearestNeighbor(x,y,Float.MAX_VALUE, exclude);
+		return getNearestNeighbor(x, y, Float.MAX_VALUE, exclude);
 	}
+
 	public GamePiece getNearest(float x, float y, float maxRadius) {
-		return getNearestNeighbor(x,y,maxRadius, null);
+		return getNearestNeighbor(x, y, maxRadius, null);
 	}
+
 	public GamePiece getNearest(float x, float y) {
-		return getNearestNeighbor(x,y,Float.MAX_VALUE, null);
+		return getNearestNeighbor(x, y, Float.MAX_VALUE, null);
 	}
-	
+
 	/** performs simple calculation of geometric distance between two points */
 	public static float distanceBetween(float x1, float y1, float x2, float y2) {
 		return (float) Math.sqrt(((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2)));
@@ -108,11 +108,12 @@ public class GameBoard {
 	public ArrayList<GamePiece> getAll() {
 		return all;
 	}
-	
+
 	public void unregister(GamePiece thing) {
 		all.remove(thing);
 
 	}
+
 	public void register(GamePiece thing) {
 		all.add(thing);
 

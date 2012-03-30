@@ -75,7 +75,7 @@ public class LevelLoader {
 		blueRouteP.setPathEffect(new DashPathEffect(new float[] { 8, 5 }, 0));
 		blueRouteP.setStyle(Paint.Style.STROKE);
 		blueRouteP.setStrokeWidth(20);
-		
+
 		selectedP = new Paint();
 		selectedP.setColor(Color.WHITE);
 
@@ -85,7 +85,7 @@ public class LevelLoader {
 	public void prepBoards(int level, GameEngine gEng) {
 		switch (level) {
 		case 1:
-			new RedTower(gEng.width/2,gEng.height/2, gEng, new Route(redRouteP));
+			new RedTower(gEng.width / 2, gEng.height / 2, gEng, new Route(redRouteP));
 			break;
 		default:
 			return;
@@ -114,30 +114,31 @@ public class LevelLoader {
 		EnemySpawner enemy = null;
 		Class<?>[] enemies;
 		switch (level) {
-		case 1: 
+		case 1:
 			enemies = new Class[2];
 			enemies[0] = enemyTypes[0];
 			enemies[1] = enemyTypes[1];
-			float[] probs = {.75f,1f};
-			enemy = new EnemySpawner(gEng, enemies, probs, 5000, 1, 4000); 
+			float[] probs = { .75f, 1f };
+			enemy = new EnemySpawner(gEng, enemies, probs, 5000, 1, 4000);
 			break;
 		case 2:
 			enemies = new Class[3];
 			enemies[0] = enemyTypes[0];
 			enemies[1] = enemyTypes[1];
 			enemies[2] = enemyTypes[2];
-			float[] probs2 = {.75f,.9f,1f};
-			enemy = new EnemySpawner(gEng, enemies, probs2, 10000, 1, 1000); 
+			float[] probs2 = { .75f, .9f, 1f };
+			enemy = new EnemySpawner(gEng, enemies, probs2, 10000, 1, 1000);
 			break;
 		case 3:
 			enemies = new Class[3];
 			enemies[0] = enemyTypes[0];
 			enemies[1] = enemyTypes[1];
 			enemies[2] = enemyTypes[2];
-			float[] probs3 = {.75f,.9f,1f};
-			enemy = new EnemySpawner(gEng, enemies, probs3, 20000, 2, 1000); 
+			float[] probs3 = { .75f, .9f, 1f };
+			enemy = new EnemySpawner(gEng, enemies, probs3, 20000, 2, 1000);
 			break;
-		default: enemy = new EnemySpawner(gEng, enemyTypes, probabilities, 100000, 2, 2000);
+		default:
+			enemy = new EnemySpawner(gEng, enemyTypes, probabilities, 100000, 2, 2000);
 		}
 		return enemy;
 	}
