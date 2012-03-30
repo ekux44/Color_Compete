@@ -12,7 +12,7 @@
         android:label="@string/app_name" >
         <activity
             android:name=".LaunchScreen"
-            android:label="@string/app_name" android:configChanges="keyboard|keyboardHidden|orientation" android:screenOrientation="landscape">
+            android:label="@string/app_name" android:configChanges="keyboard|keyboardHidden|orientation" android:screenOrientation="landscape" android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,7 +28,7 @@
         <activity android:name=".ResultsPage" 
             android:configChanges="keyboard|keyboardHidden|orientation" 
             android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"></activity>
     </application>
 
 </manifest>

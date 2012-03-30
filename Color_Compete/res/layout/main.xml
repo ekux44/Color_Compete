@@ -2,15 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" android:layout_gravity="center" android:gravity="center">
 
     <TableLayout
         android:id="@+id/tableLayout1"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp"
-        android:layout_weight="1" >
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:layout_weight="1" android:gravity="center" android:layout_height="0dp">
 
         <TableRow
             android:id="@+id/tableRow1"
@@ -24,12 +23,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/launch1" />
 
-            <Button
-                android:id="@+id/launchButton2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/launch2" />
-
         </TableRow>
 
         <TableRow
@@ -39,10 +32,30 @@
             android:layout_gravity="center_horizontal" >
 
             <Button
+                android:id="@+id/launchButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/launch2" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
                 android:id="@+id/launchButton3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/launch3" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
 
             <Button
                 android:id="@+id/launchButton4"
@@ -51,6 +64,7 @@
                 android:text="@string/launch4" />
 
         </TableRow>
+
     </TableLayout>
 
 </LinearLayout>
