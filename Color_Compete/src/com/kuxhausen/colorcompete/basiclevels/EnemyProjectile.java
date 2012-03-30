@@ -26,7 +26,6 @@ public class EnemyProjectile extends GamePiece {
 		yc = yCenter;
 		gEng = gEngine;
 		gb = gEng.projectileMap;
-		gList = gEng.projectiles;
 		gb.register(this);
 		health = COST * HEALTH_COST_RATIO;
 		radius = radiusHealthRatio * (float) Math.sqrt(health);

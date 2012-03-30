@@ -30,7 +30,6 @@ public class RedEnemy extends GamePiece {
 		yc = yCenter;
 		gEng = gEngine;
 		gb = gEng.enemyMap;
-		gList = gEng.enemies;
 		gb.register(this);
 		health = COST * HEALTH_COST_RATIO;
 		radius = radiusHealthRatio * (float) Math.sqrt(health);
@@ -53,7 +52,7 @@ public class RedEnemy extends GamePiece {
 				&& spawnPool >= EnemyProjectile.COST
 				&& (nearestTower.radius + firingRadius) > GameBoard.distanceBetween(xc, yc, nearestTower.xc,
 						nearestTower.yc)) {
-			gEng.projectiles.add(new EnemyProjectile(xc, yc, gEng, nearestTower));
+			new EnemyProjectile(xc, yc, gEng, nearestTower);
 			spawnPool -= EnemyProjectile.COST;
 		}
 

@@ -17,12 +17,11 @@ public abstract class GamePiece {
 	public float xc, yc, radius;
 	protected GameBoard gb;
 	protected GameEngine gEng;
-	protected ArrayList<GamePiece> gList;
 	protected float health, radiusHealthRatio;
 	protected int cost;
 	protected Paint p;
 	protected Route r;
-
+	
 	/** @return true if still alive */
 	public abstract boolean update();
 
@@ -33,7 +32,6 @@ public abstract class GamePiece {
 	public void die() {
 		health = 0;
 		gb.unregister(this);
-		gList.remove(this);
 		gEng.activeRoutes.remove(r);
 	}
 

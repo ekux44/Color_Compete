@@ -51,7 +51,6 @@ public class GameEngine {
 	public ResourceSpawner[] spawns;
 	private int selectedSpawner = -1;//
 	public EnemySpawner enemyBase;
-	public ArrayList<GamePiece> towers, enemies, projectiles;
 	public GameBoard towerMap, enemyMap, projectileMap;
 	public ArrayList<Route> activeRoutes;
 	public GameEngine gEngine = this;
@@ -92,9 +91,6 @@ public class GameEngine {
 
 		/* GameState */
 		gView = g;
-		towers = new ArrayList<GamePiece>();
-		enemies = new ArrayList<GamePiece>();
-		projectiles = new ArrayList<GamePiece>();
 		towerMap = new GameBoard(width * RIGHT_EDGE_OF_SPAWNER_FACTOR, width, height);
 		enemyMap = new GameBoard(width * RIGHT_EDGE_OF_SPAWNER_FACTOR, width, height);
 		projectileMap = new GameBoard(width * RIGHT_EDGE_OF_SPAWNER_FACTOR, width, height);
@@ -160,7 +156,7 @@ public class GameEngine {
 					&& (width * RIGHT_EDGE_OF_SPAWNER_FACTOR < e.getX() && e.getX() < width
 							* LEFT_EDGE_OF_ENEMY_SPAWNER_FACTOR) && !towerMap.conflicts(e.getX() + cameraOffset, e.getY(), 25/*TODO change*/, null)) {
 				if (e.getAction() == MotionEvent.ACTION_UP) {
-					towers.add(spawns[selectedSpawner].spawnResource(e.getX() + cameraOffset, e.getY(), inProgress));
+					spawns[selectedSpawner].spawnResource(e.getX() + cameraOffset, e.getY(), inProgress);
 					inProgress = spawns[selectedSpawner].spawnRoute();
 					fingerOnBoard = false;
 					selectedSpawner = -1;
@@ -191,21 +187,21 @@ public class GameEngine {
 			rs.update();
 		}
 		enemyBase.update();
-		for (int i = 0; i < towers.size(); i++) {
+		for (int i = 0; i < towerMap.getAll().size(); i++) {
 
-			if (!towers.get(i).update())
+			if (!towerMap.getAll().get(i).update())
 				i--;
 		}
-		for (int i = 0; i < enemies.size(); i++) {
-			if (!enemies.get(i).update())
+		for (int i = 0; i < enemyMap.getAll().size(); i++) {
+			if (!enemyMap.getAll().get(i).update())
 				i--;
 		}
-		for (int i = 0; i < projectiles.size(); i++) {
-			if (!projectiles.get(i).update())
+		for (int i = 0; i < projectileMap.getAll().size(); i++) {
+			if (!projectileMap.getAll().get(i).update())
 				i--;
 		}
 
-		if (enemyBase.spawnsRemaining <= 0 && enemies.size() <= 0) {
+		if (enemyBase.spawnsRemaining <= 0 && enemyMap.getAll().size() <= 0) {
 			gameEndDelayer++;
 			if (gameEndDelayer >= 90)
 				endGame(true);
@@ -229,11 +225,11 @@ public class GameEngine {
 
 		// GameBoard
 		enemyBase.draw(c);
-		for (GamePiece twr : towers)
+		for (GamePiece twr : towerMap.getAll())
 			twr.draw(c, -cameraOffset);
-		for (GamePiece enm : enemies)
+		for (GamePiece enm : enemyMap.getAll())
 			enm.draw(c, -cameraOffset);
-		for (GamePiece prj : projectiles)
+		for (GamePiece prj : projectileMap.getAll())
 			prj.draw(c, -cameraOffset);
 
 		// finger tracking hover

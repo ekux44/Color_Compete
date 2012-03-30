@@ -25,7 +25,6 @@ public class MediumEnemy extends GamePiece {
 		yc = yCenter;
 		gEng = gEngine;
 		gb = gEng.enemyMap;
-		gList = gEng.enemies;
 		gb.register(this);
 		health = COST * HEALTH_COST_RATIO;
 		radius = radiusHealthRatio * (float) Math.sqrt(health);

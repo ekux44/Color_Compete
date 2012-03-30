@@ -27,7 +27,6 @@ public class GreenTower extends GamePiece {
 		r = route;
 		gEng = gEngine;
 		gb = gEng.towerMap;
-		gList = gEng.towers;
 		gb.register(this);
 		health = COST * HEALTH_COST_RATIO;
 		radius = radiusHealthRatio * (float) Math.sqrt(health);

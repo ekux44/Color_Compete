@@ -32,7 +32,6 @@ public class RedTower extends GamePiece {
 	int phase;
 
 	public RedTower(float xCenter, float yCenter, GameEngine gEngine, Route route) {
-
 		p = LevelLoader.redTowerP;
 		radiusHealthRatio = RADIUS_HEALTH_RATIO;
 		xc = xCenter;
@@ -40,7 +39,6 @@ public class RedTower extends GamePiece {
 		r = route;
 		gEng = gEngine;
 		gb = gEng.towerMap;
-		gList = gEng.towers;
 		gb.register(this);
 		health = COST * HEALTH_COST_RATIO;
 		radius = radiusHealthRatio * (float) Math.sqrt(health);
@@ -59,6 +57,7 @@ public class RedTower extends GamePiece {
 		selectedP.setPathEffect(pathEffects[0]);
 		selectedPath = new Path();
 		selectedPath.addCircle(0, 0, .8f*radius, Path.Direction.CW);
+		
 	}
 
 	@Override
@@ -73,7 +72,7 @@ public class RedTower extends GamePiece {
 				&& spawnPool >= SimpleProjectile.COST
 				&& (nearestEnemy.radius + firingRadius) > GameBoard.distanceBetween(xc, yc, nearestEnemy.xc,
 						nearestEnemy.yc)) {
-			gEng.projectiles.add(new SimpleProjectile(xc, yc, gEng, nearestEnemy));
+			new SimpleProjectile(xc, yc, gEng, nearestEnemy);
 			spawnPool -= SimpleProjectile.COST;
 		}
 		

@@ -13,8 +13,8 @@ import java.util.ArrayList;
 public class GameBoard {
 
 	// may switch data structures in the future, need to minimize cost of interacting with neighbors
-	ArrayList<GamePiece> all; // temp
-	ArrayList<GamePiece> neighbors;
+	private ArrayList<GamePiece> all; 
+	//ArrayList<GamePiece> neighbors;
 	float xOffset, xSpan, ySpan;
 	final static int xTiles = 4, yTiles = 4;
 	private static float ACCEPTABLE_NEARNESS = .8f;
@@ -25,7 +25,7 @@ public class GameBoard {
 		xOffset = xMin;
 		xSpan = xMax - xMin;
 		ySpan = y;
-		neighbors = new ArrayList<GamePiece>();
+		//neighbors = new ArrayList<GamePiece>();
 		all = new ArrayList<GamePiece>();
 	}
 
@@ -105,6 +105,10 @@ public class GameBoard {
 		return (float) Math.sqrt(((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2)));
 	}
 
+	public ArrayList<GamePiece> getAll() {
+		return all;
+	}
+	
 	public void unregister(GamePiece thing) {
 		all.remove(thing);
 

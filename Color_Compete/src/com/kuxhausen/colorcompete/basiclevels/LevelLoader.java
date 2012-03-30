@@ -85,9 +85,7 @@ public class LevelLoader {
 	public void prepBoards(int level, GameEngine gEng) {
 		switch (level) {
 		case 1:
-			RedTower starter = new RedTower(gEng.width/2,gEng.height/2, gEng, new Route(redRouteP));
-			gEng.towers.add(starter);
-			gEng.towerMap.register(starter);
+			new RedTower(gEng.width/2,gEng.height/2, gEng, new Route(redRouteP));
 			break;
 		default:
 			return;
