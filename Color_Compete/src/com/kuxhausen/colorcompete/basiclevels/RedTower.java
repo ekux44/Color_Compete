@@ -8,6 +8,7 @@ import android.graphics.Path;
 import com.kuxhausen.colorcompete.GameBoard;
 import com.kuxhausen.colorcompete.GameEngine;
 import com.kuxhausen.colorcompete.GamePiece;
+import com.kuxhausen.colorcompete.ResourceSpawner;
 import com.kuxhausen.colorcompete.Route;
 
 /**
@@ -29,13 +30,11 @@ public class RedTower extends GamePiece {
 	private DashPathEffect[] pathEffects;
 	private int phase;
 
-	public RedTower(float xCenter, float yCenter, GameEngine gEngine, Route route) {
+	public RedTower(float xCenter, float yCenter, GameEngine gEngine, Route route, ResourceSpawner rspwn) {
+		super(xCenter,yCenter,gEngine,route,rspwn);
+		
 		p = LevelLoader.redTowerP;
 		radiusHealthRatio = RADIUS_HEALTH_RATIO;
-		xc = xCenter;
-		yc = yCenter;
-		r = route;
-		gEng = gEngine;
 		gb = gEng.towerMap;
 		gb.register(this);
 		health = COST * HEALTH_COST_RATIO;
@@ -55,7 +54,8 @@ public class RedTower extends GamePiece {
 		selectedP.setPathEffect(pathEffects[0]);
 		selectedPath = new Path();
 		selectedPath.addCircle(0, 0, .75f * radius, Path.Direction.CW);
-
+		
+		
 	}
 
 	@Override

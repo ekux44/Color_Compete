@@ -15,7 +15,8 @@ import android.graphics.Paint;
  */
 public class EnemySpawner {
 	Paint p;
-	int totalSpawns, spawnsRemaining, damage, spawnRate, pendingSpawnUnits, spawnAccelInterval, spawnAccelerationCount;
+	int totalSpawns, damage, spawnAccelInterval, spawnAccelerationCount;
+	float pendingSpawnUnits, spawnsRemaining, spawnRate;
 	Random r = new Random();
 	GameEngine gEng;
 	Class<?>[] enemyTypes;
@@ -23,7 +24,7 @@ public class EnemySpawner {
 	Class<?> nextType;
 	int nextCost;
 
-	public EnemySpawner(GameEngine gEngine, Class<?>[] enemies, float[] probWeights, int toSpawn, int rateToSpawn,
+	public EnemySpawner(GameEngine gEngine, Class<?>[] enemies, float[] probWeights, int toSpawn, float rateToSpawn,
 			int spawnAccelerationInterval) {
 		p = new Paint();
 		p.setShadowLayer(10, 0, 0, Color.GRAY);
@@ -33,6 +34,7 @@ public class EnemySpawner {
 		probabilities = probWeights;
 		totalSpawns = toSpawn;
 		spawnsRemaining = totalSpawns;
+		pendingSpawnUnits = 0f;
 		spawnRate = rateToSpawn;
 		spawnAccelInterval += spawnAccelerationInterval;
 		updateNext();
@@ -64,9 +66,34 @@ public class EnemySpawner {
 			if (spawnAccelerationCount >= spawnAccelInterval) {
 				spawnAccelerationCount = 0;
 				spawnRate += (10 * spawnRate) / 9;
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 			}
 
-			int maybeSpawn = r.nextInt(pendingSpawnUnits);
+			int maybeSpawn = r.nextInt((int)( .5f + pendingSpawnUnits));
 
 			if (maybeSpawn > nextCost) {
 				try {

@@ -18,12 +18,9 @@ public class MediumEnemy extends GamePiece {
 	private static final float RADIUS_HEALTH_RATIO = 2, HEALTH_COST_RATIO = .5f;
 
 	public MediumEnemy(float xCenter, float yCenter, GameEngine gEngine) {
-
+		super(xCenter,yCenter,gEngine,null,null);
 		p = LevelLoader.mediumEnemyP;
 		radiusHealthRatio = RADIUS_HEALTH_RATIO;
-		xc = xCenter;
-		yc = yCenter;
-		gEng = gEngine;
 		gb = gEng.enemyMap;
 		gb.register(this);
 		health = COST * HEALTH_COST_RATIO;

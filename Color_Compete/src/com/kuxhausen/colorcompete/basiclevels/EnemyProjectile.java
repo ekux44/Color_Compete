@@ -19,12 +19,10 @@ public class EnemyProjectile extends GamePiece {
 	GamePiece target;
 
 	public EnemyProjectile(float xCenter, float yCenter, GameEngine gEngine, GamePiece theTarget) {
-
+		super(xCenter,yCenter,gEngine,null,null);
+		
 		p = LevelLoader.enemyProjectileP;
 		radiusHealthRatio = RADIUS_HEALTH_RATIO;
-		xc = xCenter;
-		yc = yCenter;
-		gEng = gEngine;
 		gb = gEng.projectileMap;
 		gb.register(this);
 		health = COST * HEALTH_COST_RATIO;
@@ -63,4 +61,5 @@ public class EnemyProjectile extends GamePiece {
 
 		return true;
 	}
+
 }

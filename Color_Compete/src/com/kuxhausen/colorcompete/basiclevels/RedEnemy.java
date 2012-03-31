@@ -23,12 +23,9 @@ public class RedEnemy extends GamePiece {
 	Paint pInner;
 
 	public RedEnemy(float xCenter, float yCenter, GameEngine gEngine) {
-
+		super(xCenter,yCenter,gEngine,null,null);
 		p = LevelLoader.redEnemyP;
 		radiusHealthRatio = RADIUS_HEALTH_RATIO;
-		xc = xCenter;
-		yc = yCenter;
-		gEng = gEngine;
 		gb = gEng.enemyMap;
 		gb.register(this);
 		health = COST * HEALTH_COST_RATIO;

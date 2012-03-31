@@ -85,13 +85,13 @@ public class LevelLoader {
 	public void prepBoards(int level, GameEngine gEng) {
 		switch (level) {
 		case 1:
-			new RedTower(gEng.width / 2, gEng.height / 2, gEng, new Route(redRouteP));
+			new RedTower(gEng.width / 2, gEng.height / 2, gEng, new Route(redRouteP), null);
 			break;
 		case 3:
 			Route rt = new Route(greenRouteP);
 			rt.addPoint(gEng.width / 2, gEng.height / 2 + 50);
 			rt.addPoint(gEng.width / 2, gEng.height / 2 - 50);
-			new GreenTower(gEng.width / 2, gEng.height / 2, gEng, rt);
+			new GreenTower(gEng.width / 2, gEng.height / 2, gEng, rt, null);
 			break;
 		default:
 			return;
@@ -125,7 +125,7 @@ public class LevelLoader {
 			enemies[0] = enemyTypes[0];
 			enemies[1] = enemyTypes[1];
 			float[] probs = { .75f, 1f };
-			enemy = new EnemySpawner(gEng, enemies, probs, 5000, 1, 4000);
+			enemy = new EnemySpawner(gEng, enemies, probs, 3000, .5f, 2500);
 			break;
 		case 2:
 			enemies = new Class[3];
@@ -140,7 +140,7 @@ public class LevelLoader {
 			enemies[0] = enemyTypes[0];
 			enemies[1] = enemyTypes[1];
 			float[] probs3 = { .75f, 1f };
-			enemy = new EnemySpawner(gEng, enemies, probs3, 5000, 1, 4000);
+			enemy = new EnemySpawner(gEng, enemies, probs3, 3000, .5f, 2500);
 			break;
 		case 4:
 			enemies = new Class[3];
@@ -188,7 +188,7 @@ public class LevelLoader {
 	}
 
 	/** Returns a RedTower generating ResourceSpawner */
-	private static ResourceSpawner getRed(GameEngine gEng, int spawnRate, int spawnCost, int startingFill) {
+	private static ResourceSpawner getRed(GameEngine gEng, float spawnRate, int spawnCost, int startingFill) {
 		Paint ready = new Paint();
 		ready.setColor(Color.RED);
 		Paint charging = new Paint();
@@ -197,7 +197,8 @@ public class LevelLoader {
 			@Override
 			public GamePiece spawnResource(float x, float y, Route r) {
 				fill -= respawnCost;
-				return new RedTower(x, y, gEng, r);
+				numberSpawnedAndAlive++;
+				return new RedTower(x, y, gEng, r, this);
 			}
 
 			// TODO add firing radius visualization
@@ -213,7 +214,7 @@ public class LevelLoader {
 	}
 
 	/** Returns a GreenTower generating ResourceSpawner */
-	private static ResourceSpawner getGreen(GameEngine gEng, int spawnRate, int spawnCost, int startingFill) {
+	private static ResourceSpawner getGreen(GameEngine gEng, float spawnRate, int spawnCost, int startingFill) {
 		Paint ready = new Paint();
 		ready.setColor(Color.GREEN);
 		Paint charging = new Paint();
@@ -222,7 +223,8 @@ public class LevelLoader {
 			@Override
 			public GamePiece spawnResource(float x, float y, Route r) {
 				fill -= respawnCost;
-				return new GreenTower(x, y, gEng, r);
+				numberSpawnedAndAlive++;
+				return new GreenTower(x, y, gEng, r, this);
 			}
 
 			@Override
@@ -233,7 +235,7 @@ public class LevelLoader {
 	}
 
 	/** Returns a BlueTower generating ResourceSpawner */
-	private static ResourceSpawner getBlue(GameEngine gEng, int spawnRate, int spawnCost, int startingFill) {
+	private static ResourceSpawner getBlue(GameEngine gEng, float spawnRate, int spawnCost, int startingFill) {
 		Paint ready = new Paint();
 		ready.setColor(Color.BLUE);
 		Paint charging = new Paint();
@@ -242,7 +244,8 @@ public class LevelLoader {
 			@Override
 			public GamePiece spawnResource(float x, float y, Route r) {
 				fill -= respawnCost;
-				return new BlueTower(x, y, gEng, r);
+				numberSpawnedAndAlive++;
+				return new BlueTower(x, y, gEng, r, this);
 			}
 
 			@Override

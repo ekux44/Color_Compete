@@ -22,12 +22,10 @@ public class GreenEnemy extends GamePiece {
 	Paint pInner;
 
 	public GreenEnemy(float xCenter, float yCenter, GameEngine gEngine) {
-
+		super(xCenter,yCenter,gEngine,null,null);
+		
 		p = LevelLoader.greenEnemyP;
 		radiusHealthRatio = RADIUS_HEALTH_RATIO;
-		xc = xCenter;
-		yc = yCenter;
-		gEng = gEngine;
 		gb = gEng.enemyMap;
 		gb.register(this);
 		health = COST * HEALTH_COST_RATIO;
@@ -78,4 +76,5 @@ public class GreenEnemy extends GamePiece {
 		super.draw(c, xOffset);
 		c.drawCircle(xc + xOffset, yc, radius / 3, pInner);
 	}
+	
 }
