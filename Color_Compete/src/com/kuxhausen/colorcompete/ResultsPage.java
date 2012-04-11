@@ -55,6 +55,12 @@ public class ResultsPage extends Activity implements OnClickListener {
 	}
 
 	@Override
+	public void onBackPressed() {
+		Intent iMenu = new Intent(this, LaunchScreen.class);
+		startActivity(iMenu);	
+	}
+	
+	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.nextButton:
