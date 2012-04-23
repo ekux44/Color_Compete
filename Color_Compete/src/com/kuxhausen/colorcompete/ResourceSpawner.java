@@ -87,6 +87,11 @@ public abstract class ResourceSpawner {
 		numberSpawnedAndAlive--;
 	}
 	
+	public int remianingHealth(){
+		if(dead)
+			return 0;
+		return (int) fill;
+	}
 
 	/** any implementation should decrement fill by respawnCost and increment numberSpawnedAndAlive */
 	public abstract GamePiece spawnResource(float xCenter, float yCenter, Route r);

@@ -6,7 +6,8 @@
 	<string name="launch3">Green</string>	
 	<string name="launch4">Red &#038; Green</string>
 	<string name="launch5">Everything</string>
-	<string name="text">This should not be visible</string>
+	<string name="text">Filler text</string>
+	<string name="number">1337</string>
 	<string name="next">Next Level!</string>
 	<string name="main">Main Menu</string>
 </resources>

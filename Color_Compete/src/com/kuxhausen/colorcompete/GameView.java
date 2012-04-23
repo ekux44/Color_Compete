@@ -56,11 +56,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		setFocusable(true);
 	}
 
-	public void endGame(boolean playerWon, int score) {
+	public void endGame(boolean playerWon, int damageScore, int healthScore) {
 		gThread.endGame(playerWon);
 		Intent resultsScreen = new Intent(context, ResultsPage.class);
 		resultsScreen.putExtra("PLAYER_WON", playerWon);
-		resultsScreen.putExtra("SCORE", score);
+		resultsScreen.putExtra("DAMAGE_SUBSCORE", damageScore);
+		resultsScreen.putExtra("HEALTH_SUBSCORE", healthScore);
+		resultsScreen.putExtra("SCORE", healthScore+damageScore);
 		resultsScreen.putExtra("LEVEL", gEngine.level);
 		context.startActivity(resultsScreen);
 		parentActivity.die();

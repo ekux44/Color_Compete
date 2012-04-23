@@ -278,7 +278,12 @@ public class GameEngine {
 	}
 
 	public void endGame(boolean playerWon) {
-		gView.endGame(playerWon, (int) statEng.getDarknessEliminated());
+		int remainingSpawnHealth = 0;
+		for (ResourceSpawner rs : spawns){
+			remainingSpawnHealth = rs.remianingHealth();
+		}
+			
+		gView.endGame(playerWon, (int) statEng.getDarknessEliminated(), remainingSpawnHealth);
 	}
 
 }
