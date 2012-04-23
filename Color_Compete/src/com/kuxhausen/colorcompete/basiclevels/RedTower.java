@@ -25,7 +25,7 @@ public class RedTower extends GamePiece {
 	private static final float RADIUS_HEALTH_RATIO = 2, firingRadius = 200f, HEALTH_COST_RATIO = .5f;
 	private int spawnPool = 200;
 	public boolean selected;
-	private Paint selectedP;
+	private Paint rangeP, selectedP;
 	private Path selectedPath;
 	private DashPathEffect[] pathEffects;
 	private int phase;
@@ -39,7 +39,9 @@ public class RedTower extends GamePiece {
 		gb.register(this);
 		health = COST * HEALTH_COST_RATIO;
 		radius = radiusHealthRatio * (float) Math.sqrt(health);
-
+		rangeP = LevelLoader.redRangeP;
+		
+		
 		// register route
 		route.clear();
 		gEngine.activeRoutes.add(route);
@@ -83,6 +85,7 @@ public class RedTower extends GamePiece {
 	@Override
 	public void draw(Canvas c, float xOffset) {
 		super.draw(c, xOffset);
+		c.drawCircle(xc + xOffset, yc, firingRadius, rangeP);
 		if (selected) {
 			phase++;
 			selectedP.setPathEffect(pathEffects[phase % pathEffects.length]);
