@@ -19,6 +19,7 @@ public abstract class GamePiece {
 	
 	//These must be set in the child's constructor
 	protected GameBoard gb;
+	protected static StatisticsEngine statsEng;
 	protected float health, radiusHealthRatio;
 	protected int cost;
 	protected Paint p;
@@ -30,6 +31,7 @@ public abstract class GamePiece {
 		gEng = gEngine;
 		yc = yCenter;
 		xc = xCenter;
+		statsEng = GameEngine.statEng;
 	}
 	
 	/** @return true if still alive */
@@ -45,6 +47,7 @@ public abstract class GamePiece {
 		health = 0;
 		gb.unregister(this);
 		gEng.activeRoutes.remove(r);
+		statsEng.pieceDied(this);
 	}
 
 	/**

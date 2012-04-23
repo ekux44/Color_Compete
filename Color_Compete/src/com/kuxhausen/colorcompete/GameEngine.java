@@ -55,7 +55,8 @@ public class GameEngine {
 	private int gameEndDelayer = 0;
 
 	/* Stats */
-	public float playerScore;
+	public static StatisticsEngine statEng;
+	
 
 	public void Init(GameView g, Resources resource, int lvl) {
 
@@ -94,6 +95,8 @@ public class GameEngine {
 		projectileMap = new GameBoard(width * RIGHT_EDGE_OF_SPAWNER_FACTOR, width, height);
 		activeRoutes = new ArrayList<Route>();
 
+		statEng = new StatisticsEngine();
+		
 		load = new LevelLoader();
 		load.prepBoards(level, gEngine);
 		spawns = LevelLoader.loadSpawners(level, gEngine);
@@ -275,7 +278,7 @@ public class GameEngine {
 	}
 
 	public void endGame(boolean playerWon) {
-		gView.endGame(playerWon, (int) playerScore);
+		gView.endGame(playerWon, (int) statEng.getDarknessEliminated());
 	}
 
 }

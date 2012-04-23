@@ -63,7 +63,7 @@ public class GreenEnemy extends GamePiece {
 	@Override
 	/** @return true still alive*/
 	public boolean reduceHealth(float damage) {
-		gEng.playerScore += Math.min(health, damage);
+		statsEng.enemeyDamaged(Math.max(0,Math.min(health, damage)));
 		return super.reduceHealth(damage);
 	}
 

@@ -67,30 +67,6 @@ public class EnemySpawner {
 				spawnAccelerationCount = 0;
 				spawnRate += (10 * spawnRate) / 9;
 				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 			}
 
 			int maybeSpawn = r.nextInt((int)( .5f + pendingSpawnUnits));
@@ -119,6 +95,6 @@ public class EnemySpawner {
 
 	public void takeDamage(int d) {
 		damage += d;
-		gEng.playerScore += d;
+		gEng.statEng.enemeyDamaged(d);
 	}
 }
