@@ -15,7 +15,7 @@ public abstract class ResourceSpawner {
 
 	Paint readyP, chargingP, drawingP;
 	final static int maxFill = 1000;// can't be changed without rewriting draw
-	protected int  respawnCost;
+	protected int respawnCost;
 	protected float respawnRate, fill;
 	int xIncrements;
 	float xIncrementCoefficient;// the inverse of the number of steps the horizontal progress bar should be divided into
@@ -37,7 +37,7 @@ public abstract class ResourceSpawner {
 	}
 
 	public void update() {
-		fill += respawnRate/(Math.pow(1.5, numberSpawnedAndAlive));
+		fill += respawnRate / (Math.pow(1.5, numberSpawnedAndAlive));
 		fill = Math.min(fill, maxFill - damage);
 	}
 
@@ -51,11 +51,11 @@ public abstract class ResourceSpawner {
 			drawingP = chargingP;
 
 		c.drawRect(startX, startY, stopX, stopY, backgroundP);
-		c.drawRect(startX, startY + incrementY * (10 - ((int)fill) / 100), stopX, stopY, drawingP);
+		c.drawRect(startX, startY + incrementY * (10 - ((int) fill) / 100), stopX, stopY, drawingP);
 		if (fill != 0)
-			c.drawRect(startX, startY + incrementY * (9 - ((int)fill) / 100),
-					startX + incrementX * ((((int)fill) % 100) / Math.max(1, respawnRate)), startY + incrementY
-							* (10 - ((int)fill) / 100), drawingP);
+			c.drawRect(startX, startY + incrementY * (9 - ((int) fill) / 100), startX + incrementX
+					* ((((int) fill) % 100) / Math.max(1, respawnRate)), startY + incrementY
+					* (10 - ((int) fill) / 100), drawingP);
 		c.drawRect(startX, startY, stopX, startY + incrementY * (damage / 100), enemyP);
 		if (damage != 0)
 			c.drawRect(stopX, startY + incrementY * (1 + damage / 100),
@@ -82,13 +82,13 @@ public abstract class ResourceSpawner {
 		}
 		Log.i("damage", "damage " + damage + "  to spawner colored" + readyP.getColor());
 	}
-	
-	public void offspringDied(){
+
+	public void offspringDied() {
 		numberSpawnedAndAlive--;
 	}
-	
-	public int remianingHealth(){
-		if(dead)
+
+	public int remianingHealth() {
+		if (dead)
 			return 0;
 		return (int) fill;
 	}

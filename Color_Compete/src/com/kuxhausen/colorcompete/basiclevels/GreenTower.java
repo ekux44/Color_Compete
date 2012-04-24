@@ -20,10 +20,10 @@ public class GreenTower extends GamePiece {
 	private static final float RADIUS_HEALTH_RATIO = 2, HEALTH_COST_RATIO = 1f;
 
 	public GreenTower(float xCenter, float yCenter, GameEngine gEngine, Route route, ResourceSpawner rspwn) {
-		super(xCenter,yCenter,gEngine,route,rspwn);
-		
+		super(xCenter, yCenter, gEngine, route, rspwn);
+
 		p = LevelLoader.greenTowerP;
-		radiusHealthRatio = RADIUS_HEALTH_RATIO;		
+		radiusHealthRatio = RADIUS_HEALTH_RATIO;
 		gb = gEng.towerMap;
 		gb.register(this);
 		health = COST * HEALTH_COST_RATIO;

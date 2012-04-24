@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.View.OnClickListener;
 
 /**
  * (c) 2012 Eric Kuxhausen
@@ -38,7 +38,7 @@ public class LaunchScreen extends Activity implements OnClickListener {
 
 		View LaunchButton4 = this.findViewById(R.id.launchButton4);
 		LaunchButton4.setOnClickListener(this);
-		
+
 		View LaunchButton5 = this.findViewById(R.id.launchButton5);
 		LaunchButton5.setOnClickListener(this);
 
@@ -66,12 +66,12 @@ public class LaunchScreen extends Activity implements OnClickListener {
 			singlePlayerGame.putExtra("level", 4);
 			startActivity(singlePlayerGame);
 			break;
-			
+
 		case R.id.launchButton5:
 			singlePlayerGame.putExtra("level", 5);
 			startActivity(singlePlayerGame);
 			break;
-			
+
 		}
 	}
 }

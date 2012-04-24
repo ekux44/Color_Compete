@@ -22,8 +22,8 @@ public class GreenEnemy extends GamePiece {
 	Paint pInner;
 
 	public GreenEnemy(float xCenter, float yCenter, GameEngine gEngine) {
-		super(xCenter,yCenter,gEngine,null,null);
-		
+		super(xCenter, yCenter, gEngine, null, null);
+
 		p = LevelLoader.greenEnemyP;
 		radiusHealthRatio = RADIUS_HEALTH_RATIO;
 		gb = gEng.enemyMap;
@@ -63,7 +63,7 @@ public class GreenEnemy extends GamePiece {
 	@Override
 	/** @return true still alive*/
 	public boolean reduceHealth(float damage) {
-		statsEng.enemeyDamaged(Math.max(0,Math.min(health, damage)));
+		statsEng.enemeyDamaged(Math.max(0, Math.min(health, damage)));
 		return super.reduceHealth(damage);
 	}
 
@@ -76,5 +76,5 @@ public class GreenEnemy extends GamePiece {
 		super.draw(c, xOffset);
 		c.drawCircle(xc + xOffset, yc, radius / 3, pInner);
 	}
-	
+
 }

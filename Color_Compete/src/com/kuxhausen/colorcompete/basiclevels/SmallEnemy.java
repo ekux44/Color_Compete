@@ -18,8 +18,8 @@ public class SmallEnemy extends GamePiece {
 	private static final float RADIUS_HEALTH_RATIO = 2, HEALTH_COST_RATIO = .5f;
 
 	public SmallEnemy(float xCenter, float yCenter, GameEngine gEngine) {
-		super(xCenter,yCenter,gEngine,null,null);
-		
+		super(xCenter, yCenter, gEngine, null, null);
+
 		p = LevelLoader.smallEnemyP;
 		radiusHealthRatio = RADIUS_HEALTH_RATIO;
 		gb = gEng.enemyMap;
@@ -58,12 +58,12 @@ public class SmallEnemy extends GamePiece {
 	@Override
 	/** @return true still alive*/
 	public boolean reduceHealth(float damage) {
-		statsEng.enemeyDamaged(Math.max(0,Math.min(health, damage)));
+		statsEng.enemeyDamaged(Math.max(0, Math.min(health, damage)));
 		return super.reduceHealth(damage);
 	}
 
 	public static int getCost() {
 		return COST;
 	}
-	
+
 }

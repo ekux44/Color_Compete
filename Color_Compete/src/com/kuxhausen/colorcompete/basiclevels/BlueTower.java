@@ -19,7 +19,7 @@ public class BlueTower extends GamePiece {
 	private static int numberOfMe;
 
 	public BlueTower(float xCenter, float yCenter, GameEngine gEngine, Route route, ResourceSpawner rspwn) {
-		super(xCenter,yCenter,gEngine,route,rspwn);
+		super(xCenter, yCenter, gEngine, route, rspwn);
 		p = LevelLoader.blueTowerP;
 		radiusHealthRatio = RADIUS_HEALTH_RATIO;
 		gb = gEng.towerMap;

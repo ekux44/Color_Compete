@@ -19,8 +19,8 @@ public class SimpleProjectile extends GamePiece {
 	GamePiece target;
 
 	public SimpleProjectile(float xCenter, float yCenter, GameEngine gEngine, GamePiece theTarget) {
-		super(xCenter,yCenter,gEngine,null,null);
-		
+		super(xCenter, yCenter, gEngine, null, null);
+
 		p = LevelLoader.simpleProjectileP;
 		radiusHealthRatio = RADIUS_HEALTH_RATIO;
 		gb = gEng.projectileMap;

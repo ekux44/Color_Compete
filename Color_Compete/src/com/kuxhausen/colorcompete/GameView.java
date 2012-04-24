@@ -62,7 +62,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		resultsScreen.putExtra("PLAYER_WON", playerWon);
 		resultsScreen.putExtra("DAMAGE_SUBSCORE", damageScore);
 		resultsScreen.putExtra("HEALTH_SUBSCORE", healthScore);
-		resultsScreen.putExtra("SCORE", healthScore+damageScore);
+		resultsScreen.putExtra("SCORE", healthScore + damageScore);
 		resultsScreen.putExtra("LEVEL", gEngine.level);
 		context.startActivity(resultsScreen);
 		parentActivity.die();

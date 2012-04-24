@@ -4,6 +4,7 @@ import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
+
 import com.kuxhausen.colorcompete.EnemySpawner;
 import com.kuxhausen.colorcompete.GameEngine;
 import com.kuxhausen.colorcompete.GamePiece;
@@ -20,7 +21,8 @@ import com.kuxhausen.colorcompete.Route;
 public class LevelLoader {
 
 	static Paint smallEnemyP, mediumEnemyP, largeEnemyP, redEnemyP, greenEnemyP, enemyProjectileP, blueTowerP,
-			greenTowerP, redTowerP, simpleProjectileP, redRouteP, greenRouteP, blueRouteP, selectedP, redRangeP, blueFieldP;
+			greenTowerP, redTowerP, simpleProjectileP, redRouteP, greenRouteP, blueRouteP, selectedP, redRangeP,
+			blueFieldP;
 
 	public LevelLoader() {
 		smallEnemyP = new Paint();
@@ -80,10 +82,10 @@ public class LevelLoader {
 		selectedP.setColor(Color.WHITE);
 		selectedP.setStrokeWidth(5);
 		selectedP.setStyle(Paint.Style.STROKE);
-		
+
 		redRangeP = new Paint();
 		redRangeP.setColor(0x1FFF0000);
-		
+
 		blueFieldP = new Paint();
 		blueFieldP.setColor(0x1F0000FF);
 	}

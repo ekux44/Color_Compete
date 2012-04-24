@@ -66,10 +66,10 @@ public class EnemySpawner {
 			if (spawnAccelerationCount >= spawnAccelInterval) {
 				spawnAccelerationCount = 0;
 				spawnRate += (10 * spawnRate) / 9;
-				
+
 			}
 
-			int maybeSpawn = r.nextInt((int)( .5f + pendingSpawnUnits));
+			int maybeSpawn = r.nextInt((int) (.5f + pendingSpawnUnits));
 
 			if (maybeSpawn > nextCost) {
 				try {

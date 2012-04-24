@@ -3,8 +3,7 @@ package com.kuxhausen.colorcompete;
 /**
  * (c) 2012 Eric Kuxhausen
  * <p>
- * Holds 2 float vectors and can be linked with other Pairs.
- * Usually used to store the coordinates of a point or offset.
+ * Holds 2 float vectors and can be linked with other Pairs. Usually used to store the coordinates of a point or offset.
  * 
  * @author Eric Kuxhausen
  */

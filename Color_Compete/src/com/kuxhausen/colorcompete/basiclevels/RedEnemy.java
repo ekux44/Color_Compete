@@ -23,7 +23,7 @@ public class RedEnemy extends GamePiece {
 	Paint pInner;
 
 	public RedEnemy(float xCenter, float yCenter, GameEngine gEngine) {
-		super(xCenter,yCenter,gEngine,null,null);
+		super(xCenter, yCenter, gEngine, null, null);
 		p = LevelLoader.redEnemyP;
 		radiusHealthRatio = RADIUS_HEALTH_RATIO;
 		gb = gEng.enemyMap;
@@ -73,7 +73,7 @@ public class RedEnemy extends GamePiece {
 	@Override
 	/** @return true still alive*/
 	public boolean reduceHealth(float damage) {
-		statsEng.enemeyDamaged(Math.max(0,Math.min(health, damage)));
+		statsEng.enemeyDamaged(Math.max(0, Math.min(health, damage)));
 		return super.reduceHealth(damage);
 	}
 

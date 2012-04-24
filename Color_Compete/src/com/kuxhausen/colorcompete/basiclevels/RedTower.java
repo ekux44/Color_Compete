@@ -31,8 +31,8 @@ public class RedTower extends GamePiece {
 	private int phase;
 
 	public RedTower(float xCenter, float yCenter, GameEngine gEngine, Route route, ResourceSpawner rspwn) {
-		super(xCenter,yCenter,gEngine,route,rspwn);
-		
+		super(xCenter, yCenter, gEngine, route, rspwn);
+
 		p = LevelLoader.redTowerP;
 		radiusHealthRatio = RADIUS_HEALTH_RATIO;
 		gb = gEng.towerMap;
@@ -40,8 +40,7 @@ public class RedTower extends GamePiece {
 		health = COST * HEALTH_COST_RATIO;
 		radius = radiusHealthRatio * (float) Math.sqrt(health);
 		rangeP = LevelLoader.redRangeP;
-		
-		
+
 		// register route
 		route.clear();
 		gEngine.activeRoutes.add(route);
@@ -56,8 +55,7 @@ public class RedTower extends GamePiece {
 		selectedP.setPathEffect(pathEffects[0]);
 		selectedPath = new Path();
 		selectedPath.addCircle(0, 0, .75f * radius, Path.Direction.CW);
-		
-		
+
 	}
 
 	@Override

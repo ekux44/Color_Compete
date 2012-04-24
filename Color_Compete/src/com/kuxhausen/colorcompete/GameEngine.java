@@ -56,7 +56,6 @@ public class GameEngine {
 
 	/* Stats */
 	public static StatisticsEngine statEng;
-	
 
 	public void Init(GameView g, Resources resource, int lvl) {
 
@@ -96,7 +95,7 @@ public class GameEngine {
 		activeRoutes = new ArrayList<Route>();
 
 		statEng = new StatisticsEngine();
-		
+
 		load = new LevelLoader();
 		load.prepBoards(level, gEngine);
 		spawns = LevelLoader.loadSpawners(level, gEngine);
@@ -279,10 +278,10 @@ public class GameEngine {
 
 	public void endGame(boolean playerWon) {
 		int remainingSpawnHealth = 0;
-		for (ResourceSpawner rs : spawns){
+		for (ResourceSpawner rs : spawns) {
 			remainingSpawnHealth = rs.remianingHealth();
 		}
-			
+
 		gView.endGame(playerWon, (int) statEng.getDarknessEliminated(), remainingSpawnHealth);
 	}
 

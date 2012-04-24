@@ -45,17 +45,15 @@ public class ResultsPage extends Activity implements OnClickListener {
 		level = this.getIntent().getExtras().getInt("LEVEL");
 
 		TextView Score1Num = (TextView) this.findViewById(R.id.score1Number);
-		Score1Num.setText(""+this.getIntent().getExtras().getInt("DAMAGE_SUBSCORE"));
-		
+		Score1Num.setText("" + this.getIntent().getExtras().getInt("DAMAGE_SUBSCORE"));
+
 		((TextView) this.findViewById(R.id.score1Text)).setText("Darkness Eliminated: ");
-		
-		
+
 		TextView Score2Num = (TextView) this.findViewById(R.id.score2Number);
-		Score2Num.setText(""+this.getIntent().getExtras().getInt("HEALTH_SUBSCORE"));
-		
+		Score2Num.setText("" + this.getIntent().getExtras().getInt("HEALTH_SUBSCORE"));
+
 		((TextView) this.findViewById(R.id.score2Text)).setText("Health Remaining: ");
-		
-		
+
 		TextView ScoreTotalText = (TextView) this.findViewById(R.id.scoreTotalText);
 		ScoreTotalText.setText("Score: " + this.getIntent().getExtras().getInt("SCORE"));
 
@@ -69,9 +67,9 @@ public class ResultsPage extends Activity implements OnClickListener {
 	@Override
 	public void onBackPressed() {
 		Intent iMenu = new Intent(this, LaunchScreen.class);
-		startActivity(iMenu);	
+		startActivity(iMenu);
 	}
-	
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {

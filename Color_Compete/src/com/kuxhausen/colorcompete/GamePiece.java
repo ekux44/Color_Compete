@@ -16,16 +16,16 @@ public abstract class GamePiece {
 	protected GameEngine gEng;
 	protected Route r;
 	protected ResourceSpawner rSpwn;
-	
-	//These must be set in the child's constructor
+
+	// These must be set in the child's constructor
 	protected GameBoard gb;
 	protected static StatisticsEngine statsEng;
 	protected float health, radiusHealthRatio;
 	protected int cost;
 	protected Paint p;
-	
+
 	/** route and rspwn can safely be passed as null */
-	public GamePiece(float xCenter, float yCenter, GameEngine gEngine, Route route, ResourceSpawner rspwn){
+	public GamePiece(float xCenter, float yCenter, GameEngine gEngine, Route route, ResourceSpawner rspwn) {
 		rSpwn = rspwn;
 		r = route;
 		gEng = gEngine;
@@ -33,16 +33,16 @@ public abstract class GamePiece {
 		xc = xCenter;
 		statsEng = GameEngine.statEng;
 	}
-	
+
 	/** @return true if still alive */
 	public abstract boolean update();
-	
+
 	/**
 	 * Unregisters GamePiece from GameBoard and GameEngine; sets health to 0 so any other objects holding references to
 	 * this GamePiece can figure out when to deallocate
 	 */
 	public void die() {
-		if(rSpwn!=null)
+		if (rSpwn != null)
 			rSpwn.offspringDied();
 		health = 0;
 		gb.unregister(this);
