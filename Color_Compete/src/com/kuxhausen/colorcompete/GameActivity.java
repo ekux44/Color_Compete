@@ -61,11 +61,11 @@ public class GameActivity extends Activity {
 		onDestroy();
 	}
 
-	 @Override
+/*	 @Override
 	public void onBackPressed() {
 	    //TODO implement pause menu	
 	}
-	
+*/	
 	@Override
 	protected void onPause() {
 		super.onPause();
